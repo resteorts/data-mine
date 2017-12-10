@@ -1,0 +1,520 @@
+
+---
+title: "Tree Based Methods: Regression Trees"
+author: "Rebecca C. Steorts, Duke University "
+date: STA 325, Chapter 8 ISL
+output: 
+     beamer_presentation:
+      includes: 
+          in_header: custom2.tex
+font-size: 8px
+---
+
+Agenda
+===
+- What are tree based methods? 
+- Regression trees
+- Motivation using Hitter's data set
+- How to interpret a regression tree
+- How to build a regression tree
+- Application 
+
+Basics of Decision (Predictions) Trees
+===
+
+- The general idea is that we will segment the predictor space into a number of simple regions. 
+
+- In order to make a prediction for a given observation, we typically use the mean of the training data in the region to which it belongs. 
+
+- Since the set of splitting rules used to segment the predictor space can be summarized by a tree such approaches are called decision tree methods. 
+
+- These methods are simple and useful for interpretation. 
+
+Basics of Decision Trees
+===
+
+- We want to predict a response or class $Y$ from inputs $X_1, X_2, \ldots X_p$. We do this by growing a binary tree.  
+
+- At each internal node in the tree, we apply a test to one of the inputs, say $X_i$.
+
+- Depending on the outcome of the test, we go to either the left or the right sub-branch of the tree.  
+
+- Eventually we come to a leaf node, where we make a
+prediction.  
+
+- This prediction aggregates or averages all the training data  points which reach that leaf.  
+
+
+Basics of Decision Trees
+===
+
+- Decision trees can be applied to both regression and classification problems.
+
+- We will first consider regression trees and then move onto classification trees. 
+
+
+Regression Trees
+===
+In order to motivate regression trees, we begin with a simple example.
+
+Prediction of baseball player's salary
+===
+
+- Our motivation is to to predict a baseball player’s Salary based on Years (the number of years that he has played in the major leagues) and Hits (the number of hits that he made in the previous year). 
+
+- We first remove observations that are missing Salary values, and log-transform Salary so that its distribution has more of a typical bell-shape. 
+
+- Recall that Salary is measured in thousands of dollars.
+
+Prediction of baseball player's salary
+===
+
+\begin{figure}
+  \begin{center}
+    \resizebox{!}{0.55\textheight}{\includegraphics{reg-partition-tree}}
+  \end{center}
+  \caption{A regression tree for predicting the log salary of a baseball player, based on the number of years that he has played in the major leagues and the number of hits that he made in the previous year. At a given internal node, the label (of the form $X_j < t_k$) indicates the left-hand branch resulting from that split, and the right-hand branch corresponds to $X_j \geq t_k.$ }
+  \label{fig:trees}
+\end{figure}
+
+What does the tree mean?
+===
+\begin{figure}
+  \begin{center}
+    \resizebox{!}{0.4\textheight}{\includegraphics{reg-partition-tree}}
+  \end{center}
+  \label{fig:trees}
+\end{figure}
+
+- The tree represents a series of splits starting at the top of the tree. 
+
+- The top split assigns observations having $Years < 4.5$ to the left branch.
+
+- The predicted salary for these players is given by the mean response value for the players in the data set with $Years < 4.5.$ 
+
+- For such players, the mean log salary is 5.107, and so we make a prediction of $e^{5.107}$ thousands of dollars, i.e. $165,174$
+
+What does the tree mean?
+===
+\begin{figure}
+  \begin{center}
+    \resizebox{!}{0.4\textheight}{\includegraphics{reg-partition-tree}}
+  \end{center}
+  \label{fig:trees}
+\end{figure}
+
+- How would you interpret the rest (right branch) of the tree? 
+
+Prediction of baseball player's salary
+===
+\begin{figure}
+  \begin{center}
+    \resizebox{!}{0.55\textheight}{\includegraphics{reg-partition-hitters}}
+  \end{center}
+  \caption{The three-region partition for the Hitters data set from the regression tree illustrated in Figure 2. }
+  \label{fig:hitters}
+\end{figure}
+
+What do the regions mean?
+===
+\begin{figure}
+  \begin{center}
+    \resizebox{!}{0.45\textheight}{\includegraphics{reg-partition-hitters}}
+  \end{center}
+  \caption{The three-region partition for the Hitters data set from the regression tree illustrated in Figure 2. }
+  \label{fig:hitters}
+\end{figure}
+
+We can write these regions as the following:
+
+1. $R_1 ={X \mid Years < 4.5}$
+2. $R_2 ={X \mid Years \geq 4.5,  Hits < 117.5}$
+3. $R_3 = {X \mid Years \geq 4.5,  Hits \geq 117.5}.$
+
+Terminology
+===
+- In keeping with the tree analogy, the regions $R_1,$ $R_2,$ and $R_3$ are known as \textbf{terminal nodes} or \textbf{leaves} of the tree. 
+
+- As is the case for Figure 2, decision trees are typically drawn upside down, in the sense that the \textbf{leaves are at the bottom of the tree}. 
+
+- The points along the tree where the predictor space is split are referred to as \textbf{internal nodes}.
+
+- In Figure 2, the two internal nodes are indicated by the text $Years<4.5$ and $Hits<117.5.$
+
+- We refer to the segments of the trees that connect the nodes as \textbf{branches}.
+
+
+Interpretation of Figure 2
+===
+- Years is the most important factor in determining Salary, and players with less experience earn lower salaries than more experienced players. 
+
+- Given that a player is less experienced, the number of hits that he made in the previous year seems to play little role in his salary. 
+
+- But among players who have been in the major leagues for five or more years, the number of hits made in the previous year does affect salary, and players who made more hits last year tend to have higher salaries. 
+
+- The regression tree shown in Figure 2 is likely an over-simplification of the true relationship between Hits, Years, and Salary, but it's a very nice easy interpretation over more complicated approaches. 
+
+How do we build the regression tree?
+===
+
+1. We divide the predictor space---that is, the set of possible values for $X_1,\ldots,X_p$---into $J$ distinct and non-overlapping regions, $R_1,\ldots,R_J$.
+
+2. For every observation that falls into the region $R_j$,  we make the same prediction, which is simply the mean of the response values for the training observations in $R_j$.
+
+Suppose that in Step 1, we obtain two regions and that the response mean of the training observations in the first region is 10, while the response mean in the second region is 20. Then for a given observation $X = x,$ if 
+$x \in R_1$, we will predict a value of 10, and if $x \in R_2$, we will predict a value of 20.
+
+But how do we actually construct the regions? 
+
+Constructing the regions
+===
+- The regions in theory could have any shape. 
+
+- However, we choose to divide the predictor space into high-dimensional rectangles or boxes (for simplicity and ease of interpretation of the resulting predictive model).
+
+Our goal is to find boxes $R_1, \ldots, R_J$ that minimize the RSS given by 
+\begin{align}
+\label{rss}
+RSS = \sum_{j=1}^J \sum_{i \in R_j} (y_i -  \hat{y}_{R_j})^2,
+\end{align}
+where 
+$\hat{y}_{R_j}$ is the mean response for the training observations within the $j$th box. 
+
+Issue with this construction
+===
+\begin{itemize}
+\item Computationally infeasible to consider every possible partition of the feature space into J boxes.
+\item Thus, we take a top-down, greedy approach called \emph{recursive binary splitting.}
+\begin{itemize}
+\item Called top-down since it begins at the top of the tree (all observations below to a single region) and then successively splits the predictor space.
+\item Each split is indicated via two new branches further down on the tree.
+\item It is greedy since at each step of the tree building process, the best split is made at that particular split (rather than looking ahead and picking a split that will lead to a better tree in a future split).
+\end{itemize}
+\end{itemize}
+
+How to build regression trees?
+===
+
+- One alternative is to the build the tree so long as the decrease in RSS due to each split exceeds a threshold (high). 
+
+- This results in smaller trees, however, this is problematic since a worthless split early on in the three might be followed by a very good split later on -- that is, a split that leads to a large reduction in RSS later on. 
+
+How to build regression trees --- Pruning
+===
+
+- A better strategy is to grow a very large tree $T_o$ and then \emph{prune} it back to obtain a subtree. 
+
+- How to we find the best subtree? 
+
+- We want to select a subtree that leads to the lowest test error rate. 
+
+- Given a subtree, we can estimate the test error rate using cross-validation (CV). 
+
+- Note that estimate the CV for every possible subtree would take a long time since there are many subtrees. 
+
+- Thus, we need a way to select a small set of subtrees to consider.
+
+Pruning
+===
+
+\textbf{Cost complexity pruning} or weakest link pruning gives us a way to do just this! 
+
+Rather than looking at all possible subtrees, we consider a sequence of trees indexed by a nonnegative tuning parameter $\alpha.$
+
+Algorithm for Building a Regression Tree
+===
+\begin{enumerate}
+\item Use recursive binary splitting to grow a large tree on the training data, stopping only when each terminal node has fewer than some minimum number of observations.
+\item Apply cost complexity pruning to the large tree in order to obtain a sequence of best subtrees, as a function of $\alpha.$
+\item  Use $K$-fold cross-validation to choose $\alpha.$ That is, divide the training observations into $K$ folds. For each $k = 1, \ldots, K$:
+\begin{enumerate}
+\item Repeat Steps 1 and 2 on all but the kth fold of the training data.
+\item Evaluate the mean squared prediction error on the data in the
+left-out kth fold, as a function of $\alpha.$ \\
+Average the results for each value of $\alpha$, and pick $\alpha$ to minimize the
+average error.
+\end{enumerate}
+\item Return the subtree from Step 2 that corresponds to the chosen value of $\alpha.$
+\end{enumerate}
+
+Algorithm for Building a Regression Tree (continued)
+===
+
+- $|T|$ indicates the number of terminal nodes of the tree T
+- $R_m$ is the rectangle or box corresponding to the $m$th terminal node  
+- $\hat{y}_{R_m}$ is the predicted response associated with $R_m$  
+- $\alpha$ controls a trade-off between the subtree's complexity and its fit to the training data 
+
+
+For each value of $\alpha$, there is a corresponding subtree $T \in T_o$ such that 
+\begin{align}
+\label{rss-tree-penalty}
+\sum _{m=1}^{|T|} \sum_{x_i \in R_m} (y_i - \hat{y}_{R_m})^2 + \alpha |T|
+\end{align}
+is as small as possible. 
+
+
+
+Algorithm for Building a Regression Tree (continued)
+===
+This is equivalent to constraining the value of 
+$|T|$, i.e.,
+$$
+\min_{\hat{y}_{R_m}} \{ \sum_i (y_i - \hat{y}_{R_m})^2   \} \text{ subject to } |T| \leq c_{\alpha}.$$
+
+Using Lagrange multipliers, we find that
+
+\begin{align}
+\Delta_g = \sum_i (y_i - \hat{y}_{R_m})^2 + \lambda(|T| - c_{\alpha})
+\end{align}
+
+Algorithm for Building a Regression Tree (continued)
+===
+
+We wish to find this
+$\min_{T, \lambda} \Delta_g,$ which is a discrete optimization problem. However, since we're minimizing over $T$ and $\lambda$ this implies the location of the minimizing $T$ doesn't depend on  $c_{\alpha}.$ But each $c_{\alpha}$ will imply an optimal value of $\lambda.$ As far as finding the best tree is concerned, we might as well, just pick a value of $\lambda,$ and minimize 
+
+\begin{align}
+\Delta_g \prime = \sum_i (y_i - \hat{y}_{R_m})^2 + \lambda(|T|)
+\end{align}
+
+If we declare $\lambda = \alpha,$ we have returned (\ref{rss-tree-penalty}).
+
+Some insights
+===
+\begin{itemize}
+\item When $\alpha = 0,$ then the subtree T will simply equal $T_o$, because then (\ref{rss-tree-penalty}) just measures the training error.
+\item However, as  $\alpha = 0$ increases, there is a price to pay for having a tree with many terminal nodes, and so (\ref{rss-tree-penalty}) will be minimized for a smaller sub-tree. 
+\item If you have seen the lasso, (\ref{rss-tree-penalty}) is similar to it in the sense the ways the lasso controls the complexity of the linear model.
+\item As $\alpha = 0$ increases from 0 in (\ref{rss-tree-penalty}), branches are pruned from the tree in a nested and predictable way (resulting in the whole sequence of subtrees as a function of  $\alpha = 0$ is easy). We can select an $\alpha$ using a validation set of using cross-validation. This process is summarized in the algorithm above.
+\end{itemize}
+
+Application to Hitters data set
+===
+Let's return to growing a regression tree for the Hitters dataset. 
+
+Recall that we use the Hitters data set to predict a baseball players Salary based on Years (the number of years that he has played in the major leagues) and Hits (the number of hits that he made in the previous year).
+
+
+There are several R packages for regression trees; the easiest one is called, simply, tree.
+
+Task 1
+===
+Remove observations that are missing Hitters or Salary values, and log-transform Salary so that its distribution has more of a typical bell-shape. 
+
+Then build a regression tree. 
+
+
+Solution to Task 1
+===
+```{r}
+library(ISLR)
+library(tree)
+attach(Hitters)
+# remove NA values
+Hitters <- na.omit(Hitters)
+Salary <- na.omit(Salary)
+# put salary on log scale and fit reg. tree
+treefit <- tree(log(Salary) ~ Years + Hits, data=Hitters)
+```
+
+Solution to Task 2
+===
+Find the summary of the above regression tree and plot the regression tree. Explain your results. 
+
+Solution to Task 2 
+===
+```{r}
+summary(treefit)
+```
+
+- There are 8 terminal nodes or leaves of the tree.
+- Here "deviance" is just mean squared error; this gives us an RMS error of 0.27.
+
+Solution to Task 2 
+===
+\tiny
+```{r}
+plot(treefit)
+text(treefit,cex=0.75)
+```
+
+Solution to Task 2 
+===
+\tiny
+```{r, echo=FALSE}
+plot(treefit)
+text(treefit,cex=0.75)
+```
+
+Regression tree for predicting log salary from hits and years played. At each internal node, we ask the associated question, and go to the left child if the answer is “yes”, to the right child if the answer is “no”. Note that leaves are labeled with log salary; the plotting function isn’t flexible enough, unfortunately, to apply transformations to the labels.
+
+Task 3
+===
+```{r, echo=TRUE}
+salary.deciles = quantile(Salary,0:10/10)
+# breaks salary into intervals
+cut.salary = cut(Salary,salary.deciles,
+                 include.lowest=TRUE)
+plot(Years,Hits,col=grey(10:2/11)[cut.salary],
+     pch=20, xlab="Years",ylab="Hits")
+partition.tree(treefit,ordvars=c("Years","Hits"),add=TRUE)
+```
+
+How would you reproduce the above plot? (Hint: think about breaking salary up into quantiles. Reproducing the plot and giving the caption is the goal of Task 3.)
+
+Cross-Validation and Pruning 
+===
+ 
+The tree package contains functions prune.tree and cv.tree for pruning trees by cross-validation. 
+
+The function prune.tree takes a tree you fit by tree, and evaluates the error of the tree and various prunings of the tree, all the way down to the stump. 
+
+The evaluation can be done either on new data, if supplied, or on the training data (the default). 
+
+If you ask it for a particular size of tree, it gives you the best pruning of that size. 
+
+If you don’t ask it for the best tree, it gives an object which shows the number of leaves in the pruned trees, and the error of each one. 
+
+This object can be plotted.
+
+Pruning your tree
+===
+The prune.tree has an optional method argument. 
+
+The default is method="deviance", which fits by minimizing the mean squared error (for continuous responses) or the negative log likelihood (for discrete responses).
+
+The function cv.tree does k-fold cross-validation (default is 10). 
+
+It requires as an argument a fitted tree, and a function which will take that tree and new data. By default, this function is prune.tree.
+
+Generic code for pruning a tree
+===
+```
+my.tree = tree(y ~ x1 + x2, data=my.data) # Fits tree
+prune.tree(my.tree,best=5) # Returns best pruned tree
+prune.tree(my.tree,best=5,newdata=test.set) 
+my.tree.seq = prune.tree(my.tree) # Sequence of pruned 
+# tree sizes/errors
+plot(my.tree.seq) # Plots size vs. error
+my.tree.seq$dev # Vector of error 
+# rates for prunings, in order
+opt.trees = which(my.tree.seq$dev == min(my.tree.seq$dev)) 
+# Positions of
+  # optimal (with respect to error) trees
+min(my.tree.seq$size[opt.trees]) 
+# Size of smallest optimal tree
+```
+
+5-fold CV on Hitters Data Set
+===
+Let's create a training and test data set, fit a new tree on just the training data, and then evaluate how well the tree does on the held out training data. 
+
+Specifically, we will use 5-fold CV for evaluation. 
+
+Training and Test Set
+===
+```{r}
+fold <- floor(runif(nrow(Hitters),1,11))
+Hitters$fold <- fold
+## the test set is just the first fold
+test.set <- Hitters[Hitters$fold == 1,]
+##exclude the first fold from the data here
+train.set <- Hitters[Hitters$fold != 1,]
+my.tree <- tree(log(Salary) ~ Years 
+                + Hits,data=train.set, mindev=0.001)
+
+```
+
+Prune Tree on Training Data
+===
+```{r}
+# Return best pruned tree with 5 leaves, 
+# evaluating error on training data 
+prune.tree(my.tree, best=5)
+```
+
+Prune Tree on Test Data
+===
+```{r}
+# Ditto, but evaluates on test.set
+prune.tree(my.tree,best=5,newdata=test.set) 
+```
+
+Prune Tree on Test Data
+===
+\small
+```{r}
+# Sequence of pruned tree sizes/errors
+my.tree.seq = prune.tree(my.tree) 
+plot(my.tree.seq) # error versus plot size
+```
+
+Prune Tree on Test Data
+===
+\small
+```{r}
+# Vector of error rates 
+#for prunings, in order
+my.tree.seq$dev 
+```
+
+Prune Tree on Test Data
+===
+\small
+```{r}
+# Positions of
+  # optimal (with respect to error) trees
+opt.trees = which(my.tree.seq$dev == min(my.tree.seq$dev)) 
+# Size of smallest optimal tree
+(best.leaves = min(my.tree.seq$size[opt.trees]))
+my.tree.pruned = prune.tree(my.tree,best=best.leaves)
+```
+
+Task 4
+===
+Now plot the pruned tree and also the corresponding partition of regions for this tree. Interpret the pruned tree and the partition of the regions for the tree. 
+
+Solution to Task 4
+===
+\tiny
+```{r}
+plot(my.tree.pruned)
+text(my.tree.pruned,cex=0.3,digits=3)
+```
+
+Solution to Task 4
+===
+```{r, echo=FALSE}
+plot(Years,Hits,col=grey(10:2/11)[cut.salary],pch=20, xlab="Years",ylab="Hits")
+partition.tree(my.tree.pruned,ordvars=c("Years","Hits"), add=TRUE,cex=0.5)
+```
+
+What would the caption be for this plot and how would you reproduce this? 
+
+Task 5
+===
+Comment the following code and describe the results. 
+\small
+```{r}
+my.tree.cv = cv.tree(my.tree)
+cv.tree(my.tree,best=5)
+```
+
+Task 5
+===
+\tiny
+```{r}
+cv.tree(my.tree)
+```
+
+Task 5
+===
+\small
+```{r}
+plot(cv.tree(my.tree))
+```
+
+
+
+
