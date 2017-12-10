@@ -1,0 +1,6 @@
+?kmeans()
+?kmeans()
+fmri <- do.call(rbind, fmri.p1$data,unlist)
+library(R.matlab)#
+fmri.p1 <- readMat("data-science-P1.mat") #
+fmri <- do.call(rbind, fmri.p1$data,unlist)

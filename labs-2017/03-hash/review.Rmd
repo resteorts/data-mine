@@ -1,0 +1,213 @@
+---
+title: "Review: Exam II"
+author: Rebecca C. Steorts
+output: pdf_document
+---
+
+```{r setup, message=FALSE, warning=FALSE, echo=FALSE}
+library(knitr)
+
+opts_chunk$set(message=FALSE, warning=FALSE)
+```
+
+Overview of the hashing/PCA
+===
+- Let's review hashing and principal components analysis for the second exam. 
+
+Locality sensitive hashing
+===
+Why does locality sensitive hashing help us with similarity search of documents (like songs)? 
+
+It provides a type of dimension reduction and also brings similar entities close together.
+
+The type of dimension reduction we focused on is the minwise hash. The type of similarity we focused on is the Jaccard similarity. 
+
+Could these change? Yes! (Then we would be dealing with a different LSH family). 
+
+Terminology to know
+===
+- Shingle
+- Jaccard similarity
+- Hash function 
+- Characteristic matric
+- Permutation 
+- Signature matrix 
+- Banding
+- Minwise hash
+- Connection between minwise hash and the Jaccard similarity. 
+
+
+Hashing
+===
+- Why did we introduce locality sensitive hashing? 
+- Recall we have some number of documents that we want to compare, and we want to avoid doing all-to-all document (entity) comparisons. 
+
+Locality sensitive hashing
+===
+- We avoid doing all-to-all document comparisons
+by filtering pairs of documents (entities) that are not similar. 
+- How do we do this? Let's start with the all-to-all comparison algorithm and then look at how we do the speed up. 
+
+Minwise hashing (or LSH)
+===
+\begin{enumerate}
+\item Construct shingles of all documents in your corpus.
+\item Hash all of your shingled documents. 
+\item Compute pairwise Jaccard similarity coefficients for all documents.
+\begin{enumerate}
+\item To do this in a computationally more efficient way, use the characteristic matrix and a random permutation. 
+\item Then create the signature matrix by using the minhash. Repeat this process using many random permutations in order to avoid collisions. This will increase the size of your signature matrix. 
+\end{enumerate}
+\end{enumerate}
+Why is this computationally intensive?
+
+Speed up variant of minwise hashing (or LSH)
+==
+\begin{enumerate}
+\item Construct shingles of all documents in your corpus.
+\item Hash all of your shingled documents. 
+\item Compute pairwise Jaccard similarity coefficients for all documents.
+\begin{enumerate}
+\item To do this in a computationally more efficient way, use the characteristic matrix and a random permutation. 
+\item Then create the signature matrix by using the minhash. Repeat this process using many random permutations in order to avoid collisions. This will increase the size of your signature matrix. 
+\end{enumerate}
+\end{enumerate}
+To avoid performing all-to-all comparisons,  compute the Jaccard similarity only for candidate pairs using $b$ bands and $r$ rows of the signature matrix, which provide a threshold $t= (1/b)^{1/r}$ using the steps above but now using these extra conditions of filtering out documents that are unlikely to be the same. 
+
+Application
+===
+- See the Beatles' example or your homework for a review in terms of a full running example. 
+
+Principal Componenents Analysis
+===
+PCA is just one type of unsupervised learning, where one tries to visualiaze and learning something from the data when we have observations but no response variable. 
+
+What is PCA
+===
+- PCA seeks to to find a low-dimensional representation of the data that captures as much of the information as possible.
+
+- Each of the dimensions found by PCA is a linear combination of the $p$ features.
+
+- How many principle components do we have? 
+
+Mathematics behind PCA
+===
+- I don't expect you to be able to sovle the optimzation problem behind PCA since it's beyond the scope of this class. 
+
+- You can read more advanced details about PCA with the mathematical details in ESL. 
+
+PCA
+===
+- features (data points)
+- loadings
+- principal components
+- scree plot
+- biplot
+
+PCA
+=== 
+- features are just the data points
+- the first PC is the direction along which the data have the most variance.
+- the second PC is the direction orthogonal to the first component with the most variance. Why is this true? For two reasons. 
+- Because it is orthogonal to the first eigenvector, their projections will be uncorrelated.
+- Projections on to all the principal components are uncorrelated with each other.
+
+Biplot
+===
+
+A biplot plots the data, along with the projections of the original variables, on to the first two components
+
+Scree plot
+===
+- We can figure out the number of principal components by
+fitting what’s called a scree plot.
+- Choose the smallest number of principal components that are required such that an adequate amount of variability is explained.
+- We look for the point at which the proportion of variance explained by each subsequent principal drops off.
+- This is called the elbow of the scree plot.
+- These plots are application specific and ad-hoc.
+
+Practice Question on PCA
+===
+- Let's investigate a data set on PCA
+about cars and see what we find. 
+
+Cars data set
+===
+Let's read in the data
+```{r}
+cars04 = read.csv("cars-fixed04.dat")
+```
+
+Summary information
+===
+```{r}
+head(cars04)
+summary(cars04)
+```
+
+Scale versus not-scale
+===
+```{r}
+cars04.pca = prcomp(cars04[,8:18], scale.=TRUE)
+cars04.pca2 = prcomp(cars04[,8:18], scale.=FALSE)
+```
+What's the difference in these two commands? Which command should we use? How would you verify this in practice? 
+
+Recall that TRUE normalizes the features to be on the same scale. This will be application specific, so it depends on what type of data you are working with. 
+Note: many times an un-normalized version of a PCA can be very strange looking and this is because it treats the features as being un-normalized. 
+
+Principle components
+===
+```{r}
+round(cars04.pca$rotation[,1:2],2)
+```
+
+What do we observe?
+
+- All the variables except the gas-mileages have a negative projection on to the first PC.
+- There is a negative correlation between mileage and everything else.
+
+The first and second PC's
+===
+
+- The first PC tells us if we are getting a big, expensive gas-guzzling car with a powerful engine, OR whether we are getting a small, cheap, fuel-efficient car with a wimpy engine.
+
+The second PC is a bit more interesting. It tell us: 
+
+- Engine size and gas mileage hardly project on to it at all.
+- Contrast between the physical size of the car (positive projection) and the price and horsepower.
+- This axis separates mini-vans, trucks and SUVs (big, not so expensive, not so much horse-power) from sports-cars (small, expensive, lots of horse-power).
+
+How could we check this interpretation? 
+
+Biplot
+===
+```{r}
+biplot(cars04.pca)
+```
+
+We see that the lowest value of the second component is a Porsche 911. The highest values of the first component happen to be hybrids.
+
+Scree plot
+===
+```{r}
+plot(cars04.pca,type="l",main="")
+```
+
+What is the optimal number of principal components based on the spree plot? 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

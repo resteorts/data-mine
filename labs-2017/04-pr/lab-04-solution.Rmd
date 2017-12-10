@@ -1,0 +1,138 @@
+---
+title: 'Page Rank'
+author: "STA 325: Lab 4, Fall 2017"
+output: pdf_document
+---
+ATTN: I'm having trouble finding a link matrix that's non trivial. Fix this. 
+
+Today's agenda: Page rank
+
+Programming partner's:
+You should have a programming partner for each lab, and you should switch off who is programming, and use each other for help. We will spend about 30--50 minutes per week on lab exercises and you will be expected to bring you laptops to class to work on these exercises in class. Myself and the TA's will be in class to help you.
+
+***Lab Tasks***
+
+1. Read in the file titled \textsf{pageRank.RData}. Use the \textsf{ls()} command and ensure that the link matrix \textsf{myData} is present in the environment.
+
+```{r, echo = TRUE}
+# Load the data #
+load(file='pageRank.RData')
+
+# Create a Link Count #
+M <- diag(apply(myData, 2, sum))
+```
+
+2. Count the number of links for each page (at each row) and place these into a diagonal matrix. Call this matrix \textsf{M}.} 
+\item{Invert the matrix \textsf{M} and store the inverse into the variable \textsf{MInv}. 
+
+```{r, echo = TRUE}
+# Invert the matrix #
+MInv <- solve(M)
+```
+
+3. Based on the link matrix and the matrix \textsf{M} compute the Broken Rank. What is the problem here? Hint: Before performing the calculation remember to transpose your link matrix since the you need the links to go from $j \rightarrow i$. 
+
+```{r, echo = TRUE}
+# Broken Rank #
+(BR <- t(myData) %*% MInv)
+# Calculate the eigen values/vectors #
+(BRresults <- eigen(BR))
+# Isolate the results #
+(BrokenRank <- BRresults$vectors[,which(signif(BRresults$values, 6) == 1)])
+# Normalize # 
+# Cannot do eigen on this because its not a square matrix
+(normalizedBrokenRank <- scale(BrokenRank, center=FALSE, 
+	scale = as.numeric(apply(as.matrix(BrokenRank), 2, sum))))
+```
+
+Notice, that the main issue with Broken Rank is the fact that there is more that one unique eigenvector of \texttt{BR} and these give opposite rankings. Thus, BrokenRank does not tell us how we should order our pages.
+
+
+
+4. Create a dampening parameter \textsf{d} and set this to 0.85. Next, count the number of webpages present in the link matrix and store this in the variable \textsf{n}. Next, initialize a matrix \textsf{E} with dimensions equal to the link matrix that contains only 1s. Now combine these elements to compute the Page Rank vector for the link matrix. How are this different from the Broken Rank. Hint: Before performing the calculation remember to transpose your link matrix since the you need the links to go from $j \rightarrow i$. 
+
+```{r, echo = TRUE}
+#Page Rank #
+
+# Dampening Parameter #
+d <- 0.85
+
+# The Number of Pages in the Dataset #
+n <- dim(myData)[1]
+
+# A matrix of 1s #
+E <- matrix(rep(1, n*n), nrow= n, ncol = n)
+
+# Page Rank #
+PR <- ((1-d)/n)*E + d * t(myData) %*% MInv
+# Calculate the results #
+PRresults <- eigen(PR)
+# Isolate the results #
+PageRank <- PRresults$vectors[,which(signif(PRresults$values, 6) == 1)]
+# Normalize #
+normalizedPageRank <- scale(PageRank, center=FALSE, 
+	scale = as.numeric(apply(as.matrix(PageRank), 2, sum)))
+```
+
+5. Let us now we analyze the PageRank algorithm using a collaboration
+network data set. This data set is a weighted co-authorship network of authors who posted preprints in the Astrophysics e-print archive between the dates January 1st, 1995 and December 31st, 1999. The data set has been pruned and consists of 101 vertices representing 101 unique authors with 125 edges denoting the collaborations among these authors.
+
+You can read in the data using the following command: 
+```{r}
+library(igraph)
+astrogr <- read.graph("astro-ph.gml","gml")
+```
+
+The data set as obtained is very huge and for our analysis we will
+prune the data set to consist only of vertices whose id values are
+less than 100 using the the following command:
+
+```{r}
+#delete.vertices(astrogr, #V(astrogr)$id[V(astrogr)$id])
+
+astrogr_sub <- delete.vertices(astrogr, V(astrogr)$id[V(astrogr)$id > 100])
+length(astrogr_sub)
+E(astrogr_sub)$value
+```
+
+Write a function \textsf{myPageRank} that takes as its inputs a link matrix and a dampening parameter and outputs the Page Rank vector. Now test this on the the link matrix \textsf{myNewData} and the dampening parameter \textsf{d}. Hint: Before performing the calculation remember to transpose your link matrix since the you need the links to go from $j \rightarrow i$. 
+
+
+```{r, echo = TRUE}
+# Function To Calculate Page Rank #
+# Input: Link Matrix, Dampening Parameter #
+# Output: Page Rank #
+# Summary: The function takes as its inputs a dampening parameter #
+# and a linking matrix to compute the page rank vector #
+
+myPageRank <- function(linkMatrix, dampeningParameter){
+	#Count the number of web pages #
+	n <- dim(linkMatrix)[1]
+	# Count the number of pages that each page links to #
+	M <- diag(apply(linkMatrix, 1, sum))
+	# Invert the matrix #
+	MInv <- solve(M)
+	# Set up a matrix of 1s to make the Page Rank Calculation Possible #
+	E <- matrix(rep(1, n*n), nrow=n, ncol=n)
+	# Create the Matrix A #
+	myCalc <- ((1-dampeningParameter)/n)*E + 
+		dampeningParameter * t(linkMatrix) %*% MInv
+	# Calculate the eigen vectors of the matrix #
+	myEigenResults <- eigen(myCalc)
+	# Find Correct Eigen Vector #
+	myPageRankIndex <- which(signif(myEigenResults$values, 6) == 1)
+	PageRank <- myEigenResults$vectors[,myPageRankIndex]
+	# Normalize the Page Rank #
+	normalizedPageRank <- scale(PageRank, center = FALSE, 
+		scale = as.numeric(apply(as.matrix(PageRank), 2, sum)))
+	return(normalizedPageRank)
+}
+
+```
+
+Let's test out page rank on a simple adjacency matrix. 
+```{r}
+myNewData <- matrix(c(0,1,1,0,0,0,1,0,1,1,1,1,0,1,0,0,0,0,0,0,1,0,1,0,0,1,1,0,0,0,0,0,1,0,0,0),nrow=6,ncol=6,byrow=TRUE)
+myPageRank(myNewData, d)
+```
+
