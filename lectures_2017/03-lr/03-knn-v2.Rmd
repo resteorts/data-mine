@@ -1,0 +1,299 @@
+
+---
+title: "Introduction to Classification Methods"
+author: "Rebecca C. Steorts, Duke University "
+date: STA 325, Chapter 4 ISL
+output: 
+     beamer_presentation:
+      includes: 
+          in_header: custom2.tex
+font-size: 8px
+---
+
+Agenda
+===
+- Intro to Prototype Classification 
+- Intro to KNN Classification 
+
+Classification
+===
+Classification is a predictive task in which the response takes
+values across discrete categories (i.e., not continuous), and in the 
+most fundamental case, two categories.
+
+\bigskip
+Examples:
+\begin{itemize}
+\item Predicting whether a patient will develop breast cancer or remain
+healthy, given genetic information
+\item Predicting whether or not a user will like a new product, based on
+user covariates and a history of his/her previous ratings
+\item Predicting the region of Italy in which a brand of olive oil was 
+made, based on its chemical composition
+\item Predicting the next elected president, based on various social,
+political, and historical measurements
+\end{itemize}
+
+Classification
+===
+The point of classification methods is to accurately assign
+new, unlabeled examples, from the test data} to these classes.  
+
+This is "supervised" learning because we can check the performance on the labeled
+training data.  
+
+The point of calculating information was to select features which made classification easier.
+
+Classification versus Clustering
+===
+Similar to our usual setup, we observe pairs $(x_i,y_i)$, $i=1,\ldots n$, 
+where $y_i$ gives the class of the $i$th observation, and $x_i \in \R^p$ are
+the measurements of $p$ predictor variables
+
+\bigskip
+Though the class labels may actually be $y_i \in \{\mathrm{healthy}, 
+\mathrm{sick}\}$ or $y_i \in \{\mathrm{Sardinia}, \mathrm{Sicily}, ... \}$, 
+but we can always encode them as 
+$$y_i \in \{1,2,\ldots K\}$$
+where $K$ is the total number of classes
+
+\bigskip
+Note that there is a big difference between classification and
+clustering; in the latter, there is not a pre-defined notion of class 
+membership (and sometimes, not even $K$), and we are not given labeled 
+examples $(x_i,y_i)$, $i=1,\ldots n$, but only $x_i$, $i=1,\ldots n$
+
+Classification versus clustering
+===
+Constructed from training data $(x_i,y_i)$, $i=1,\ldots n$, we denote our 
+classification rule by $\hat{f}(x)$; given any $x \in \R^p$, this returns a 
+class label $\hat{f}(x) \in \{1,\ldots K\}$
+
+\bigskip
+As before, we will see that there are two different ways of assessing the quality of $\hat{f}$: its predictive ability and interpretative ability
+
+Binary classification and linear regression
+===
+Let's start off by supposing that $K=2$, so that the response is 
+$y_i \in \{1,2\}$, for $i=1,\ldots n$
+
+\bigskip
+You already know a tool that you could potentially use in this case for classification: linear regression. 
+
+Simply treat the response as if it were continuous, and find the linear regression coefficients of the response vector $y \in \R^n$ onto the predictors, i.e., 
+
+$$\hbeta_0, \hbeta = \argmin_{\beta_0\in\R, \,\beta \in \R^p} \, 
+\sum_{i=1}^n (y_i - \beta_0 - x_i^T \beta)^2 $$
+
+Then, given a new input $x_0 \in \R^p$, we predict the class to be
+$$\hat{f}^\mathrm{LS}(x_0) = \begin{cases}
+1 & \mathrm{if}\; \hbeta_0 + x_0^T \hbeta \leq 1.5 \\
+2 & \mathrm{if}\; \hbeta_0 + x_0^T \hbeta  > 1.5
+\end{cases}$$
+
+Linear regression continued for classification
+===
+(Note: since we included an intercept term in the regression, it doesn't
+matter whether we code the class labels as $\{1,2\}$ or $\{0,1\}$, etc.)
+
+\bigskip
+In many instances, this actually works reasonably well. Examples:
+
+\bigskip
+\includegraphics[width=0.33\textwidth]{lin1.pdf}
+\includegraphics[width=0.33\textwidth]{lin2.pdf}
+\includegraphics[width=0.33\textwidth]{lin3.pdf}
+For the last example, there is a split that achieves only 12 mistakes
+
+\bigskip
+Overall, using linear regression in this way for binary classification is not 
+a crazy idea. But how about if there are more than 2 classes?
+
+
+Classification: K-nearest neighbor versus Prototype Classification
+===
+\begin{enumerate}
+\item In {\bf nearest neighbor} classification, we assign each new data point
+  to the same class as the closest labeled vector, or {\bf exemplar} (or {\bf
+    example}, to be slightly less fancy).  This uses lots of memory (because we
+  need to keep track of many vectors) and time (because we need to calculate
+  lots of distances), but assumes next to nothing about the geometry of the
+  classes.
+\item In {\bf prototype classification}, we represent each class by a single
+  vector, its {\em prototype}, and assign new data to the class whose prototype
+  is closest.  This uses little memory or computation time, but implicitly
+  assumes that each class forms a compact (in fact, convex) region in the
+  feature space.
+\end{enumerate}
+
+
+
+Prototype Method
+===
+
+K-Nearest Neighbors vs Linear Regression
+===
+Recall that linear regression is an example of a **parametric approach** because it assumes a linear functional form for f(X). 
+
+In this module, we introduce K-Nearest Neighbors (KNN), which is a **non-parametric method**
+
+Parametric methods
+===
+1. Advantages
+- Easy to fit. One needs to estimate a small number of coefficients. 
+- Often easy to interpret. 
+
+2. Disadvantages
+- They make strong assumptions about the form of $f(X)$. 
+- Suppose we assume a linear relationship between X and Y but the true relationship is far from linear, then the resulting model will provide a poor fit to the data, and any conclusions drawn from it will be suspect.
+
+Non-parametric models
+===
+1. Advantages
+- They do not assume an explicit form for $f(X)$, providing a more flexible approach. 
+2. Disadvantages 
+- They can be often more complex to understand and interpret 
+- If there is a small number of observations per predictor, then parametric methods then to work better. 
+
+K-Nearest Neighbors (KNN)
+===
+We introduce one of the simplest and best-known non-parametric methods, K-nearest neighbors regression (KNN). 
+
+It is closely related to the KNN classifier from Chapter 2 (see ISL and read on your own for more details).
+
+KNN method
+===
+1. Assume a value for the number of nearest neighbors $K$ and a prediction point $x_o.$
+
+2. KNN identifies the training observations $N_o$ closest to the prediction point $x_o$. 
+
+3. KNN estimates $f(x_o)$ using the average of all the reponses in $N_o$, i.e.
+$$ \hat{f}(x_o) = \frac
+{1}{K}\sum_{x_i \in N_o} y_i.$$
+
+Choosing K
+===
+- In general, the optimal value for $K$ will depend on the **bias-variance** tradeoff. 
+
+- A small value for K provides the most flexible fit, which will have low bias but high variance.
+
+- This variance is due to the fact that the prediction in a given region is entirely dependent on just one observation. 
+
+- In contrast, larger values of K provide a smoother and less variable fit; the prediction in a region is an average of several points, and so changing one observation has a smaller effect.
+
+Application of KNN (Chapter 4.6.5 of ISL)
+===
+Perform KNN using the \textcolor{bbrown}{knn()} function, which is part of the \textcolor{bbrown}{class} library.
+
+We call \textcolor{bbrown}{knn()} and it forms forms predictions using a single command, with four inputs: 
+
+
+1. A matrix containing the predictors associated with the training data (\textcolor{bbrown}{train.X}).
+2. A matrix containing the predictors associated with the data for which we wish to make predictions  (\textcolor{bbrown}{test.X}).
+3. A vector containing the class labels for the training observations \textcolor{bbrown}{train.Direction}.
+4. A value for K, the number of nearest neighbors to be used by the classifier.
+
+Smarket data
+===
+- We apply KNN to the \textcolor{bbrown}{Smarket} data of the \textcolor{bbrown}{ISLR} library. 
+
+- We will begin by examining some numerical and graphical summaries.  
+
+- This data set consists of percentage returns for the S&P 500 stock index over 1, 250 days, from the beginning of 2001 until the end of 2005. 
+
+- For each date, we have recorded the percentage returns for each of the five previous trading days, Lag1 through Lag5. We have also recorded Volume (the number of shares traded
+
+Smarket data
+===
+\begingroup\tiny
+```{r}
+library(ISLR)
+names(Smarket)
+dim(Smarket)
+```
+\endgroup
+
+Smarket data
+===
+\begingroup\tiny
+```{r}
+cor(Smarket[,-9])
+```
+\endgroup
+
+- As one would expect, the correlations between the lag variables and today’s returns are close to zero. 
+
+- In other words, there appears to be little correlation between today’s returns and previous days’ returns. The only substantial correlation is between Year and Volume.
+
+Correlation
+===
+\begingroup\tiny
+```{r, echo=FALSE}
+attach(Smarket)
+plot(Year, Volume)
+```
+\endgroup
+
+By plotting the data we see that Volume is increasing over time. In other words, the average number of shares traded daily increased from 2001 to 2005.
+
+KKN applied to the Smarket Data
+===
+We now fit a KNN to the Smarket data.
+
+We use the \textcolor{bbrown}{cbind()} function, short for column bind, to bind the \textcolor{bbrown}{Lag1} and \textcolor{bbrown}{Lag2} variables together into two matrices, one for the training set and the other for the test set.
+
+KKN applied to the Smarket Data
+===
+```{r}
+library(class)
+train = (Year < 2005)
+Smarket.2005= Smarket[!train ,]
+dim(Smarket.2005)
+Direction.2005=Direction[!train]
+```
+
+The object train is a vector of 1,250 elements, corresponding to the 
+observations in our data set. 
+
+The elements of the vector that correspond to observations that occurred before 2005 are set to TRUE, whereas those that correspond to observations in 2005 are set to FALSE. 
+
+The object train is a Boolean vector, since its elements are TRUE and FALSE.
+
+<!-- Boolean vectors can be used to obtain a subset of the rows or columns of a matrix. For instance, the command Smarket[train,] would pick out a submatrix of the stock market data set, corresponding only to the dates before 2005, since those are the ones for which the elements of train are TRUE.  -->
+
+KKN applied to the Smarket Data
+===
+
+```{r}
+train.X=cbind(Lag1 ,Lag2)[train ,]
+test.X=cbind(Lag1,Lag2)[!train,]
+train.Direction =Direction [train]
+```
+
+- Now the knn() function can be used to predict the market’s movement for the dates in 2005.
+
+- We set a seed for reproducibility. 
+
+
+KKN applied to the Smarket Data
+===
+```{r}
+set.seed(1)
+knn.pred=knn(train.X,test.X,train.Direction ,k=1)
+table(knn.pred,Direction.2005)
+```
+- The results using K = 1 are not very good, since only 50\% of the observa- tions are correctly predicted. 
+
+- Of course, it may be that K = 1 results in an overly flexible fit to the data.
+
+KKN applied to the Smarket Data
+===
+```{r}
+set.seed(1)
+knn.pred=knn(train.X,test.X,train.Direction ,k=3)
+table(knn.pred,Direction.2005)
+```
+
+The results have improved slightly. But increasing K further turns out to provide no further improvements. It turns out the KNN does not work very well for this data set.
+
+However, it did not take very long to make this conclusion. (If you try QDA, you will find it works quite well).

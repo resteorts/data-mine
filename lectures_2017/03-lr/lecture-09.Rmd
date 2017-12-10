@@ -1,0 +1,339 @@
+---
+title: "Introduction to Linear Regression"
+author: "Rebecca C. Steorts, Duke University "
+date: STA 325, Chapter 3 ISL
+output: 
+     beamer_presentation:
+      includes: 
+          in_header: custom2.tex
+font-size: 8px
+---
+
+Today
+===
+
+- Using data frames for statistical purposes
+- Manipulation of data into more convenient forms
+- Introduction to linear models and the model space
+
+So You've Got A Data Frame
+===
+
+What can we do with it?
+
+- Plot it: examine multiple variables and distributions
+- Test it: compare groups of individuals to each other
+- Check it: does it conform to what we'd like for our needs?
+
+Test Case: Birth weight data
+===
+
+Included in R already:
+\
+```{r}
+library(MASS)
+data(birthwt)
+summary(birthwt)
+```
+
+From R help
+===
+Go to R help for more info, because someone documented this (thanks, someone!)
+
+```
+help(birthwt)
+```
+
+Make it readable!
+===
+\small
+```{r}
+colnames(birthwt)
+colnames(birthwt) <- c("birthwt.below.2500", "mother.age", 
+                       "mother.weight", "race",
+                       "mother.smokes", "previous.prem.labor", 
+                       "hypertension", "uterine.irr",
+                       "physician.visits", "birthwt.grams")
+```
+
+Making the factors more descriptive
+===
+\small
+```{r}
+birthwt$race <- 
+  factor(c("white", "black", "other")[birthwt$race])
+birthwt$mother.smokes <- 
+  factor(c("No", "Yes")[birthwt$mother.smokes + 1])
+birthwt$uterine.irr <- 
+  factor(c("No", "Yes")[birthwt$uterine.irr + 1])
+birthwt$hypertension <- 
+  factor(c("No", "Yes")[birthwt$hypertension + 1])
+```
+
+Make it readable, again!
+===
+\tiny
+```{r}
+summary(birthwt)
+```
+
+Explore it!
+===
+\small
+```{r}
+plot (birthwt$race, echo=FALSE)
+title (main = "Count of Mother's Race in 
+       Springfield MA, 1986")
+```
+
+Explore it!
+===
+\tiny
+```{r, echo=FALSE}
+plot (birthwt$mother.age)
+title (main = "Mother's Ages in Springfield MA, 1986")
+```
+
+Explore it!
+===
+\tiny
+```{r, echo=FALSE}
+plot (sort(birthwt$mother.age))
+title (main = "(Sorted) Mother's Ages in Springfield MA, 1986")
+```
+
+
+Explore it!
+===
+\tiny
+```{r, echo=FALSE}
+plot (birthwt$mother.age, birthwt$birthwt.grams)
+title (main = "Birth Weight by Mother's Age in Springfield MA, 1986")
+```
+
+
+Basic statistical testing
+===
+
+Let's fit some models to the data pertaining to our outcome(s) of interest. 
+
+```{r}
+plot (birthwt$mother.smokes, birthwt$birthwt.grams, main="Birth Weight by Mother's Smoking Habit", ylab = "Birth Weight (g)", xlab="Mother Smokes")
+```
+
+Basic statistical testing
+===
+
+Tough to tell! Simple two-sample t-test:
+
+```{r}
+t.test (birthwt$birthwt.grams[birthwt$mother.smokes == "Yes"], 
+        birthwt$birthwt.grams[birthwt$mother.smokes == "No"])
+```
+
+Basic statistical testing
+===
+
+Does this difference match the linear model?
+
+```{r}
+linear.model.1 <- lm (birthwt.grams ~ mother.smokes, data=birthwt)
+linear.model.1
+```
+
+Basic statistical testing
+===
+
+Does this difference match the linear model?
+
+```{r}
+summary(linear.model.1)
+```
+
+Basic statistical testing
+===
+
+Does this difference match the linear model?
+
+```{r}
+linear.model.2 <- lm (birthwt.grams ~ mother.age, data=birthwt)
+linear.model.2
+```
+
+Basic statistical testing
+===
+
+```{r}
+summary(linear.model.2)
+```
+
+Basic statistical testing
+===
+
+Diagnostics: R tries to make it as easy as possible (but no easier). Try in R proper:
+
+```{r}
+plot(linear.model.2)
+```
+
+Detecting Outliers
+===
+
+These are the default diagnostic plots for the analysis. Note that our oldest mother and her heaviest child are greatly skewing this analysis as we suspected. 
+
+```{r}
+birthwt.noout <- birthwt[birthwt$mother.age <= 40,]
+linear.model.3 <- lm (birthwt.grams ~ mother.age, data=birthwt.noout)
+linear.model.3
+```
+
+Detecting Outliers
+===
+
+```{r}
+summary(linear.model.3)
+```
+
+More complex models
+===
+
+Add in smoking behavior:
+
+```{r}
+linear.model.3a <- lm (birthwt.grams ~ + mother.smokes + mother.age, data=birthwt.noout)
+summary(linear.model.3a)
+```
+
+More complex models
+===
+
+```{r}
+plot(linear.model.3a)
+```
+
+More complex models
+===
+
+Add in smoking behavior:
+
+```{r}
+linear.model.3b <- lm (birthwt.grams ~ mother.age + mother.smokes*race, data=birthwt.noout)
+summary(linear.model.3b)
+```
+
+More complex models
+===
+
+```{r}
+plot(linear.model.3b)
+```
+
+Everything Must Go (In)
+===
+
+Let's do a kitchen sink model on this new data set:
+
+```{r}
+linear.model.4 <- lm (birthwt.grams ~ ., data=birthwt.noout)
+linear.model.4
+```
+
+
+Everything Must Go (In), Except What Must Not
+===
+
+Whoops! One of those variables was `birthwt.below.2500` which is a function of the outcome.
+
+```{r}
+linear.model.4a <- lm (birthwt.grams ~ . - birthwt.below.2500, data=birthwt.noout)
+summary(linear.model.4a)
+```
+
+
+Everything Must Go (In), Except What Must Not
+===
+
+Whoops! One of those variables was `birthwt.below.2500` which is a function of the outcome.
+
+```{r}
+plot(linear.model.4a)
+```
+
+
+Generalized Linear Models
+===
+
+Maybe a linear increase in birth weight is less important than if it's below a threshold like 2500 grams (5.5 pounds). Let's fit a generalized linear model instead:
+
+```{r}
+glm.0 <- glm (birthwt.below.2500 ~ . - birthwt.grams, data=birthwt.noout)
+plot(glm.0)
+```
+
+Generalized Linear Models
+===
+
+The default value is a Gaussian model (a standard linear model). Change this:
+ 
+```{r}
+glm.1 <- glm (birthwt.below.2500 ~ . - birthwt.grams, data=birthwt.noout, family=binomial(link=logit))
+```
+
+Generalized Linear Models
+===
+
+```{r}
+summary(glm.1)
+```
+
+
+Generalized Linear Models
+===
+
+```{r}
+plot(glm.1)
+```
+
+
+What Do We Do With This, Anyway?
+===
+
+Let's take a subset of this data to do predictions.
+
+```{r}
+odds <- seq(1, nrow(birthwt.noout), by=2)
+birthwt.in <- birthwt.noout[odds,]
+birthwt.out <- birthwt.noout[-odds,]
+linear.model.half <- 
+  lm (birthwt.grams ~ 
+      . - birthwt.below.2500, data=birthwt.in)
+```
+
+What Do We Do With This, Anyway?
+===
+
+```{r}
+summary (linear.model.half)
+```
+
+
+What Do We Do With This, Anyway?
+===
+
+```{r}
+birthwt.predict <- predict (linear.model.half)
+cor (birthwt.in$birthwt.grams, birthwt.predict)
+plot (birthwt.in$birthwt.grams, birthwt.predict)
+```
+
+
+What Do We Do With This, Anyway?
+===
+
+```{r}
+birthwt.predict.out <- predict (linear.model.half, birthwt.out)
+cor (birthwt.out$birthwt.grams, birthwt.predict.out)
+plot (birthwt.out$birthwt.grams, birthwt.predict.out)
+```
+
+
