@@ -1,0 +1,598 @@
+
+---
+title: "Linear and Quadratic Discrimminant Analysis"
+author: "Rebecca C. Steorts, Duke University "
+date: STA 325, Chapter 4 ISL
+output: 
+     beamer_presentation:
+      includes: 
+          in_header: custom2.tex
+font-size: 8px
+---
+
+Agenda
+===
+- Classification revisited
+- Issues with linear regression
+- Linear discrimminant analysis
+- Lab with tasks to complete for homework 
+
+Classification
+===
+Classification is a predictive task in which the response takes
+values across discrete categories (i.e., not continuous), and in the 
+most fundamental case, two categories.
+
+\bigskip
+Examples:
+\begin{itemize}
+\item Predicting whether a patient will develop breast cancer or remain
+healthy, given genetic information
+\item Predicting whether or not a user will like a new product, based on
+user covariates and a history of his/her previous ratings
+\item Predicting the region of Italy in which a brand of olive oil was 
+made, based on its chemical composition
+\item Predicting the next elected president, based on various social,
+political, and historical measurements
+\end{itemize}
+
+Classification
+===
+The point of classification methods is to accurately assign
+new, unlabeled examples, from the test data to these classes.  
+
+This is "supervised" learning because we can check the performance on the labeled
+training data.  
+
+The point of calculating information was to select features which made classification easier.
+
+Classification versus Clustering
+===
+Similar to our usual setup, we observe pairs $(x_i,y_i)$, $i=1,\ldots n$, 
+where $y_i$ gives the class of the $i$th observation, and $x_i \in \R^p$ are
+the measurements of $p$ predictor variables
+
+\bigskip
+Though the class labels may actually be $y_i \in \{\mathrm{healthy}, 
+\mathrm{sick}\}$ or $y_i \in \{\mathrm{Sardinia}, \mathrm{Sicily}, ... \}$, 
+but we can always encode them as 
+$$y_i \in \{1,2,\ldots K\}$$
+where $K$ is the total number of classes
+
+\bigskip
+Why is classification different from clustering? 
+
+- In clustering there is not a pre-defined notion of class 
+membership (and sometimes, not even $K$). 
+
+- We are not given the response variable $y_i$ but only $x_i$, $i=1,\ldots n$
+(meaning we have no labeled data).
+
+Classification versus clustering
+===
+Constructed from training data $(x_i,y_i)$, $i=1,\ldots n$, we denote our 
+classification rule by $\hat{f}(x)$; given any $x \in \R^p$, this returns a 
+class label $\hat{f}(x) \in \{1,\ldots K\}$
+
+\bigskip
+As before, we will see that there are two different ways of assessing the quality of $\hat{f}$: its predictive ability and interpretative ability
+
+Binary classification and linear regression
+===
+Let's start off by supposing that $K=2$, so that the response is 
+$y_i \in \{1,2\}$, for $i=1,\ldots n$
+
+\bigskip
+You already know a tool that you could potentially use in this case for classification: linear regression. 
+
+Simply treat the response as if it were continuous, and find the linear regression coefficients of the response vector $y \in \R^n$ onto the predictors, i.e., 
+
+$$\hbeta_0, \hbeta = \argmin_{\beta_0\in\R, \,\beta \in \R^p} \, 
+\sum_{i=1}^n (y_i - \beta_0 - x_i^T \beta)^2 $$
+
+Then, given a new input $x_0 \in \R^p$, we predict the class to be
+$$\hat{f}^\mathrm{LS}(x_0) = \begin{cases}
+1 & \mathrm{if}\; \hbeta_0 + x_0^T \hbeta \leq 1.5 \\
+2 & \mathrm{if}\; \hbeta_0 + x_0^T \hbeta  > 1.5
+\end{cases}$$
+
+Linear regression continued for classification
+===
+(Note: since we included an intercept term in the regression, it doesn't
+matter whether we code the class labels as $\{1,2\}$ or $\{0,1\}$, etc.)
+
+\bigskip
+In many instances, this actually works reasonably well. Examples:
+
+\bigskip
+\includegraphics[width=0.33\textwidth]{lin1.pdf}
+\includegraphics[width=0.33\textwidth]{lin2.pdf}
+\includegraphics[width=0.33\textwidth]{lin3.pdf}
+
+\bigskip
+Overall, using linear regression in this way for binary classification is not 
+a crazy idea. But how about if there are more than 2 classes?
+
+Linear regression (K>2)
+===
+Given $K$ classes, define the indicator matrix $Y \in \R^{n\times K}$ to be the matrix whose columns indicate class membership.  
+
+That is, its $j$th column satisfies $Y_{ij} = 1$ if $y_i=j$ (observation $i$ is in class $j$) and $Y_{ij}=0$ otherwise.
+
+\bigskip
+E.g., with $n=6$ observations and $K=3$ classes, the matrix 
+$$Y = 
+\left(\begin{array}{ccc}
+1 & 0 & 0 \\
+1 & 0 & 0 \\
+0 & 1 & 0 \\
+0 & 1 & 0 \\
+0 & 0 & 1 \\
+0 & 0 & 1 \\
+\end{array}\right) \in \R^{6 \times 3}$$
+corresponds to having the first two observations in class 1, the next two
+in class 2, and the final 2 in class 3
+
+Linear regression of indicators
+===
+To construct a prediction rule, we regress 
+each column $Y_j \in \R^n$ (indicating the $j$th class versus all else)
+onto the predictors:
+$$\hbeta_{j,0}, \hbeta_j = \argmin_{\beta_{j,0}\in\R,\,\beta_j \in \R^p} 
+\, \sum_{i=1}^n (Y_{ij} - \beta_{0,j} - \beta_j^T x_i)^2$$
+
+Now, given a new input $x_0 \in \R^p$, we compute
+$$\hbeta_{0,j} + x_0^T \hbeta_j, \;\;\; j=1,\ldots K$$
+take predict the class $j$ that corresponds to the highest score. I.e., we let
+each of the $K$ linear models make its own prediction, and then we take 
+the strongest. Formally, $$\hat{f}^\mathrm{LS}(x_0) = 
+\argmax_{j=1,\ldots K} \; \hbeta_{0,j} + x_0^T \hbeta_j $$
+
+Linear regression for classification
+===
+The decision boundary between any two classes $j,k$ are the values of
+$x \in \R^p$ for which 
+$$\hbeta_{0,j} + x^T \hbeta_j  = \hbeta_{0,k} + x^T \hbeta_k$$
+i.e., $\hbeta_{0,j}-\hbeta_{0,k} + (\hbeta_j-\hbeta_k)^T x = 0$
+
+\bigskip
+\bigskip
+\begin{tabular}{cc}
+\parbox{0.475\textwidth}{
+\includegraphics[width=0.475\textwidth]{blank.png}}
+%\includegraphics[width=0.475\textwidth]{db.png}}
+\hspace{-15pt}
+\parbox{0.5\textwidth}{
+This defines a $(p-1)$-dimensional affine subspace in $\R^p$. 
+% it's actually affine if we include intercept
+To one side, we would always predict class $j$
+over $k$; to the other, we would always predict class $k$ over $j$}
+\end{tabular}
+
+\bigskip
+\bigskip
+\bigskip
+For $K$ classes total, there are ${K \choose 2}=\frac{K(K-1)}{2}$ decision boundaries
+
+Linear regression for classification
+===
+What we'd like to see when we use linear regression for a
+3-way classification (from ESL page 105):
+\vspace{-2pt}
+\begin{center}
+\includegraphics[width=2.25in]{ideal.png}
+\end{center}
+\vspace{-5pt}
+The plotted lines are the decision boundaries between classes 1 and 2, and 2 and 3
+(the decision boundary between classes 1 and 3 never matters)
+
+Linear regression for classification
+===
+\smallskip
+What actually happens when we use linear regression for this 3-way classification
+(from ESL page 105):
+\begin{center}
+\includegraphics[width=2.20in]{actual.png}
+\end{center}
+\vspace{-5pt}
+The decision boundaries between 1 and 2 and between 2 and 3 are the same, so we 
+would never predict class 2. This problem is called  masking (and it is not
+uncommon for moderate $K$ and small $p$)
+
+Masking and linear regression
+
+- Why is masking occuring for linear regression?
+
+- Let's walk through the details of this. 
+
+
+General Setup
+===
+Response categories are coded as an indicator variable. Suppose $\mathcal{G}$ has $K$ classes, then $\bya$ is a vector of 0's and 1's indicating for example whether each observation is in class 1. 
+\begin{itemize}
+\item The indicator response matrix is defined as $Y = (\bya, \ldots, \byk).$
+\item $Y$ is a matrix of 0's and 1's with each row having a single 1 indicating an observation is in class $k.$
+\item The $i^{\text{th}}$ observation of interest has covariate values $\bm{x_{i1}},\ldots,\bm{x_{ip}}$ that will be represented by $X_{N\times p}.$
+\item Our goal is to predict what class each observation is in given its covariate values. 
+\end{itemize}
+
+Naive method
+===
+\begin{itemize}
+\item Let's proceed blindly and use a naive method of linear regression.
+\item Fit a linear regression to each column of Y.
+\item The coefficient matrix is $\hat{B} = (X'X)^{-1}X'Y$.
+\item $\hat{Y} = X(X'X)^{-1}X'Y$
+\item The $k^{th}$ column of $\hat{B}$ contains the estimates corresponding to the linear regression coefficients that we get from regressing $\bxa,\ldots,\bxp$ onto $\byk$.
+\end{itemize}
+
+Linear regression of an indicator matrix
+===
+Look at $\hat{Y}$ corresponding to the indicator variable for each class $k.$ Assign each observation to the class for which $\hat{Y}$ is the largest.\newline
+
+More formally stated, a new observation with covariate $\bm{x}$ is classified as follows: 
+\begin{itemize}
+\item Compute the fitted output $\bm{\hat{Y}_{new}}(\bx) = [(1, \bx)^T \hat{B}]^T$.
+\item Identify the largest component of $\bm{\hat{Y}_{new}}(\bx)$ and classify according to $$\hat{G}(\bx) = \text{arg} \max_k  \bm{\hat{Y}_{new}}(\bx).$$
+\end{itemize}
+
+Does this approach make sense?
+===
+\begin{itemize}
+\item The regression line estimates $\text{E}(Y_k|\bX=\bx) = \text{P}(G=k|\bX=\bx)$ so the method seems somewhat sensible at first.
+\item Although $\sum_k \hat{Y}_k(\bx) = 1$ for any $\bx$ as long as there is an intercept in the model (exercise), $\hat{Y}_k(\bx)$ can be negative or greater than 1 which is nonsensical to the initial problem statement. 
+\item Worse problems can occur when classes are masked by others due to the rigid nature of the regression model.
+\end{itemize}
+
+LDA and QDA
+===
+
+- How do we fix the issues with regression? 
+- We could do logististic regression, but it doesn't work for more than 2 classes. 
+- We'll now introduce linear and quadratic discrimminant analysis. 
+- You'll look at the details of this more in your homework. 
+
+Iris Data
+===
+\begin{itemize}
+\item This data set (Fisher, Annals of Eugenics,1936) gives the measurements of sepal and petal length and width for 150 flowers using 3 species of iris (50 flowers per species). 
+\item The species considered are setosa, versicolor, and virginica. 
+\item To best illustrate the methods of classification, we considered how petal width and length predict the species of a flower. 
+\end{itemize}
+
+Iris Data
+===
+\begin{table}[htdp]
+\begin{center}
+%\hspace*{-0.3cm}
+\begin{tabular}{c|c|c|c|c}
+
+Sepal L	&	Sepal W	&	Petal L	&	Petal W	&	Species	\\ \hline 
+5.1	&	3.5	&	1.4	&	0.2	&	setosa	\\ 
+4.9	&	3.0	&	1.4	&	0.2	&	setosa	\\ 
+4.7	&	3.2	&	1.3	&	0.2	&	setosa	\\ \
+$\vdots$	&	$\vdots$	&	$\vdots$	&	$\vdots$	&	$\vdots$	\\ 
+7.0	&	3.2	&	4.7	&	1.4	&	versicolor	\\ 
+6.4	&	3.2	&	4.5	&	1.5	&	versicolor	\\ 
+6.9	&	3.1	&	4.9	&	1.5	&	versicolor	\\ 
+$\vdots$	&	$\vdots$	&	$\vdots$	&	$\vdots$	&	$\vdots$	\\ 
+6.3	&	3.3	&	6.0	&	2.5	&	virginica	\\ 
+5.8	&	2.7	&	5.1	&	1.9	&	virginica	\\ 
+7.1	&	3.0	&	5.9	&	2.1	&	virginica	\\ 
+\end{tabular}
+\end{center}
+\label{default}
+\end{table}
+
+Illustration of Masking
+===
+\begin{center}
+\includegraphics[width = 0.9\textwidth]{linear.pdf}
+\end{center}
+
+Why does this illustrate masking?
+===
+To recap the previous picture, we can see that using linear regression to predict for different classes can lead to a masking effect of one group or more. This occurs for the following reasons:
+\begin{enumerate}
+\item There is a plane that is high in the bottom left corner (setosa) and low in the top right corner (virginica).
+\item There is a second plane that is high in the top right corner (virginica) but low in the bottom left corner (setosa).
+\item The third plane is approximately flat since it tries to linearly fit a collection of points that is high in the middle (versicolor) and low on both ends.
+\end{enumerate}
+
+Linear discriminant analysis
+===
+For each observation, conditional on them being in class $k$, we assume $\bX|G = k \sim N_p(\bmk, \Sigma_k).$ That is,
+
+$$f_k(\bx) = \frac{1}{(2\pi)^{p/2}|\Sigma_k|^{1/2}}\exp{\left\{-\frac{1}{2}(\bx-\bmk)'\Sigma_k^{-1}(\bx-\bmk)\right\}}.$$
+\vspace{0.3cm}
+
+Linear Discriminant Analysis (LDA) assumes $\Sigma_k = \Sigma$ for all $k.$ 
+
+Linear discriminant analysis
+===
+
+In practice the parameters of the Gaussian distribution are unknown and must be estimated by:
+\begin{itemize}
+\item $\hat{\pi_k} = N_k/ N$, where $N_k$ is the number of observations in class $k$
+\item $\hat{\bmk} = \sum_{i: g_i = k} \bxi/N_k$
+\item $\hat{\Sigma} = \sum_{k=1}^K \sum_{i: g_i = k} (\bxi - \hat{\bmk})(\bxi - \hat{\bmk})'/(N-K),$
+
+\end{itemize}
+\vspace{0.3cm}
+ where $\pi_k = P(G = k).$
+ 
+Derivations
+===
+
+We're interested in computing
+$$P(G = k | \bX = \bx) = \frac{P (G = k, \bX = \bx)} {P(\bX = \bx)} $$
+$$ = \frac{P (\bX= \bx | G = k) P(G = k)} {\sum_{k=1}^K P(\bX=\bx, G=k)}$$
+$$ = \frac{f_k(\bx) \pi_k}{\sum_{j=1}^K f_j(\bx) \pi_j}. $$
+
+Derivations
+===
+
+We will compute $P(G=k|\bX=\bx)$ for each class $k.$ \newline
+
+Consider comparing $P(G = k_1 | \bX=\bx)$ and $P(G = k_2 | \bX=\bx).$
+
+Then
+$$ \log\bigg[\frac{P(G = k_1 | \bX=\bx)}{ P(G = k_2 | \bX=\bx)}\bigg] = \log\bigg[      
+\frac{f_{k_1}(\bx) \pi_{k_1} }{ f_{k_2}(\bx) \pi_{k_2}} \bigg]$$
+
+$$  \hspace{-0.4cm}=-\frac{1}{2}(\bx-\bmka)'\Sigma^{-1}(\bx-\bmka) + \frac{1}{2}(\bx-\bmkb)'\Sigma^{-1}(\bx-\bmkb)+ \log\left[\frac{\pi_{k_1}}{ \pi_{k_2}}\right]$$
+$$ = (\bmka - \bmkb)'\Sigma^{-1}\bx - \frac{1}{2}\bmka'\Sigma^{-1}\bmka  + \frac{1}{2}\bmkb' \Sigma^{-1} \bmkb + \log\bigg[\frac{\pi_{k_1}}{ \pi_{k_2}}\bigg] $$
+
+Derivations
+===
+
+Now let's consider the boundary between predicting someone to be in class $k_1$ or class $k_2.$ To be on the the boundary, we must decide what $\bx$ would need to be if we think that an observation is equally likely to be in class $k_1$ or $k_2.$ \newline 
+
+This reduces to solving
+$$ (\bmka - \bmkb)'\Sigma^{-1}\bx -\frac{1}{2} \bmka'\Sigma^{-1}\bmka  + \frac{1}{2}\bmkb' \Sigma^{-1} \bmkb + \log\bigg[\frac{\pi_{k_1}}{ \pi_{k_2}}\bigg]  = 0,$$\vspace{-.5cm}
+
+which is linear in $\bx.$ 
+
+\begin{itemize}
+\item The boundary will be a line for two dimensional problems.
+\item The boundary will be a hyperplane for three dimensional problems.
+\end{itemize}
+
+
+Derivations
+===
+
+The linear log-odds function implies that our decision boundary between classes $k_1$ and $k_2$ will be the set where $$P(G = k_1|\bX=\bx) = P(G= k_2|\bX=\bx),$$ which is linear in $\bx.$ In $p$ dimensions, this is a hyperplane. 
+
+We can then say that class $k_1$ is more likely than class $k_2$ if $$P(G = k_1|\bX=\bx) > P(G= k_2|\bX=\bx) \implies$$
+$$\log\bigg[\frac{P(G = k_1|\bX=\bx)}{  P(G= k_2|\bX=\bx)} \bigg] > 0 \implies$$
+
+Derivations
+===
+
+$$ (\bmka - \bmkb)'\Sigma^{-1}\bx -\frac{1}{2} \bmka'\Sigma^{-1}\bmka  +\frac{1}{2} \bmkb' \Sigma^{-1} \bmkb + \log\bigg[\frac{\pi_{k_1}}{ \pi_{k_2}}\bigg]> 0 \implies$$ 
+\vspace{-.2cm}
+$$\hspace{-.4cm} \bmka'\Sigma^{-1}\bx - \frac{1}{2}\bmka'\Sigma^{-1}\bmka + \log(\pi_{k_1}) >
+\bmkb'\Sigma^{-1}\bx - \frac{1}{2}\bmkb'\Sigma^{-1}\bmkb + \log(\pi_{k_2}).
+$$
+
+
+The linear discriminant function $\delta_k^L(\bx)$ is defined as $$ \delta_k^L(\bx) = \bmk'\Sigma^{-1}\bx - \bmk'\Sigma^{-1}\bmk + \log(\pi_{k}).$$
+
+
+We can tell which class is more likely for a particular value of $\bx$ by comparing the classes' linear discriminant functions.
+
+QDA
+===
+\begin{itemize}
+\item If the $\Sigma_k$ are not assumed to be equal, then convenient cancellations in our derivations earlier do not occur. 
+\item The quadratic pieces in $\bx$ end up remaining leading to quadratic discriminant functions (QDA).
+\item QDA is similar to LDA except a covariance matrix must be estimated for each class $k.$ 
+\end{itemize}
+
+The quadratic discriminant function  $\delta_k^Q(\bx)$ is defined as
+$$\delta_k^Q(\bx) = -\frac{1}{2}\log|\Sigma_k| - \frac{1}{2}(\bx-\bmk)'\Sigma_k^{-1}(\bx - \bmk) + \log(\pi_k).$$
+
+Properties of LDA and QDA
+===
+LDA and QDA seem to be widely accepted due to a bias variance trade off that leads to stability of the models. \newline
+
+That is, we want our model to have low variance, so we are willing to sacrifice some bias of a linear decision boundary in order for our model to be more stable.
+
+Regularized Discriminant Analysis
+===
+\begin{itemize}
+\item Friedman (1989) proposed a compromise between LDA and QDA.
+\item This method says that we should shrink the covariance matrices of QDA toward a common covariance matrix as done in LDA.
+\item Regularized covariance matrices take the form
+$$ \hat{\Sigma_k}(\alpha) = \alpha\hat{\Sigma_k} + (1- \alpha)\hat{\Sigma},\quad 0 \leq \alpha \leq 1.$$
+\item In practice, $\alpha$ is chosen based on performance of the model on validation data or by using cross-validation.
+\end{itemize}
+
+Application to Weekly Data
+===
+We're going to work with the Weekly data set that is part of the ISLR package. 
+
+It contains 1,089 weekly returns for 21 years, from the beginning of 1990 to the end of 2010. 
+
+Task 1
+===
+
+Produce some numerical and graphical summaries of the Weekly data. Do there appear to be any patterns?
+
+Solution to Task 1
+===
+\tiny
+```{r}
+library(ISLR)
+data(Weekly)
+names(Weekly)
+summary(Weekly)
+attach(Weekly)
+```
+
+Solution to Task 1
+===
+```{r}
+plot(Volume)
+```
+
+Yes, there is a pattern of increasing volume over time.
+
+Task 2
+===
+Use the full data set to perform a logistic regression with Direction as the response and the five lag variables plus Volume as predictors. Use the summary function to print the results. Do any of the predictors appear to be statistically significant? If so, which ones?
+
+Solution to Task 2
+===
+\tiny
+```{r}
+glm.fit <- glm(Direction ~ Lag1 + Lag2 + Lag3 + Lag4 +
+        Lag5 + Volume, family="binomial", data=Weekly)
+summary(glm.fit)
+```
+
+Solution to Task 2
+===
+
+From the analysis on the previous slide, Lag 2 is statistically significant with a p-value of 0.03. The postive coefficient for this predictor suggests that if the market had a positive return yesterday, then it is more likely to go up today. Since the p-value is small, the is clear evidence of an association between Lag 2 and Direction.
+
+Task 3
+===
+Compute the confusion matrix and overall fraction of correct predictions. Explain what the confusion matrix is telling you about the types of mistakes made by logistic regression.\footnote{A confusion matrix is explained on p. 145 of the James et. al (2013) text. See Table 4.5.} Calculate the false positive and false negative rates here.
+
+Solution to Task 3
+===
+Recall back in the LSH module we looked at classifications as being:
+
+1. Pairs of data can be linked in both the handmatched training
+data (which we refer to as ‘truth’) and under the estimated
+linked data. We refer to this situation as true positives (TP).
+2. Pairs of data can be linked under the truth but not linked
+under the estimate, which are called false negatives (FN).
+3. Pairs of data can be not linked under the truth but linked
+under the estimate, which are called false positives (FP).
+4. Pairs of data can be not linked under the truth and also not
+linked under the estimate, which we refer to as true negatives
+(TN).
+
+\begin{table}[htdp]
+\caption{Confusion Matrix on Full Data for Direction}
+\begin{center}
+\begin{tabular}{c|ccc}
+  Pred (Estimated)
+ &  &      True   & False \\ \hline 
+Truth &   True  &  True positive & False negative \\ 
+      &   False   &  False positive & True negative\end{tabular}
+\end{center}
+\label{default}
+\end{table}
+
+
+
+Solution to Task 3
+===
+You can now calculate the FNR and FPR using the following formulas: 
+
+ $$FPR = \frac{ \text{false positives}}
+{(\text{false positives} + \text{true negatives})}.$$ Also, $$FNR =  \frac{\text{false negatives}}{(\text{false negatives} + \text{true positives})}.$$
+
+Give the confusion matrix and calculate the FNR and FPR. 
+
+Task 4
+===
+
+Now fit the logistic regression model using a training data period from 1990 to 2008, with Lag2 as the only predictor. Compute the confusion matrix and the overall fraction of correct predictions for the held out data (that is, the data from 2009 and 2010). Is there an improvement and if so in what sense? 
+(Think about how the false positive and false negative rates have changed).
+
+Task 5
+===
+Repeat Task 4 using LDA. 
+
+Use the function lda() in \texttt{R}. 
+
+Task 6
+=== 
+
+Repeat Task 4 using QDA. Which method is better: logistic regression, LDA, or QDA. Make sure you can defend your answer.
+
+Use the function qda() in \texttt{R}.
+
+Summary
+===
+As we remarked earlier, both LDA and logistic regression model the log
+odds as a linear function of the predictors $x \in \R^p$
+\begin{align*}
+\text{Linear discriminant analysis:} \;\;
+&\log\Big\{\frac{\P(C=1|X=x)}{\P(C=2|X=x)}\Big\}
+= \alpha_0+\alpha^T x \\
+\text{Logistic regression:} \;\;
+& \log\Big\{\frac{\P(C=1|X=x)}{\P(C=2|X=x)}\Big\}
+= \beta_0+\beta^T x
+\end{align*}
+where for LDA we form $\hat{\alpha}_0,\hat{\alpha}$ based on 
+estimates $\hat{\pi}_j,\hat{\mu}_j,\hat{\Sigma}$
+(easy!), and for logistic regression we estimate 
+$\hbeta_0,\hbeta$ directly based on maximum likelihood (harder)
+
+\bigskip
+This is what leads to linear decision boundaries for each method
+
+\bigskip
+Careful inspection (or simply comparing them in R) shows that the 
+estimates $\hat{\alpha}_0,\hbeta_0$ and $\hat{\alpha},\hbeta$
+are different. So how do they compare?
+
+Summary
+===
+Generally speaking, logistic regression is more flexible because it doesn't assume
+anything about the distribution of $X$. LDA assumes that $X$ is normally distributed 
+within each class, so that its marginal distribution is a mixture of normal distributions, 
+hence still normal:
+$$X \sim \sum_{j=1}^K \pi_j N(\mu_j,\Sigma)$$
+This means that logistic regression is more robust to situations in which the 
+class conditional densities are not normal (and outliers)
+
+\bigskip
+On the other side, if the true class conditional densities are normal, or close to it, LDA will be
+more efficient, meaning that for logistic regression to perform comparably it will need more data
+
+\bigskip
+In practice they tend to perform similarly in a variety of situations (as claimed by the ESL book on page
+128)
+
+Model free classification
+===
+We could instead take a model free classification approach. 
+
+The downside: these methods are essentially a black box for classification, in
+that they typically don't provide any insight into how the predictors and the response
+are related
+
+\bigskip
+The upside: they can work well for prediction in a wide variety of situations, since they
+don't make any real assumptions
+
+\bigskip
+These procedures also typically have tuning parameters that need to be properly
+tuned in order for them to work well (for this we can use cross-validation)
+
+Model free classification
+===
+
+1. K-nearest neighbors
+2. Prototype classification
+3. K-means classification
+
+We won't have time to cover these, but you could read about these more on your own if you want to know about model-free (non-parametric approaches).
+
+Some of these are briefly covered in ISLR, but not in great detail. 
+
+
+
+
+
+
+
+
+

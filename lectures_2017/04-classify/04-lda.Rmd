@@ -1,0 +1,512 @@
+
+---
+title: "Classification Methods II: Linear and Quadratic Discrimminant Analysis "
+author: "Rebecca C. Steorts, Duke University "
+date: STA 325, Chapter 4 ISL
+output: 
+     beamer_presentation:
+      includes: 
+          in_header: custom2.tex
+font-size: 8px
+---
+
+Agenda
+===
+- Linear Discrimminant Analysis (LDA)
+
+Classification
+===
+- Recall that linear regression assumes the responses is  quantitative
+- In many cases, the response is qualitative (categorical). 
+
+Here, we study approaches for predicting qualitative responses, a process that is known as classification. 
+
+Predicting a qualitative response for an observation can be referred to as classifying that observation, since it involves assigning the observation to a category, or class.
+
+We have already covered two such methods, namely, KNN regression and logistic regression. 
+
+Setup
+===
+We have set of training observations $(x_1,y_1), \ldots, (x_n,y_n)$ that we can use to build a classifier. 
+
+We want our classifier to perform well on both the training and the test data. 
+
+Linear Discrimminant Analysis (LDA)
+===
+  \begin{itemize}
+\item Logistic regression involves directly modeling $Pr(Y = k|X = x)$ using the logistic function, given by (4.7) for the case of two response classes. 
+\item We model the conditional distribution of the response $Y,$ given the predictor(s) $X.$ 
+  \begin{itemize}
+\item We now consider an alternative and less direct approach to estimating these probabilities. 
+\item We model the distribution of the predictors $X$ separately in each of the response classes (i.e. given $Y$ ), and then use Bayes theorem to flip these around into estimates for $Pr(Y = k|X = x).$ 
+  \item When these distributions are assumed to be normal, it turns out that the model is very similar in form to logistic regression.
+\end{itemize}
+\end{itemize}
+
+Why do we need another method, when we have logistic regression?
+
+LDA
+===
+  \begin{itemize}
+\item When the classes are well-separated, the parameter estimates for the logistic regression model are surprisingly unstable. 
+\item Linear discriminant analysis (LDA) does not suffer from this problem.
+\item  If n is small and the distribution of the predictors X is approximately normal in each of the classes, the linear discriminant model is again more stable than the logistic regression model.
+\item Linear discriminant analysis is popular when we have more than two response classes.
+\end{itemize}
+
+Using Bayes' Theorem for Classification
+===
+\begin{itemize}
+\item Wish to classify an observation into one of $K$ classes, 
+$K \geq 2.$ 
+%\item In other words, the qualitative response variable $Y$ can take on $K$ possible distinct and unordered values. 
+\begin{itemize}
+\item Let $\textcolor{blue}{\pi_k}$: overall or \textcolor{blue}{prior  probability} that a randomly chosen observation comes from the $k$th class.
+%\begin{itemize}
+%\item This is the probability that a given observation is associated with the $k$th category of the response variable $Y.$  
+%\end{itemize}
+\item Let $\textcolor{blue}{f_k(X)} = Pr(X = x|Y = k)$:
+the \textcolor{blue}{density function of $X$} for an observation that comes from the $k$th class.
+\begin{itemize}
+\item $f_k(X)$ is relatively large if there is a high probability that
+an observation in the $k$th class has $X \approx x.$
+\item $f_k(X)$ is small if it is very
+unlikely that an observation in the $k$th class has $X \approx x.$ 
+\end{itemize}
+\end{itemize}
+\item Then **Bayes theorem** states that
+\end{itemize}
+\begin{align}
+P(Y=k \mid X=x) = \frac{\pi_k f_k(x)}
+{\sum_{i=1}^K \pi_i f_i(x)}.
+\label{bayes_lda}
+\end{align}
+
+Using Bayes' Theorem for Classification
+===
+  \begin{itemize}
+\item Let $p_k(X) = Pr(Y = k|X).$ 
+  \item Instead of directly computing $p_k(X),$ 
+  %as in Section 4.3.1
+we can simply plug in estimates of $\pi_k$ and $f_k(X)$ into (\ref{bayes_lda}). 
+\item Estimating $\pi_k$ is easy if we have a random sample of $Y$s from the population.
+\begin{itemize}
+\item We simply compute the fraction of the training observations that belong to the kth class. 
+\item However, estimating $f_k(X)$ tends to be more challenging, unless we assume some simple forms for these densities. 
+\end{itemize}
+\end{itemize}
+
+Bayes Classifier
+===
+  \begin{itemize}
+\item A \textcolor{blue}{Bayes classifier} classifies an observation to the class for which $p_k(x)$ is largest and has the lowest possible error rate out of all classifiers. 
+\item (This is of course only true if the terms in  (\ref{bayes_lda}) are all correctly specified.) 
+\item Therefore, if we can find a way to estimate $f_k(X),$ then we can develop a classifier that approximates the Bayes classifier. 
+\item Such an approach is the topic of the following sections.
+\end{itemize}
+
+Intro to LDA
+===
+  \begin{itemize}
+\item Assume that $p=1,$ that is, we only have one predictor. 
+\item We would like to obtain an estimate for $f_k(x)$ that we can plug into (\ref{bayes_lda}) in order to estimate $p_k(x).$ 
+  \item We will then classify an observation to the class for which $p_k(x)$ is greatest. 
+\begin{itemize}
+\item In order to estimate $f_k(x),$ we will first make some assumptions about its form. 
+\item Assume that $f_k(x)$ is normal or Gaussian with mean $\mu_k$ and variance 
+$\sigma_k^2.$ 
+  \item Assume that $\sigma_1^2 = \cdots = \sigma_k^2 =: \sigma^2,$ meaning there is a shared variance term across all $K$ classes. 
+\end{itemize} 
+\end{itemize} 
+
+The normal (Gaussian) density
+===
+  Recall that the normal density is 
+\begin{align}
+f_k(x) = \frac{1}{\sqrt{2\pi} \sigma} \exp\{
+  \frac{1}{2\sigma^2}(x-\mu_k)^2
+  \}
+\label{normal}
+\end{align}
+
+Plugging (\ref{normal}) into (\ref{bayes_lda}) yields
+
+\begin{align}
+p_k(x) = \frac{\pi_k \frac{1}{\sqrt{2\pi} \sigma} \exp\{
+  \frac{1}{2\sigma^2}(x-\mu_k)^2
+  \}
+}
+{\sum_{i=1}^K \pi_i \frac{1}{\sqrt{2\pi} \sigma} \exp\{
+  \frac{1}{2\sigma^2}(x-\mu_i)^2
+  \}
+}.
+\label{bayes-normal-classifier}
+\end{align}
+
+LDA (continued)
+===
+  \begin{itemize}
+\item The Bayes classifier involves assigning an observation X = x to the class for which (\ref{bayes-normal-classifier}) is largest. 
+\item Taking the log of (\ref{bayes-normal-classifier}) and rearrange the terms.
+\item Then we can show that this is equivalent to assigning the observation to the class for which 
+\end{itemize}
+
+\begin{align}
+\delta(x)_k = x \frac{\mu_k}{\sigma^2} -  \frac{\mu_k^2}{2\sigma^2} + \log(\pi_k)
+\label{lda-delta}
+\end{align}
+is largest (Exercise). 
+
+LDA (continued)
+===
+  \begin{itemize}
+\item For instance, if $K = 2$ and $\pi_1 = \pi_2,$ then the Bayes classifier assigns an observation to class 1 if $2x(\mu_1 -\mu_2) > (\mu_1^2 -\mu_2^2).$
+  and to class 2 otherwise.
+\item  In this case, the Bayes decision boundary corresponds to the point where
+$$x =\dfrac{\mu_1^2 -\mu_2^2}{2(\mu_1 -\mu_2)} = \dfrac{(\mu_1-\mu_2)(\mu_1+\mu_2)}{2(\mu_1 -\mu_2)} = \dfrac{\mu_1 + \mu_2}{2}.$$
+  \end{itemize}
+
+Bayes decision boundaries
+===
+  \begin{figure}[htbp]
+\begin{center}
+\includegraphics[scale=0.5]{figures/fig_4_4.pdf}
+\caption{Two one-dimensional normal density functions are shown. The dashed vertical line represents the Bayes decision boundary. Right: 20 observations were drawn from each of the two classes, and are shown as histograms. The Bayes decision boundary is again shown as a dashed vertical line. The solid vertical line represents the LDA decision boundary estimated from the training data.}
+\label{normal:sim}
+\end{center}
+\end{figure}
+
+Bayes decision boundaries
+===
+  \begin{itemize}
+\item In practice, even if we are quite certain of our assumption that X is drawn from a Gaussian distribution within each class, we still have to estimate the parameters $\mu_1, \ldots, \mu_k; \pi_1, \ldots, \pi_K,$ and $\sigma^2.$ 
+  \item The linear discriminant analysis (LDA) method approximates the Bayes classifier by plugging estimates
+for $\pi_k, \pi_k,$ and $\sigma$ into (4.13). 
+\item In particular, the following estimates are used:
+  \end{itemize}
+
+Next part
+===
+  \begin{align}
+\hat{\mu}_k &= \frac{1}{n_k} \sum_{i: y_i =k } x_i \\
+\hat{\sigma}^2 &= \frac{1}{n-K} \sum_{k=1}^K \sum_{i: y_i =k } (x_i - \hat{\mu}_k)^2, 
+\label{lda-est}
+\end{align}
+\begin{itemize}
+\item where $n$ is the total number of training observations, and $n_k$ is the number of training observations in the $k$th class. 
+\item $\hat{\mu}_k$ is simply the average of all the training observations from the $k$th class
+\item  $\sigma^2$ can be seen as a weighted average of the sample variances for each of the $K$ classes. 
+\end{itemize}
+
+Next part
+===
+  \begin{itemize}
+\item Sometimes we have knowledge of the class membership probabilities $\pi_1, \ldots, \pi_k,$ which can be used directly. 
+\item In the absence of any additional information, LDA estimates $\pi_k$  using the proportion of the training observations that belong to the $k$th class. In other words,
+\end{itemize}
+\begin{align}
+\label{pi-hat}
+\hat{\pi}_k = n_k/n.
+\end{align}
+
+LDA classifier
+===
+  The LDA classifier plugs the estimates given in (\ref{lda-est}) and (\ref{pi-hat}) into (\ref{lda-delta}), and assigns an observation $X = x$ to the class for which
+
+\begin{align}
+\label{lda-delta}
+\delta_k(x) = x \frac{\hat{\mu}_k}{\hat{\sigma}^2} -  \frac{\hat{\mu}_k^2}{2\hat{\sigma}^2} + \log(\hat{\pi}_k)
+\end{align}
+is largest. 
+
+The word linear in the classifierÕs name stems from the fact that the discriminant functions $\delta_k(x)$ in (\ref{lda-delta}) are linear functions of x (as opposed to a more complex function of x).
+
+LDA classifier ($p>1$)
+===
+  \begin{itemize}
+\item We now extend the LDA classifier to the case of multiple predictors. 
+\item To do this, we will assume that $X = (X_1,\ldots X_p)$ is drawn from a multivariate Gaussian (or multivariate normal) distribution, with a class-specific mean vector and a common covariance matrix. 
+\end{itemize}
+
+Iris application
+===
+  \begin{itemize}
+\item We motivate this section with a very well known dataset (introduced by R.A. Fisher and available in \texttt{R}).
+\item  Illustrate the Iris data through naive linear regression, giving the multivariate form of LDA, and going through some extensions. 
+\end{itemize}
+
+Iris application
+===
+  Suppose that response categories are coded as an indicator variable. Suppose $\mathcal{G}$ has $K$ classes, then $\bya$ is a vector of 0's and 1's indicating for example whether each person is in class 1. 
+\begin{itemize}
+\item The indicator response matrix is defined as $Y = (\bya, \ldots, \byk).$
+  \item $Y$ is a matrix of 0's and 1's with each row having a single 1 indicating a person is in class $k.$
+  \item The $i^{\text{th}}$ person of interest has covariate values $\bm{x_{i1}},\ldots,\bm{x_{ip}}$ that will be represented by $X_{N\times p}.$
+  \item Our goal is to predict what class each observation is in given its covariate values. 
+\end{itemize}
+
+Iris application
+===
+  Let's proceed blindly and use a naive method of linear regression. We will do the following:
+\begin{itemize}
+\item Fit a linear regression to each column of Y.
+\item The coefficient matrix is $\hat{\bbeta} = (X'X)^{-1}X'Y$.
+\item $\hat{Y} = X(X'X)^{-1}X'Y$
+\item The $k^{th}$ column of $\hat{\bbeta}$ contains the estimates corresponding to the linear regression coefficients that we get from regressing $\bxa,\ldots,\bxp$ onto $\byk$.
+\end{itemize}
+
+LDA
+===
+Look at $\hat{Y}$ corresponding to the indicator variable for each class $k.$ Assign each person to the class for which $\hat{Y}$ is the largest.
+More formally stated, a new observation with covariate $\bm{x}$ is classified as follows: 
+\begin{itemize}
+\item Compute the fitted output $\bm{\hat{Y}_{new}}(\bx) = [(1, \bx)' \hat{\bbeta}]'$.
+\vspace{0.3cm}
+\item Identify the largest component of $\bm{\hat{Y}_{new}}(\bx)$ and classify according to \begin{displaymath}\hat{G}(\bx) = \text{arg} \max_k  \bm{\hat{Y}_{new}}(\bx).\end{displaymath} 
+\end{itemize}
+
+We now pose the question, does this approach make sense? 
+
+LDA
+===
+\begin{itemize}
+\item The regression line estimates $\text{E}(Y_k|\bX=\bx) = \text{P}(G=k|\bX=\bx)$ so the method seems somewhat sensible at first.
+\item Although $\sum_k \hat{Y}_k(\bx) = 1$ for any $\bx$ as long as there is an intercept in the model (exercise), $\hat{Y}_k(\bx)$ can be negative or greater than 1 which is nonsensical to the initial problem statement. 
+\item Worse problems can occur when classes are masked by others due to the rigid nature of the regression model.
+\item Illustrate ``masking effect'' with the Iris dataset. 
+\end{itemize}
+
+What is masking?
+===
+When the number of classes $K \geq 3$, a class may be hidden or masked by others because there is no region in the feature space that is labeled as this class.
+
+Iris data
+===
+\begin{itemize}
+\item The Iris data (Fisher, Annals of Eugenics,1936) gives the measurements of sepal and petal length and width for 150 flowers using 3 species of iris (50 flowers per species). 
+\begin{itemize}
+\item The species considered are setosa, versicolor, and virginica. 
+\item To best illustrate the methods of classification, we considered how petal width and length predict the species of a flower. 
+\item We see the dataset partially represented in Table \ref{table:iris}. 
+\end{itemize}
+\end{itemize}
+
+\begin{table}[htdp]
+\begin{center}
+%\hspace*{-0.3cm}
+\scriptsize
+\begin{tabular}{c|c|c|c|c}
+
+Sepal L	&	Sepal W	&	Petal L	&	Petal W	&	Species	\\ \hline 
+5.1	&	3.5	&	1.4	&	0.2	&	setosa	\\ 
+4.9	&	3.0	&	1.4	&	0.2	&	setosa	\\ 
+4.7	&	3.2	&	1.3	&	0.2	&	setosa	\\ \
+$\vdots$	&	$\vdots$	&	$\vdots$	&	$\vdots$	&	$\vdots$	\\ 
+7.0	&	3.2	&	4.7	&	1.4	&	versicolor	\\ 
+6.4	&	3.2	&	4.5	&	1.5	&	versicolor	\\ 
+6.9	&	3.1	&	4.9	&	1.5	&	versicolor	\\ 
+$\vdots$	&	$\vdots$	&	$\vdots$	&	$\vdots$	&	$\vdots$	\\ 
+6.3	&	3.3	&	6.0	&	2.5	&	virginica	\\ 
+5.8	&	2.7	&	5.1	&	1.9	&	virginica	\\ 
+7.1	&	3.0	&	5.9	&	2.1	&	virginica	\\ 
+\end{tabular}
+\end{center}
+\caption{Iris data with 3 species (setosa, versicolor, and virginica)}
+\label{table:iris}
+\end{table}
+
+Iris data
+===
+We can can see that using linear regression (Figure \ref{masking} to predict for different classes can lead to a masking effect of one group or more. This occurs for the following reasons:
+\begin{enumerate}
+\item There is a plane that is high in the bottom left corner (setosa) and low in the top right corner (virginica).
+\item There is a second plane that is high in the top right corner (virginica) but low in the bottom left corner (setosa).
+\item The third plane is approximately flat since it tries to linearly fit a collection of points that is high in the middle (versicolor) and low on both ends.
+\end{enumerate}
+
+Iris data
+===
+\begin{figure}[htbp]
+\begin{center}
+\includegraphics[width = 0.9\textwidth]{classification/linear.pdf}
+\caption{Linear regression used to predict for different classes can lead to a masking effect of one group or more.}
+\label{masking}
+\end{center}
+\end{figure}
+
+Iris data with LDA
+===
+We instead consider LDA, which has the following assumptions:
+
+For each person, conditional on them being in class $k$, we assume 
+$$\bX|G = k \sim N_p(\bmk, \Sigma).$$ That is,
+
+$$f_k(\bx) = \frac{1}{(2\pi)^{p/2}|\Sigma|^{1/2}}\exp{\left\{-\frac{1}{2}(\bx-\bmk)'\Sigma^{-1}(\bx-\bmk)\right\}}.$$
+}
+
+LDA assumes $\Sigma_k = \Sigma$ for all $k$ (just as was true in the $p = 1$ setting).
+  
+  In practice the parameters of the Gaussian distribution are unknown and must be estimated by:
+    \begin{itemize}
+  \item $\hat{\pi_k} = N_k/ N$, where $N_k$ is the number of people of class $k$
+    \item $\hat{\bmk} = \sum_{i: g_i = k} \bxi/N_k$
+    \item $\hat{\Sigma} = \sum_{k=1}^K \sum_{i: g_i = k} (\bxi - \hat{\bmk})(\bxi - \hat{\bmk})'/(N-K),$
+  
+  \end{itemize}
+  \vspace{0.3cm}
+  where $\pi_k = P(G = k).$
+  
+  
+LDA Computation
+===
+We're interested in computing
+$$P(G = k | \bX = \bx) = \frac{P (G = k, \bX = \bx)} {P(\bX = \bx)} $$
+$$ = \frac{P (\bX= \bx | G = k) P(G = k)} {\sum_{k=1}^K P(\bX=\bx, G=k)}$$
+$$ = \frac{f_k(\bx) \pi_k}{\sum_{j=1}^K f_j(\bx) \pi_j}. $$ 
+
+We will compute $P(G=k|\bX=\bx)$ for each class $k.$ \newline
+
+Consider comparing $P(G = k_1 | \bX=\bx)$ and $P(G = k_2 | \bX=\bx).$
+
+LDA Computation
+===
+Then
+$$ \log\bigg[\frac{P(G = k_1 | \bX=\bx)}{ P(G = k_2 | \bX=\bx)}\bigg] = \log\bigg[      
+\frac{f_{k_1}(\bx) \pi_{k_1} }{ f_{k_2}(\bx) \pi_{k_2}} \bigg]$$
+
+$$  \hspace{-0.4cm}=-\frac{1}{2}(\bx-\bmka)'\Sigma^{-1}(\bx-\bmka) + \frac{1}{2}(\bx-\bmkb)'\Sigma^{-1}(\bx-\bmkb)+ \log\left[\frac{\pi_{k_1}}{ \pi_{k_2}}\right]$$
+$$ = (\bmka - \bmkb)'\Sigma^{-1}\bx - \frac{1}{2}\bmka'\Sigma^{-1}\bmka  + \frac{1}{2}\bmkb' \Sigma^{-1} \bmkb + \log\bigg[\frac{\pi_{k_1}}{ \pi_{k_2}}\bigg] $$
+
+Boundary Lines for LDA
+===
+\begin{itemize}
+\item Now let's consider the boundary between predicting someone to be in class $k_1$ or class $k_2.$ 
+\item To be on the the boundary, we must decide what $\bx$ would need to be if we think that a person is equally likely to be in class $k_1$ or $k_2.$
+\end{itemize}
+
+This reduces to solving
+$$ (\bmka - \bmkb)'\Sigma^{-1}\bx -\frac{1}{2} \bmka'\Sigma^{-1}\bmka  + \frac{1}{2}\bmkb' \Sigma^{-1} \bmkb + \log\bigg[\frac{\pi_{k_1}}{ \pi_{k_2}}\bigg]  = 0,$$\vspace{-.5cm}
+
+which is linear in $\bx.$
+
+Boundary Lines for LDA
+===
+\begin{itemize}
+\item The boundary will be a line for two dimensional problems.
+\item The boundary will be a hyperplane for three dimensional problems.
+\end{itemize}
+
+The linear log-odds function implies that our decision boundary between classes $k_1$ and $k_2$ will be the set where $$P(G = k_1|\bX=\bx) = P(G= k_2|\bX=\bx),$$ which is linear in $\bx.$ In $p$ dimensions, this is a hyperplane. \newline
+}
+\frame{
+
+We can then say that class $k_1$ is more likely than class $k_2$ if $$P(G = k_1|\bX=\bx) > P(G= k_2|\bX=\bx) \implies$$
+$$\log\bigg[\frac{P(G = k_1|\bX=\bx)}{  P(G= k_2|\bX=\bx)} \bigg] > 0 \implies$$
+
+$$ (\bmka - \bmkb)'\Sigma^{-1}\bx -\frac{1}{2} \bmka'\Sigma^{-1}\bmka  +\frac{1}{2} \bmkb' \Sigma^{-1} \bmkb + \log\bigg[\frac{\pi_{k_1}}{ \pi_{k_2}}\bigg]> 0 \implies$$ 
+\vspace{-.2cm}
+$$\hspace{-.4cm} \bmka'\Sigma^{-1}\bx - \frac{1}{2}\bmka'\Sigma^{-1}\bmka + \log(\pi_{k_1}) >
+\bmkb'\Sigma^{-1}\bx - \frac{1}{2}\bmkb'\Sigma^{-1}\bmkb + \log(\pi_{k_2}).
+$$
+
+Linear Discrimminant Function
+===
+The linear discriminant function $\delta_k^L(\bx)$ is defined as
+$$ \delta_k^L(\bx) = \bmk'\Sigma^{-1}\bx - \bmk'\Sigma^{-1}\bmk + \log(\pi_{k}).$$
+
+We can tell which class is more likely for a particular value of $\bx$ by comparing the classes' linear discriminant functions.
+
+Quadratic Discriminant Analysis (QDA)
+===
+We now introduce Quadratic Discriminant Analysis, which handles the following: 
+
+\begin{itemize}
+\item If the $\Sigma_k$ are not assumed to be equal, then convenient cancellations in our derivations earlier do not occur. 
+\item The quadratic pieces in $\bx$ end up remaining leading to quadratic discriminant functions (QDA).
+\item QDA is similar to LDA except a covariance matrix must be estimated for each class $k.$ 
+\end{itemize}
+
+
+
+QDA
+===
+The quadratic discriminant function  $\delta_k^Q(\bx)$ is defined as
+$$\delta_k^Q(\bx) = -\frac{1}{2}\log|\Sigma_k| - \frac{1}{2}(\bx-\bmk)'\Sigma_k^{-1}(\bx - \bmk) + \log(\pi_k).$$
+
+LDA and QDA seem to be widely accepted due to a bias variance trade off that leads to stability of the models. 
+That is, we want our model to have low variance, so we are willing to sacrifice some bias of a linear decision boundary in order for our model to be more stable.
+
+LDA and QDA on Iris data
+===
+\begin{figure}[htbp]
+\begin{center}
+\includegraphics[width = 0.8\textwidth]{classification/lda.pdf}
+\caption{Clustering of Iris data using LDA.}
+\label{iris:lda}
+\end{center}
+\end{figure}
+
+LDA and QDA on Iris data
+===
+\begin{figure}[htbp]
+\begin{center}
+\includegraphics[width = 0.8\textwidth]{classification/qda.pdf}
+\caption{Clustering of Iris data using QDA.}
+\label{iris:qda}
+\end{center}
+\end{figure}
+
+Extensions of LDA and QDA
+===
+\begin{itemize}
+
+\item We consider some extensions of LDA and QDA, namely Regularized Discriminant Analysis (RDA), proposed by Friedman (1989). This was proposed as compromise between LDA and QDA. 
+\item This method says that we should shrink the covariance matrices of QDA toward a common covariance matrix as done in LDA. 
+\item Regularized covariance matrices take the form
+$$ \hat{\Sigma_k}(\alpha) = \alpha\hat{\Sigma_k} + (1- \alpha)\hat{\Sigma},\quad 0 \leq \alpha \leq 1.$$ 
+\item In practice, $\alpha$ is chosen based on performance of the model on validation data or by using cross-validation.
+\end{itemize}
+
+Extensions of LDA and QDA
+===
+\begin{itemize}
+\item Fisher proposed an alternative derivation to dimension reduction in LDA that is equivalent to the ideas previously discussed. 
+\item He suggested the proper way to rotate the coordinate axes was by maximizing the variance between classes relative to the variance within the classes.
+\end{itemize}
+
+Extensions
+===
+\begin{itemize}
+\item Let $Z = \ba'X$ and find the linear combo $Z$ such that the between class variance is maximized wrt within class variance.
+\item Denote the covariance of the centroids by $B$.
+\item Denote the pooled within class covariance  of the original data by $W$.
+\item BC $\text{Var}(Z) = \ba'B\ba$ and WC $\text{Var}(Z) = \ba'W\ba$.
+\item $B + W = T$ = total covariance matrix of $X$.
+\end{itemize}
+
+Extensions
+===
+Fisher's problem amounts to maximizing 
+
+$$ \max_{\ba} \frac{\ba'B\ba}{\ba'W\ba} \quad (exercise).$$ 
+The solution is $\bm{a}$ = largest eigenvalue of $W^{-1}B.$\newline
+
+Once we find the solution to maximization problem above, denoted by $\baa$, we repeat the process again of maximization except this time the new maximum, $\bab$, must be orthogonal to $\baa.$ This process continues and $\bak$ are called the discriminant coordinates. In terms of what we did earlier, the $\bak$'s are equivalent to the $\bxkpp$'s.
+Reduced-Rank LDA is desirable in high dimensions since it leads to a further dimension reduction in LDA. 
+
+  
+  
+  
+  
+    
+
+
+
+
+
+
+
+
+
+
+
