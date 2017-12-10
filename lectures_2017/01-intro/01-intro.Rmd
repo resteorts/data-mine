@@ -1,0 +1,226 @@
+
+---
+title: "Introduction to Data Mining and Statistical Machine Learning"
+author: "Rebecca C. Steorts, Duke University "
+date: STA 325, Chapter 1 ISL
+output: 
+     beamer_presentation:
+      includes: 
+          in_header: custom2.tex
+font-size: 8px
+---
+
+Agenda
+===
+- Notation (ISL)
+- A further intro into the course
+- A quick introduction to Chapter 1
+- Please read this on your own
+- There is no lab for Chapter 1.
+ 
+
+Following ISL
+===
+- Please read all of Chapter 1. 
+- I am following the notation of the book.
+- I will expect you to read and go through the chapters and labs on your own.
+- We will go through this chapter very quickly.
+
+
+Notation
+===
+- n: total number of observations.
+- p: total number of features. 
+
+- Let $x_{ij}$ be the value of the $j$th feature for the $i$th observation, where $i=1,\ldots,n$
+and $j=1,\ldots p.$
+
+Example: We have a $n=100$ swimmers
+and we collect $p=20$ features (variables) to help predict their rate of swimming. 
+
+Notation
+===
+- $\bm{X}$ denotes an $(n \times p)$ matrix whose $(i,j)$th element is $x_{ij}.$
+
+- That is,
+$$\bm{X}_{n \times p} = 
+\left( \begin{array}{cccc}
+x_{11} & x_{12} & \ldots&  x_{1p}\\
+x_{21} & x_{22} & \ldots& x_{2p} \\
+x_{i1} & x_{i2} & \ldots& x_{ip} \\
+\vdots & \vdots & \ddots & \vdots \\
+x_{n1} & x_{n2} &\ldots& x_{np}
+\end{array} \right).
+$$
+
+Notation
+===
+- At times, we will be interested in just the rows of $\bm{X}$, which 
+we write as $(x_1, \ldots, x_n).$
+
+- $x_i$ is a row vector of length $p$ containing the $p$ features for the $i$th observation. 
+
+- That is,
+\[  (x_{i})_{p \times 1}= \left( \begin{array}{c}
+x_{i1}\\
+x_{i2}\\
+\vdots\\
+x_{ip}
+\end{array} \right) \]
+
+Note: vectors by default are represented by columns. 
+
+Notation
+===
+- At other times, we will be intersted in the columns of $\bm{X},$ which we write $(\bm{x}_1, \ldots, \bm{x}_p).$ 
+- Each is a vector of length $n$, i.e., 
+\[  (\bm{x}_{j})_{n \times 1}= \left( \begin{array}{c}
+x_{1j}\\
+x_{2j}\\
+\vdots\\
+x_{nj}
+\end{array} \right) \]
+
+Notation
+===
+Using this notation, $\bm{X}$, can be rewritten as
+$$\bm{X} = (\bm{x}_1, \ldots \bm{x}_p)$$
+or 
+\[  \bm{X}_{n \times p}= \left( \begin{array}{c}
+x_{1}^T\\
+x_{2}^T\\
+\vdots\\
+x_{n}^T
+\end{array} \right), \]
+where the $^T$ notation notes the transpose of a matrix of vector. 
+(See page 11, ISL for a review).
+
+Notation
+===
+- We use $y_i$ to denote the $i$th observation of the variable on which we wish to make predictions (such as swimmers). 
+
+- Let  
+
+\[  \bm{y}_{n \times 1}= \left( \begin{array}{c}
+y_{1}\\
+y_{2}\\
+\vdots\\
+y_{n}
+\end{array} \right) \]
+
+- Our observed data consists of 
+$$\{(x_1, y_1), \ldots (x_n, y_n)\},$$
+
+where $x_i$ is a vector of length $p.$
+
+- If p=1, then $x_i$ is just a scalar. 
+
+Additional Notation
+===
+- We follow additional notation, which can be found on page 11--12 of ISL
+- Please make sure to read this on your own and follow this in your homeworks, exams, etc to avoid confusion.
+- Each chapter of ISL has excellent R labs that you will be expected to work on your own. (There are solutions).
+- If you want extra exercise to work through, please work the exercise for each chapter. I will not post solutions. 
+
+Setup
+===
+- $X_{n\times p}$: regression features or covariates (design matrix)
+- $x_{p \times 1}$: $i$th row vector of the regression covariates
+- $y_{n\times 1}$: response variable (vector)
+- $\beta_{p \times 1}$: vector of regression coefficients 
+
+Goal: Estimation of $p(y \mid x).$
+
+Dimensions: $y_i - \beta^T x_i = (1\times 1) - (1\times p)(p \times 1) = (1\times 1).$
+
+
+
+
+
+
+
+
+
+
+Health Insurance Example
+===
+- We want to predict whether or not a patient has health insurance based upon one covariate or predictor variable, income.
+
+- Typically, we have many predictor variables, such as income, age, education level, etc. 
+
+- We store the predictor variables in a matrix $X_{n\times p}.$
+
+Normal Regression Model
+===
+The Normal regression model specifies that
+
+- $E[Y\mid x]$ is linear and
+- the sampling variability around the mean is independent and identically (iid) from a normal distribution
+
+\begin{align}
+Y_i &= \beta^T x_i + e_i
+\end{align}
+$$e_1,\ldots,e_n \stackrel{iid}{\sim} Normal(0,\sigma^2)$$
+
+Normal Regression Model (continued)
+===
+This allows us to write down 
+\begin{align}
+&p(y_1,\ldots,y_n \mid x_1,\ldots x_n, \beta, \sigma^2) \\
+&= \prod_{i=1}^n p(y_i \mid x_i, \beta, \sigma^2) \\
+&(2\pi \sigma^2 )^{-n/2} \exp\{
+\frac{-1}{2\sigma^2} \sum_{i=1}^n (y_i - \beta^T x_i)^2
+\}
+\end{align}
+
+
+Multivariate Setup 
+===
+Let's assume that we have data points $(x_i,y_i)$ available for all  $i=1,\ldots,n.$
+
+- $y$ is the response variable
+\[  y= \left( \begin{array}{c}
+y_1\\
+y_2\\
+\vdots\\
+y_n
+\end{array} \right)_{n \times 1} \]
+- $x_{i}$ is the $i$th row of the design matrix $X_{n \times p}.$
+
+Consider the regression coefficients
+
+\[  \beta = \left( \begin{array}{c}
+\beta_{1}\\
+\beta_{2}\\
+\vdots\\
+\beta_{p}
+\end{array} \right)_{p \times 1} \]
+
+Multivariate Setup 
+===
+$$y \mid X,\beta, \sigma^2 \sim MVN( X\beta, \sigma^2 I)$$
+$$\beta \sim MVN(0, \tau^2 I) $$
+
+The likelihood in the multivariate setting simpifies to  
+
+\begin{align}
+&p(y_1,\ldots,y_n \mid x_1,\ldots x_n, \textcolor{red}{\beta}, \sigma^2) \\
+&(2\pi \sigma^2 )^{-n/2} \exp\{
+\frac{-1}{2\sigma^2} \sum_{i=1}^n (y_i - \beta^T x_i)^2
+\} \\
+&(2\pi \sigma^2 )^{-n/2} \exp\{\frac{-1}{2\sigma^2} 
+(y- X\beta)^T (y- X\beta)
+\}
+\end{align}
+
+Summary
+===
+
+- Chapter 1 provides you with a roadmap to the course.
+- We will follow the book for the most part.
+- If time permits, we will cover some topics that are not in the book. 
+- For more advanced machine learning concepts, I highly recommend Cynthia Rudin's course on machine learning in the spring. 
+
+
+
+
