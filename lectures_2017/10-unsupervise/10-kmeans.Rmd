@@ -1,0 +1,207 @@
+---
+title: "K-means Clustering"
+author: "Rebecca C. Steorts, Duke University "
+date: STA 325, Chapter 10 ISL
+output: 
+     beamer_presentation:
+      includes: 
+          in_header: custom2.tex
+font-size: 8px
+---
+
+Agenda
+===
+- Clustering
+- K-means clustering
+
+Clustering
+===
+What is clustering?
+
+Clustering
+===
+\begin{figure}[htbp]
+\begin{center}
+\includegraphics[width=0.8\textwidth]{pics/clustering}
+\caption{default}
+\label{default}
+\end{center}
+\end{figure}
+
+Clustering
+===
+\begin{figure}[htbp]
+\begin{center}
+\includegraphics[width=0.8\textwidth]{pics/clustering_2}
+\caption{default}
+\label{default}
+\end{center}
+\end{figure}
+
+
+Clustering
+===
+\begin{figure}[htbp]
+\begin{center}
+\includegraphics[width=0.8\textwidth]{pics/clustering_3}
+\caption{default}
+\label{default}
+\end{center}
+\end{figure}
+
+K-means clustering algorithm
+===
+\begin{itemize}
+\item \textcolor{blue}{K-means clustering: simple approach for partitioning a dataset into K distinct, non-overlapping clusters. }
+\begin{enumerate}
+\item To perform K-means clustering: specify the desired number of clusters K.
+\item Then the K-means algorithm will assign each observation to exactly one of the K clusters. 
+\end{enumerate}
+\item Figure 4:  results obtained from performing K-means clustering on a simulated example, using $K=2,3,4.$
+\end{itemize}
+
+K-means clustering algorithm
+===
+\begin{figure}[htbp]
+\begin{center}
+\includegraphics[width=\textwidth]{kmeans_sim.pdf}
+\caption{150 observations in two-dimensional space. Panels show the results of applying K-means clustering with different values of K. The cluster coloring is arbitrary. These cluster labels were not used in clustering; instead, they are the outputs of the clustering procedure.}
+\label{default}
+\end{center}
+\end{figure}
+
+K-means clustering algorithm
+===
+Given the number of clusters $k$ and data vectors $\vec{x}_1, \vec{x}_2, \ldots
+\vec{x}_n$,
+\begin{enumerate}
+\item Randomly assign vectors to clusters
+\item Until nothing changes
+  \begin{enumerate}
+  \item[a] Find the mean of each cluster, given the current assignments
+  \item[b] Assign each point to the cluster with the nearest mean
+  \end{enumerate}
+\end{enumerate}
+
+There are many small variants of this.  
+\begin{itemize}
+\item For instance, the R function
+\texttt{kmeans() }randomly chooses $k$ vectors as the initial cluster centers
+\item Instead of randomly assigning all the vectors to clusters
+at the start.
+\end{itemize}
+
+K-means clustering algorithm
+===
+\begin{itemize}
+\item
+ The mean of  $x_1, x_2, \ldots x_n$, is \[
+\overline{x} = \frac{1}{n}\sum_{i=1}^{n}{x_i}
+\]
+\item But it is also true that
+$
+\overline{x} = \arg \min_{m}{\sum_{i=1}^{n}{{(x_i - m)}^2}}
+\label{eqn:mean-minimizes-sum-of-squares}
+$
+ \item Property extends to vectors:
+\[
+\frac{1}{n}\sum_{i=1}^{n}{\vec{x}_i} = \arg \min_{\vec{m}}{\sum_{i=1}^{n}{\|\vec{x}_i - \vec{m}\|^2}}.
+\]
+\end{itemize}
+
+K-means clustering
+===
+Define 
+$C_1, C_2,
+\ldots C_k$ denoting sets containing the indices of the observation of each cluster. 
+That is, each $\vec{x}_i$ is in one and only one $C_j$. 
+
+This means that these sets satisfy two properties:
+  
+1. $$C_1 \cup C_2 \cup \cdots C_K = \{1,\ldots,n\}.$$
+This means that each observations belongs to at least one of the $K$ clusters. 
+  
+2. $$C_k \cap C_{k^{\prime}}$$
+This means the clusters are non-overlapping and so no observation belongs to more than one cluster. 
+
+K-means clustering
+===
+Recall  $C_1, C_2, \ldots C_k$ denotes sets containing the indices of the observation of each cluster. 
+  That is, each $\vec{x}_i$ is in one and only one $C_j$. 
+\begin{itemize}
+\item For each cluster we have a center, $\vec{m}_j$, and a sum of squares,
+  \[
+    Q_j \equiv \sum_{i: \vec{x}_i \in C_j}{\|\vec{x}_i - \vec{m}_j\|^2} = \sum_{i,i^{\prime} \in C_j} \sum_{k=1}^p (x_{ik} - x_{i^{\prime}k})^2
+    \]
+  \pause
+\item Define $V_j = Q_j/n_j$, $n_j$ is the number of points in
+  cluster $j$.  
+\begin{itemize}
+\item This is the {\bf within-cluster variance}.
+\end{itemize}
+\end{itemize}
+  
+K-means clustering
+===
+\begin{itemize}
+\item We have an over-all sum of squares for the whole clustering
+  \[
+    Q \equiv \sum_{j=1}^{k}{Q_j} = \sum_{j=1}^{k}{n_j V_j}
+    \]
+Write $a_i$ for the cluster to which vector $i$ is assigned. 
+\end{itemize}
+  
+K-means clustering
+===
+\begin{figure}[htbp]
+\begin{center}
+\includegraphics[width=0.8\textwidth]{pics/group_clusters}
+\end{center}
+\end{figure}
+  
+K-means clustering
+===
+\begin{itemize}
+\item Substitute in the definition of $Q_j$ into that of $Q \implies$
+    \[
+      Q = \sum_{i=1}^{n}{\|\vec{x}_i - \vec{m}_{a_i}\|^2}, i.e.
+      \]
+  the sum of squared distances from points to their cluster centers.
+\item $K$-means tries to reduce $Q$. 
+\begin{itemize}
+\item  Step 2a: adjust $\vec{m}_j$
+ to minimize $Q_j$, given the current cluster assignments.  
+\item Step 2b: adjust $a_i$ to minimize $Q$, given the current means. 
+\item  At every stage $Q$
+    either decreases or stays the same.
+\item $Q$ is the {\bf objective function} for $k$-means, what it ``wants'' to minimize.
+\end{itemize}
+\end{itemize}
+  
+K-means as a search algorithm
+===
+    \emph{$K$-means is a {\bf local search} algorithm: it makes small changes to the
+      solution that improve the objective.  This sort of search strategy can get
+      stuck in {\bf local minima}, where the no improvement is possible by making
+      small changes, but the objective function is still not optimized.}
+  
+K-means as a search algorithm
+===
+\begin{itemize}
+\item $K$-means: different starting positions correspond to different initial
+  guesses about the cluster centers.  
+\item Changing those initial guesses will change
+  the output of the algorithm.  
+\item Typically randomized, either as $k$
+    random data points, or by randomly assigning points to clusters and then
+  computing the means. 
+\item  Different runs of $k$-means  generally give
+  different clusters.
+\item Can make use of this: if some points end
+  up clustered together in many different runs, that's a good sign that they
+  really do belong together.
+\end{itemize}
+  
+
+  
+  

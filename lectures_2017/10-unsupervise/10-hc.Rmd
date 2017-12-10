@@ -1,0 +1,695 @@
+---
+title: "Hierarchical clustering"
+author: "Rebecca C. Steorts, Duke University "
+date: STA 325, Chapter 10 ISL
+output: 
+     beamer_presentation:
+      includes: 
+          in_header: custom2.tex
+font-size: 8px
+---
+
+Agenda
+===
+- K-means versus Hierarchical clustering
+- Agglomerative vs divisive clustering
+- Dendogram (tree)
+- Hierarchical clustering algorithm
+- Single, Complete, and Average linkage
+- Application to genomic (PCA versus Hierarchical clustering)
+
+From K-means to Hierarchical clustering 
+===
+Recall two properties of K-means clustering:
+\begin{enumerate}
+\item It fits exactly $K$ clusters (as specified)
+\item Final clustering assignment depends on the
+chosen initial cluster centers
+\end{enumerate}
+
+\begin{itemize}
+\item Assume pairwise dissimilarites $d_{ij}$ between data
+points.
+\item { Hierarchical clustering} produces a
+consistent result, without the need to choose initial
+starting positions (number of clusters).
+\end{itemize}
+
+Catch: choose a way to measure the 
+dissimilarity between groups, called the linkage
+
+\begin{itemize}
+\item Given the linkage, hierarchical clustering
+produces a sequence of clustering assignments. 
+\item At one end, all points are in their own cluster, at the other end, all points are in one cluster
+\end{itemize}
+
+Agglomerative vs divisive clustering
+===
+Agglomerative (i.e., bottom-up):
+\begin{itemize}
+\item Start with all points in their own group
+\item Until there is only one cluster, repeatedly:
+merge the two groups that have the smallest
+dissimilarity
+\end{itemize}
+
+Divisive (i.e., top-down):
+\begin{itemize}
+\item Start with all points in one cluster
+\item Until all points are in their own cluster, 
+repeatedly: split the group into two resulting
+in the biggest dissimilarity
+\end{itemize}
+
+Agglomerative strategies are simpler,
+we'll focus on them. Divisive methods are still 
+important, but you can read about these on your own 
+if you want to learn more. 
+
+Simple example
+===
+Given these data points,
+an agglomerative algorithm might decide
+on a clustering sequence as follows:
+
+\begin{tabular}{cc}
+\hspace{-25pt}
+\parbox{0.4\textwidth}{
+\includegraphics[width=0.4\textwidth]{agclustex.pdf}} &
+\hspace{3pt}
+\parbox{0.6\textwidth}{
+Step 1: $\{1\},\{2\},\{3\},\{4\},\{5\},\{6\},\{7\}$;\smallskip\\
+Step 2: $\{1\},\{2,3\},\{4\},\{5\},\{6\},\{7\}$;\smallskip\\
+Step 3: $\{1,7\},\{2,3\},\{4\},\{5\},\{6\}$;\smallskip\\
+Step 4: $\{1,7\},\{2,3\},\{4,5\},\{6\}$;\smallskip\\
+Step 5: $\{1,7\},\{2,3,6\},\{4,5\}$;\smallskip\\
+Step 6: $\{1,7\},\{2,3,4,5,6\}$;\smallskip\\
+Step 7: $\{1,2,3,4,5,6,7\}$.
+}
+\end{tabular}
+
+Algorithm
+===
+1. Place each data point into its own singleton group. 
+2. Repeat: iteratively merge the two closest groups
+3. Until: all the data are merged into a single cluster
+
+Example
+===
+\begin{figure}[htbp]
+\begin{center}
+\includegraphics[width=0.8\textwidth]{pics/data}
+\label{default}
+\end{center}
+\end{figure}
+
+Iteration 2
+===
+\begin{figure}[htbp]
+\begin{center}
+\includegraphics[width=0.8\textwidth]{pics/data2}
+\label{default}
+\end{center}
+\end{figure}
+
+Iteration 3
+===
+\begin{figure}[htbp]
+\begin{center}
+\includegraphics[width=0.8\textwidth]{pics/data3}
+\label{default}
+\end{center}
+\end{figure}
+
+Iteration 4
+===
+\begin{figure}[htbp]
+\begin{center}
+\includegraphics[width=0.8\textwidth]{pics/data4}
+\label{default}
+\end{center}
+\end{figure}
+
+Iteration 5
+===
+\begin{figure}[htbp]
+\begin{center}
+\includegraphics[width=0.8\textwidth]{pics/data5}
+\label{default}
+\end{center}
+\end{figure}
+
+Iteration 6
+===
+\begin{figure}[htbp]
+\begin{center}
+\includegraphics[width=0.8\textwidth]{pics/data6}
+\label{default}
+\end{center}
+\end{figure}
+
+Iteration 7
+===
+\begin{figure}[htbp]
+\begin{center}
+\includegraphics[width=0.8\textwidth]{pics/data7}
+\label{default}
+\end{center}
+\end{figure}
+
+Iteration 8
+===
+\begin{figure}[htbp]
+\begin{center}
+\includegraphics[width=0.8\textwidth]{pics/data8}
+\label{default}
+\end{center}
+\end{figure}
+
+Iteration 9
+===
+\begin{figure}[htbp]
+\begin{center}
+\includegraphics[width=0.8\textwidth]{pics/data9}
+\label{default}
+\end{center}
+\end{figure}
+
+Iteration 10
+===
+\begin{figure}[htbp]
+\begin{center}
+\includegraphics[width=0.8\textwidth]{pics/data10}
+\label{default}
+\end{center}
+\end{figure}
+
+Iteration 11
+===
+\begin{figure}[htbp]
+\begin{center}
+\includegraphics[width=0.8\textwidth]{pics/data11}
+\label{default}
+\end{center}
+\end{figure}
+
+Iteration 12
+===
+\begin{figure}[htbp]
+\begin{center}
+\includegraphics[width=0.8\textwidth]{pics/data12}
+\label{default}
+\end{center}
+\end{figure}
+
+Iteration 13
+===
+\begin{figure}[htbp]
+\begin{center}
+\includegraphics[width=0.8\textwidth]{pics/data13}
+\label{default}
+\end{center}
+\end{figure}
+
+Iteration 14
+===
+\begin{figure}[htbp]
+\begin{center}
+\includegraphics[width=0.8\textwidth]{pics/data14}
+\label{default}
+\end{center}
+\end{figure}
+
+Iteration 15
+===
+\begin{figure}[htbp]
+\begin{center}
+\includegraphics[width=0.8\textwidth]{pics/data15}
+\label{default}
+\end{center}
+\end{figure}
+
+Iteration 16
+===
+\begin{figure}[htbp]
+\begin{center}
+\includegraphics[width=0.8\textwidth]{pics/data16}
+\label{default}
+\end{center}
+\end{figure}
+
+Iteration 17
+===
+\begin{figure}[htbp]
+\begin{center}
+\includegraphics[width=0.8\textwidth]{pics/data17}
+\label{default}
+\end{center}
+\end{figure}
+
+Iteration 18
+===
+\begin{figure}[htbp]
+\begin{center}
+\includegraphics[width=0.8\textwidth]{pics/data18}
+\label{default}
+\end{center}
+\end{figure}
+
+Iteration 19
+===
+\begin{figure}[htbp]
+\begin{center}
+\includegraphics[width=0.8\textwidth]{pics/data19}
+\label{default}
+\end{center}
+\end{figure}
+
+Iteration 20
+===
+\begin{figure}[htbp]
+\begin{center}
+\includegraphics[width=0.8\textwidth]{pics/data20}
+\label{default}
+\end{center}
+\end{figure}
+
+Iteration 21
+===
+\begin{figure}[htbp]
+\begin{center}
+\includegraphics[width=0.8\textwidth]{pics/data21}
+\label{default}
+\end{center}
+\end{figure}
+
+Iteration 22
+===
+\begin{figure}[htbp]
+\begin{center}
+\includegraphics[width=0.8\textwidth]{pics/data22}
+\label{default}
+\end{center}
+\end{figure}
+
+Iteration 23
+===
+\begin{figure}[htbp]
+\begin{center}
+\includegraphics[width=0.8\textwidth]{pics/data23}
+\label{default}
+\end{center}
+\end{figure}
+
+
+Iteration 24
+===
+\begin{figure}[htbp]
+\begin{center}
+\includegraphics[width=0.8\textwidth]{pics/data24}
+\label{default}
+\end{center}
+\end{figure}
+
+Clustering
+===
+
+Suppose you are using the above algorithm to cluster the data points in groups. 
+
+- How do you know when to stop? 
+- How should we compare the data points? 
+
+Let's investigate this further! 
+
+
+Agglomerative clustering
+===
+
+- Each level of the resulting tree is a segmentation of the data
+-  The algorithm results in a sequence of groupings
+-  It is up to the user to choose a "natural" clustering from this sequence
+
+Dendogram
+===
+We can also represent the sequence
+of clustering assignments as a 
+dendrogram:
+
+\smallskip
+\begin{center}
+\includegraphics[width=0.9\textwidth]{agclustex2.pdf}
+\end{center}
+\vspace{-10pt}
+
+Note that cutting the dendrogram horizontally
+partitions the data points into clusters
+
+Dendogram
+===
+
+- Agglomerative clustering is monotonic
+- The similarity between merged clusters is monotone decreasing
+with the level of the merge.
+
+- Dendrogram: Plot each merge at the (negative) similarity between the two merged groups
+- Provides an interpretable visualization of the algorithm and data
+- Useful summarization tool, part of why hierarchical clustering is popular
+
+Group similarity
+===
+Given a distance similarity measure (say, Eucliclean) between points, the user has many choices on how to define intergroup similarity. 
+
+1. Single linkage: the similiarity of the closest pair
+$$ d_{SL}(G,H) = \min_{i\in G, j \in H} d_{i,j}$$
+
+2. Complete linkage: the similarity of the furthest pair
+$$d_{CL}(G,H) = \max_{i\in G, j \in H} d_{i,j}$$
+
+3. Group-average: the average similarity between groups
+$$d_{GA} = \frac{1}{N_G N_H}\sum_{i \in G}\sum_{j \in H}d_{i,j}$$
+
+Single Linkage
+===
+In single linkage 
+(i.e., nearest-neighbor linkage), the dissimilarity
+between $G,H$ is the smallest dissimilarity 
+between two points in opposite groups:
+$$d_{\text{single}}(G,H) = 
+\min_{i \in G, \, j \in H} d_{ij}$$
+
+\smallskip
+\begin{tabular}{cc}
+\parbox{0.45\textwidth}{
+Example (dissimilarities $d_{ij}$ are distances,
+groups are marked by colors): single linkage score 
+$d_{\text{single}}(G,H)$ is the 
+distance of the closest pair} &
+\parbox{0.5\textwidth}{
+\includegraphics[width=0.5\textwidth]{single.pdf}}
+\end{tabular}
+
+Single Linkage Example
+===
+Here $n=60$, $X_i \in \R^2$, $d_{ij}=\|X_i-X_j\|_2$.
+Cutting the tree at $h=0.9$ gives the 
+clustering assignments marked by colors
+
+\smallskip
+\begin{center}
+\includegraphics[width=0.9\textwidth]{exsing.pdf}
+\end{center}
+
+\vspace{-10pt}
+Cut interpretation:
+for each point $X_i$, there is another point $X_j$ 
+in its cluster with $d_{ij} \leq 0.9$
+
+Complete Linkage
+===
+In complete linkage (i.e., 
+furthest-neighbor linkage), dissimilarity
+between $G,H$ is the largest dissimilarity 
+between two points in opposite groups:
+$$d_{\text{complete}}(G,H) = 
+\max_{i \in G, \, j \in H} d_{ij}$$
+
+\smallskip
+\begin{tabular}{cc}
+\parbox{0.45\textwidth}{
+Example (dissimilarities $d_{ij}$ are distances,
+groups are marked by colors): complete linkage score 
+$d_{\text{complete}}(G,H)$ is the 
+distance of the furthest pair} &
+\parbox{0.5\textwidth}{
+\includegraphics[width=0.5\textwidth]{complete.pdf}}
+\end{tabular}
+
+Complete Linkage Example
+===
+Same data as before.
+Cutting the tree at $h=5$ gives the 
+clustering assignments marked by colors
+
+\smallskip
+\begin{center}
+\includegraphics[width=0.9\textwidth]{excomp.pdf}
+\end{center}
+
+\vspace{-10pt}
+Cut interpretation:
+for each point $X_i$, every other point $X_j$ in its
+cluster satisfies $d_{ij} \leq 5$
+
+
+Average Linkage
+===
+In average linkage, the dissimilarity
+between $G,H$ is the average dissimilarity 
+over all points in opposite groups:
+$$d_{\text{average}}(G,H) = 
+\frac{1}{n_G \cdot n_H}
+\sum_{i \in G, \, j \in H} d_{ij}$$
+
+\smallskip
+\begin{tabular}{cc}
+\parbox{0.45\textwidth}{
+
+Example (dissimilarities $d_{ij}$ are distances,
+groups are marked by colors): average linkage score 
+$d_{\text{average}}(G,H)$ is the  
+average distance across all pairs
+
+\bigskip
+(Plot here only shows distances between 
+the blue points and one red point)} &
+\parbox{0.5\textwidth}{
+\includegraphics[width=0.5\textwidth]{average.pdf}}
+\end{tabular}
+
+Average linkage example
+===
+Same data as before. Cutting the tree at $h=2.5$ gives 
+clustering assignments marked by the colors
+
+\smallskip
+\begin{center}
+\includegraphics[width=0.9\textwidth]{exavg.pdf}
+\end{center}
+
+\vspace{-10pt}
+Cut interpretation: 
+there really isn't a good one! 
+
+
+
+Properties of intergroup similarity
+===
+- Single linkage can produce "chaining," where a sequence of close observations in different groups cause early merges of those groups
+
+- Complete linkage has the opposite problem. It might not merge close groups because of outlier members that are far apart.
+
+- Group average represents a natural compromise, but depends on the scale of the similarities. Applying a monotone transformation to the similarities can change the results.
+
+Things to consider
+===
+- Hierarchical clustering should be treated with caution.
+- Different decisions about group similarities can lead to vastly
+different dendrograms.
+- The algorithm imposes a hierarchical structure on the data, even data for which such structure is not appropriate.
+
+Application on genomic data
+===
+
+- Unsupervised methods are often used in the analysis of genomic data. 
+
+- PCA and hierarchical clustering are very common tools. We will explore both on a genomic data set. 
+
+- We illustrate these methods on the NCI60 cancer cell line microarray data, which consists of 6,830 gene expression measurements on 64 cancer cell lines. 
+
+Application on genomic data
+===
+```{r}
+library(ISLR)
+nci.labs <- NCI60$labs 
+nci.data <- NCI60$data
+```
+
+- Each cell line is labeled with a cancer type. 
+- We do not make use of the cancer types in performing PCA and clustering, as these are unsupervised techniques. 
+- After performing PCA and clustering, we will check to see the extent to which these cancer types agree with the results of these unsupervised techniques.
+
+Exploring the data
+===
+\tiny
+```{r}
+dim(nci.data)
+# cancer types for the cell lines
+nci.labs[1:4]
+table(nci.labs)
+```
+
+PCA
+===
+```{r}
+pr.out <- prcomp(nci.data, scale=TRUE)
+```
+
+PCA
+===
+We now plot the first few principal component score vectors, in order to visualize the data.
+
+First, we create a simple function that assigns a distinct color to each element of a numeric vector. The function will be used to assign a color to each of the 64 cell lines, based on the cancer type to which it corresponds.
+
+Simple color function
+===
+```{r}
+#Input: positive integer, vector
+#Output: vector containing that 
+  #number of distinct colors
+Cols=function(vec){
+  cols<-rainbow(length(unique(vec)))
+  return(cols[as.numeric(as.factor(vec))]) 
+  }
+```
+
+PCA
+===
+```{r,echo=FALSE}
+par(mfrow=c(1,2))
+plot(pr.out$x[,1:2], col=Cols(nci.labs), pch=19,
+xlab="Z1",ylab="Z2")
+plot(pr.out$x[,c(1,3)], col=Cols(nci.labs), pch=19,
+xlab="Z1",ylab="Z3")
+```
+
+On the whole, cell lines corresponding to a single cancer type do tend to have similar values on the first few PC score vectors. This indicates that cell lines from the same cancer type tend to have pretty similar gene expression levels.
+
+Proportion of Variance Explained
+===
+\tiny
+```{r}
+summary(pr.out)
+```
+
+Proportion of Variance Explained
+===
+\tiny
+```{r}
+plot(pr.out)
+```
+
+PCA
+===
+\tiny
+```{r, echo=FALSE}
+pve=100*pr.out$sdev^2/sum(pr.out$sdev^2)
+par(mfrow=c(1,2))
+plot(pve, type="o", ylab="PVE", xlab="Principal Component",
+col =" blue ")
+plot(cumsum(pve), type="o", ylab="Cumulative PVE", xlab="
+Principal Component ", col =" brown3 ")
+```
+The proportion of variance explained (PVE) of the principal components of the NCI60 cancer cell line microarray data set. Left: the PVE of each principal component is shown. Right: the cumulative PVE of the principal components is shown. Together, all principal components explain 100 % of the variance.
+
+Conclusions from the Scree Plot
+===
+- We see that together, the first seven principal components explain around 40\% of the variance in the data. 
+
+- This is not a huge amount of the variance. 
+
+- Looking at the scree plot, we see that while each of the first seven principal components explain a substantial amount of variance, there is a marked decrease in the variance explained by further principal components. 
+
+- That is, there is an elbow in the plot after approximately the seventh principal component. This suggests that there may be little benefit to examining more than seven or so principal components (though even examining seven principal components may be difficult).
+
+Hierarchical Clustering to NCI60 Data
+===
+
+- We now proceed to hierarchically cluster the cell lines in the NCI60 data, with the goal of finding out whether or not the observations cluster into distinct types of cancer. 
+
+- To begin, we standardize the variables to have mean zero and standard deviation one. 
+
+- As mentioned earlier, this step is optional and should be performed only if we want each gene to be on the same scale.
+
+```{r}
+sd.data=scale(nci.data)
+```
+
+Hierarchical Clustering to NCI60 Data
+===
+```{r, echo=FALSE}
+data.dist=dist(sd.data)
+plot(hclust(data.dist), labels=nci.labs, main="Complete
+Linkage", xlab="", sub="",ylab="")
+```
+
+Hierarchical Clustering to NCI60 Data
+===
+```{r, echo=FALSE}
+plot(hclust(data.dist, method="average"), labels=nci.labs,
+main="Average Linkage", xlab="", sub="",ylab="")
+```
+
+Hierarchical Clustering to NCI60 Data
+===
+```{r, echo=FALSE}
+plot(hclust(data.dist, method="single"), labels=nci.labs,
+main="Single Linkage", xlab="", sub="",ylab="")
+```
+
+We see that the choice of linkage certainly does affect the results obtained.
+
+Hierarchical Clustering to NCI60 Data
+===
+
+- Typically, single linkage will tend to yield trailing clusters: very large clusters onto which individual observations attach one-by-one. 
+
+- On the other hand, complete and average linkage tend to yield more balanced, attractive clusters. 
+
+- For this reason, complete and average linkage are generally preferred to single linkage.
+
+Complete linkage
+===
+- We will use complete linkage hierarchical clustering for the analysis that follows.
+
+- We can cut the dendrogram at the height that will yield a particular number of clusters, say four. 
+
+\tiny
+```{r}
+hc.out=hclust(dist(sd.data)) 
+hc.clusters=cutree(hc.out,4) 
+table(hc.clusters,nci.labs)
+```
+
+Complete linkage
+===
+All the leukemia cell lines fall in cluster 3, while the breast cancer cell lines are spread out over three different clusters. We can plot the cut on the dendrogram that produces these four clusters.
+
+This is the height that results in four clusters. 
+(It is easy to verify that the resulting clusters are the same as the ones we obtained using cutree(hc.out,4))
+
+```{r,echo=FALSE}
+par(mfrow=c(1,1))
+plot(hc.out, labels=nci.labs) 
+abline(h=139, col="red")
+```
+
+K-means versus complete linkage?
+===
+How do these NCI60 hierarchical clustering results compare to what we get if we perform K-means clustering with $K = 4$?
+
+```{r}
+set.seed (2)
+km.out <- kmeans(sd.data, 4, nstart=20)
+km.clusters <- km.out$cluster
+table(km.clusters, hc.clusters )
+```
+
+K-means versus complete linkage?
+===
+- We see that the four clusters obtained using hierarchical clustering and K-means clustering are somewhat different. 
+
+- Cluster 2 in K-means clustering is identical to cluster 3 in hierarchical clustering. 
+
+- However, the other clusters differ: for instance, cluster 4 in K-means clustering contains a portion of the observations assigned to cluster 1 by hierarchical clustering, as well as all of the observations assigned to cluster 2 by hierarchical clustering.
+
