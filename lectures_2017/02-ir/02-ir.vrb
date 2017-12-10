@@ -1,0 +1,15 @@
+\frametitle{Text mining in R}
+
+Helpful methods implemented in the package
+{\tt tm}, available on the CRAN repository
+
+\bigskip
+E.g.,
+\begin{verbatim}
+dtm = DocumentTermMatrix(corp,
+  control=list(tolower=TRUE,
+  removePunctuation=TRUE,
+  removeNumbers=TRUE,
+  stemming=TRUE,
+  weighting=weightTfIdf))
+\end{verbatim}
