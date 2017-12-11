@@ -1,0 +1,199 @@
+\documentclass[11pt]{article}
+\usepackage[dvips]{color}
+\setlength{\itemsep}{0pt}
+\setlength{\parsep}{0pt}
+\setlength{\topmargin}{-0.75in}
+\setlength{\oddsidemargin}{.25in}
+\setlength{\evensidemargin}{.25in}
+\setlength{\textheight}{9in}
+\setlength{\textwidth}{6in}
+\usepackage{fullpage} %%set margins
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{setspace,hyperref}
+\usepackage{cite}
+\usepackage{bm}
+
+\usepackage{fancyhdr}
+
+%\usepackage{titlesec}
+
+%\titlespacing{\chapter}{-30pt}{-10pt}{10pt}
+
+%\pagestyle{empty}
+\date{}
+\setlength{\parindent}{0in}
+\begin{document}
+%\maketitle
+%\thispagestyle{empty}
+
+\begin{center}
+%%{\Large\bf Applied Multivariate Methods} \\
+{\Large\bf 36-464/36-664: Applied Multivariate Methods} \\
+
+{\Large\bf Spring 2014} \\
+\end{center}
+
+\emph{Instructor}: Rebecca Steorts, 132K Baker Hall, beka@cmu.edu\\
+\emph{Course TA}: Rafael Stern, 8115 Wean Hall, rafaelst@stat.cmu.edu\\
+\emph{Course TA}: Nicolas Kim, Porter 117, nicolask@andrew.cmu.edu\\
+%\emph{Course TA}: Xiaolin Yang\\
+\emph{Course Time}: T/Th: 1:30--2:50\\
+%\hspace*{2.5cm}R 10:40 a.m.  - 12:35 p.m.\\
+\emph{Course Location}: PH 125C		\\
+
+\emph{Steorts Office Hours}: Tues: 3--4 pm, Wed: 11:30-12:30 \\
+\emph{Rafael Stern Office Hours}:  Monday: 12--1 pm;  Thursday: 10--11 am\\
+\emph{Nicolas Kim Office Hours}: Tuesday: 11 am--12 pm; Wed: 3-4 pm \\
+%\emph{Xiaolin Office Hours}: TBA. \\
+\emph{Course webpage:} \url{http://www.stat.cmu.edu/\~rsteorts/} \\
+
+Applied multivariate methods are an increasingly important tool
+in applied machine learning and statistics. We will start with reviewing important 
+facts from matrix algebra and learning about the multivariate normal distribution. Then
+we will delve into unsupervised and supervised learning approached for multivariate data, 
+where the data may or may not be normally distributed. The data is often highly dimensional
+in the covariates or parameter space, calling for dimension reduction. We will explore a range of approaches
+starting with factor analysis, principal component analysis, and then moving along to data mining techniques
+such as classification and clustering methods. Finally, we will explore Bayesian methods for multivariate data
+and the strengths and weaknesses of both approaches. \\
+
+%All students will be expected to have taken 36-401 or are currently enrolled in it. 
+\emph{Prerequisites:} Statistics 401. Students are expected to be very familiar with R and will be expected to have learned LaTex by the end of the course. All reports, scribe notes, exams, etc. should be submitted in Latex pdf format.  \\
+
+
+%\emph{Units:} 6.\\
+
+\emph{Required Texts:} \\
+
+\emph{An Introduction to Statistical Learning with Applications in \texttt{R} }, Gareth James, Daniela Whitten Trevor Hastie, and Robert Tibshirani, (2013), Springer.\\
+
+
+
+\emph{Highly Recommend Texts:} \\
+
+\emph{Analysis of Multivariate and High-Dimensional Data}, Inge Koch (2013), Cambridge.
+
+
+\emph{The Bayesian Essentials with R} Second Edition, Jean-Michel Marin and Christan Robert, (2013), Springer.\\
+
+Note: The Springer texts are free online via Springer Link via the CMU connection. The James, Whitten, et. al (2013) book will be available via the authors webpage in January 2013. The multivariate book is not free online. I highly recommend buying this. 
+
+
+\newpage
+
+
+\emph{Grading Policy:} 
+\begin{table}[htdp]
+%\begin{center}
+\begin{tabular}{ll}
+%Attendance/Participation & \phantom{1}5\%\\
+%%3 take-home exams (data analysis projects)
+%%homework every week when there isn't an exam
+
+
+
+Homework &60\%\\
+Exams  &20\%\\
+Final Exam &20\%\\
+%Final Project &10\%\\
+\end{tabular}
+%\end{center}
+\label{default}
+\end{table}%
+
+%Grading Scale:\\
+%93-100: A\\
+%90-92: A-\\
+%87-89: B+\\
+%83-86: B\\
+%80-82: B-\\
+%77-79: C+\\
+%73-76: C\\
+%70-72: C-\\
+%etc.\\
+%%67-69: D+\\
+%%63-66: D\\
+%%60-62: D-\\
+%%0-59: E\\
+
+\emph{Topics covered (which are subject to change)}
+\begin{itemize}
+\item Review of matrix algebra
+\item Multivariate data and distributions 
+\item Factor analysis 
+%(saw in 402)
+\item Principal Components Analysis 
+%(saw in 402)
+%\item Density Estimation (?) -- saw in 402. mention this important but skipping because in 402. 
+\item Classification methods 
+%-- talk about what these are. 
+\begin{itemize}
+\item LDA and QDA 
+%%-- obsolete classification methods - great in 30's and 50's. no practical reason to use these. maybe just do a few slides and post the notes. 
+\item How SVM replaced LDA and QDA
+\item Clustering and classification (regression trees and classification trees)
+%- regression trees and classification trees (think about flipping these topics)
+%\item Probabilistic clustering
+\item Bagging and Random Forests 
+\item Boosting
+\end{itemize}
+\item Introduction to Bayesian methods
+\item Gibbs sampling
+\item Bootstrapping and the Bayesian bootstrap
+\begin{itemize}
+\item Stein estimation
+\item Bayesian GLMs
+\item Mixture models
+\item Image segmentation
+\end{itemize}
+\end{itemize}
+\vspace{0.4cm}
+
+\emph{Course Policies:} 
+Homework assignments will be announced in class (along with the due date). It must be turned in at the beginning of the lecture on the due date. Late homework will not be accepted.\\
+
+All homework's and take home exams \emph{must} be submitted through the blackboard website and must be neatly typed LaTex and well-explained or points will be deducted. It must be uploaded in .pdf format. All other formats will not be graded. Submissions via email to the TA's or instructor will not be accepted for credit. See below for more information about LaTex. \\
+
+Scribing is a form of taking notes. Most of you will scribe once during the semester and this will count as a homework grade. Each class will have two scribes. Please prepare one set of notes for scribing that will be uploaded to the course webpage for the course to view. 
+Please use LaTex to prepare scribe notes, and please use the template file on the course webpage.\footnote{If you are not familiar
+with Latex (please see http://www.latex-project.org/ for more information and downloading for your OS).  This is a great way to write up reports
+and display mathematical equations and graphical plots.} Two of you will be randomly chosen to scribe on the day of lecture and you will have one week to prepare the notes with your classmate. The combined scribed notes should be emailed to the instructor and TAs by 10 am one week after the course. You are not allowed to switch with other students on the day you are scheduled to scribe. All students that scribe and do an adequate job will have their lowest homework grade dropped. The best scribe will receive an extra award at the end of the semester.  \\
+
+Makeup exams must be approved before the time of the exam and will be given only in case
+of medical or family emergencies (which must be appropriately documented). All work turned in for a grade
+must be entirely your own. This particularly relates to homework. You are encouraged to talk to each other regarding homework problems or to the instructor/TA, however the write up and solution \emph{must} be entirely your own solution and work. 
+%
+Furthermore, you are responsible for everything from lecture. Do not depend on the course web page for announcements regarding due dates for homework, changes in schedules, etc. Such announcements will be made in class. Homework assignments will be uploaded to the course webpage along with course readings (please check here frequently for updates).\\
+
+Please use the Google group for questions and discussions online (the instructor and TAs will answer in a timely fashion). Do not post inappropriate comments online or you will be blocked from the group. Also, please be considerate regarding the amount of emails you send to the instructor and TAs since this is a large class. \\
+
+
+
+%All quizzes and exams are closed-book, closed-notes. 
+%You should bring a calculator to the quizzes and exams.
+
+
+Cell phones should be turned off (or set on silent). Laptops are allowed when we are doing applied examples or labs in class, but otherwise should not be out or being used. \\
+
+
+\emph{Academic Honesty:} Carnegie Mellon University requires all members of 
+its community to be honest in all endeavors. Cheating, plagiarism, and other 
+acts diminish the process of learning. When students enroll at CMU they commit themselves to honesty and integrity. Your instructor fully expects you to 
+adhere to the academic honesty guidelines you signed when you were admitted to CMU. 
+%As a result of completing the registration form at Carnegie Mellon University, every student makes the the following pledge: \emph{We, the members of the University of Florida community, pledge to hold ourselves and our peers to the highest standards of honesty and integrity. 
+%On all work submitted for credit by students at the University of Florida, the following pledge is either required or implied:
+%On my honor, I have neither given nor received unauthorized aid in doing this assignment.} This policy will be vigorously 
+%upheld at all times in this course. 
+For more information on the CMU Honor Code, please go to http://www.cmu.edu/academic-integrity/defining/index.html. \\
+
+
+\emph{Students with Disabilities:} Students who require special accommodations in class or during exams should follow the procedures outlined by the Disability Resources Program \\ http://www.cmu.edu/hr/eos/disability/index.html.  Please see the instructor during office hours early in the semester to discuss your accommodation letter confidentially.\\
+
+\emph{Privacy Policies:} 
+Student records are confidential. For more information please go to \\http://www.cmu.edu/policies/.\\
+
+%Only information designated as CMU directory information 
+%may be released without your written consent. This includes requests from parents or anyone 
+%else who contacts me about your performance in the class. 
+\end{document}
