@@ -6,8 +6,8 @@ output: pdf_document
 
 Today's agenda: A review of \texttt{R}, getting used to R markdown, vectors, matrices, scatterplots, and functions. 
 
-Programming partner's:
-You should have a programming partner for each lab, and you should switch off who is programming, and use each other for help. We will spend about 30--50 minutes per week on lab exercises and you will be expected to bring you laptops to class to work on these exercises in class. Myself and the TA's will be in class to help you. 
+Programming partners:
+You should have a programming partner for each lab, and you should switch off who is programming, and use each other for help. We will spend about 30--50 minutes per week on lab exercises and you will be expected to bring your laptops to class to work on these exercises in class. Myself and the TA will be in class to help you. 
 
 ***Lab Tasks***
 
@@ -44,7 +44,7 @@ hist(Var1)
 hist(Var2)
 ```
 
-5. Write a function that takes as its inputs, $p = 2$, $n$-dimensional vectors and a vector of length $p$ containing the names of these vectors. Your function combine these two vectors into a \textsf{data.frame()}, get the row-wise maximum and store this in a new vector. Finally produce a box-plot of this vector, store it as a separate .pdf, and return the mean value of this vector.
+5. Write a function that takes as its inputs, $p = 2$, $n$-dimensional vectors and a vector of length $p$ containing the names of these vectors. Your function will combine these two vectors into a \textsf{data.frame()}, get the row-wise maximum and store this in a new vector. Finally produce a boxplot of this vector, store it as a separate .pdf, and return the mean value of this vector.
 
 ```{r, echo = TRUE}
 aggregationFunction <- function(v1, v2, myNames){
