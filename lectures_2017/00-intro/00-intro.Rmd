@@ -30,21 +30,21 @@ differ in their history, conventions, emphasis and culture."
 Machine Learning versus Statistics
 ===
 
-- Machine learning and statistics has much to learn from each other. 
+- Machine learning and statistics have much to learn from each other. 
 
-- In this course, we will focus on machine learning, as in other courses, you will learn the fundamentals of statistics. 
+- In this course, we will focus on machine learning, whereas in other courses, you will learn the fundamentals of statistics. 
 
 - To be successful, you need both insights and perspectives. (As a follow up class, take Cynthia Rudin's machine learning course). 
 
 Motivations
 ===
-Let's talk about a very small number of motivatinal problems in machine learning. 
+Let's talk about a very small number of motivational problems in machine learning. 
 
 Think on your own about how you might try and tackle them if you had the data right now. 
 
 Apple music database
 ===
-Suppose you have an Apple database with 2 million songs on it. How would you unique identify the number of unique songs? 
+Suppose you have an Apple database with 2 million songs on it. How would you identify the number of unique songs? 
 
 \begin{figure}[htbp]
 \begin{center}
@@ -64,7 +64,7 @@ Suppose you have an Apple database with 2 million songs on it. How would you ide
 \end{center}
 \end{figure}
 
-- How might you solve it without knowing any machine learning. 
+- How might you solve it without knowing any machine learning?
 
 - ML buzzwords: record linkage, entity resolution, de-deduplication (types of clustering)
 
@@ -75,7 +75,7 @@ Goal: identify patient risk for certain illness (kidney failure).
 - Suppose there are 2 million patients.
 - Suppose for now we ignore any time component. 
 
-1. Suppose you have access to Duke health records (patients) that on vitals and labs. 
+1. Suppose you have access to Duke health records (patients) for vitals and labs. 
 2. Suppose you also have access to patient notes. 
 
 How would you identify at risk patients in real time? 
@@ -92,7 +92,7 @@ Out of all the webpages that exist, how could you try and identify in near-real 
 
 Classifying Objects
 ===
-Given different kinds of animals, how might we classify each animal into it's right class (cat, dog, mouse, etc)? 
+Given different kinds of animals, how might we classify each animal into its right class (cat, dog, mouse, etc)? 
 
 ```{r, echo=FALSE}
 cats <- c(10,20,15,14,15,15,12,15,15,22,18,22,23,16,14)
@@ -133,8 +133,8 @@ The Homeworks
 ===
 1. All code must be written to be reproducible in Markdown. 
 2. All derivations can be done in any format of your choosing (word, latex, markdown) but must be converted to a pdf document. It must be legible. 
-3. All files must be zipped together and submitted to Sakai as one file. Otherwise, you cannot submit. (Try this early to avoid not submitting anyting). 
-4. Ask questions early if you have a problem to a TA. 
+3. All files must be zipped together and submitted to Sakai as one file. Otherwise, you cannot submit. (Try this early to avoid not submitting anything). 
+4. Ask your TA questions early if you have a problem. 
 5. Your lowest homework will be dropped. 
 
 The Exams
@@ -163,7 +163,7 @@ Typos
 write it down neatly with the slide number
 and give it to me after class. 
 
-- I do my best to fix typos within 48 hours after lecture with highlights in red so you can spot them. 
+- I do my best to fix typos within 48 hours after the lecture with highlights in red so you can spot them. 
 
 - Thanks for helping me spot typos in advance!  
 
@@ -191,7 +191,7 @@ Reproducible Code
 
 - If I simply write my code in a way such that you can reproduce my entire lecture, then you can verify all the results that I show you. 
 
-- Similarly, if you write your code in this way for your homeworks, then I and the TAs can also verify the results very quickly.
+- Similarly, if you write your code in this way for your homeworks, then the TA and the I can also verify the results very quickly.
 
 R versus RStudio
 ===
@@ -216,7 +216,7 @@ Why I like Markdown
 
 1. It's very easy to learn. 
 2. The focus is on content rather than coding and debugging of errors.
-3. One you have the basics, you can get fancy! 
+3. Once you have the basics, you can get fancy! 
 
 (In fact, my slides right now are in markdown, so you can even make slides)! 
 
@@ -225,7 +225,7 @@ R Markdown
 This just means that you include R code in your **markdown** document. 
 
 ```{r}
-x<- 2 + 2
+x <- 2 + 2
 x
 
 ```
@@ -282,7 +282,7 @@ Takeaways
 3. Make sure that you can access Sakai, the first homework assignment, and start your assigned readings for the course. 
 4. If you feel unprepared for the class, please speak with me now, rather than later. 
 5. Install RStudio and markdown. Use the lab with this lecture to make sure that you can do basic exercises
-in R and that they are reproducible. (If you have trouble with the lab or first few homework assignments and exam, then please see me quickly to resolve issues.)
+in R and that they are reproducible. If you have trouble with the lab or first few homework assignments and exam, then please see me quickly to resolve issues.
 
 
 
