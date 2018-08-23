@@ -16,7 +16,7 @@ Agenda
 - A further intro into the course
 - A quick introduction to Chapter 1
 - Please read this on your own
-- There is no lab for Chapter 1.
+- There is no lab for Chapter 1
  
 
 Following ISL
@@ -72,7 +72,7 @@ Note: vectors by default are represented by columns.
 
 Notation
 ===
-- At other times, we will be intersted in the columns of $\bm{X},$ which we write $(\bm{x}_1, \ldots, \bm{x}_p).$ 
+- At other times, we will be interested in the columns of $\bm{X},$ which we write $(\bm{x}_1, \ldots, \bm{x}_p).$ 
 - Each is a vector of length $n$, i.e., 
 \[  (\bm{x}_{j})_{n \times 1}= \left( \begin{array}{c}
 x_{1j}\\
@@ -117,10 +117,10 @@ where $x_i$ is a vector of length $p.$
 
 Additional Notation
 ===
-- We follow additional notation, which can be found on page 11--12 of ISL
+- We follow additional notation, which can be found on page 11--12 of ISL.
 - Please make sure to read this on your own and follow this in your homeworks, exams, etc to avoid confusion.
-- Each chapter of ISL has excellent R labs that you will be expected to work on your own. (There are solutions).
-- If you want extra exercise to work through, please work the exercise for each chapter. I will not post solutions. 
+- Each chapter of ISL has excellent R labs that you will be expected to work through on your own. (There are solutions).
+- If you want extra exercises to work through, please work through the exercises for each chapter. I will not post solutions. 
 
 Setup
 ===
@@ -155,7 +155,7 @@ Normal Regression Model
 The Normal regression model specifies that
 
 - $E[Y\mid x]$ is linear and
-- the sampling variability around the mean is independent and identically (iid) from a normal distribution
+- the sampling variability around the mean is independent and identically distributed (iid) from a normal distribution
 
 \begin{align}
 Y_i &= \beta^T x_i + e_i
