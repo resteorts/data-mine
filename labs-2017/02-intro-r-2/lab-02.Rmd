@@ -1,13 +1,13 @@
 ---
 title: 'Review of \texttt{R}, Part II'
-author: "STA 325: Lab 1, Fall 2017"
+author: "STA 325: Lab 2, Fall 2018"
 output: pdf_document
 ---
 
-Today's agenda: A continued review of \texttt{R}, getting used to R markdown, sequences, the normal density function, and more practice with functions, and loops.
+Today's agenda: A continued review of \texttt{R}, getting used to R markdown, sequences, the normal density function, and more practice with functions and loops.
 
-Programming partner's:
-You should have a programming partner for each lab, and you should switch off who is programming, and use each other for help. We will spend about 30--50 minutes per week on lab exercises and you will be expected to bring you laptops to class to work on these exercises in class. Myself and the TA's will be in class to help you.
+Programming partners:
+You should have a programming partner for each lab, and you should switch off who is programming, and use each other for help. We will spend about 30--50 minutes per week on lab exercises and you will be expected to bring your laptops to class to work on these exercises in class. Myself and the TA will be in class to help you.
 
 ***Lab Tasks***
 
