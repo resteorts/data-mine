@@ -16,4 +16,4 @@ You should have a programming partner for each lab, and you should switch off wh
 2. List all the items currently in the environment.
 3. Store \textsf{Var1} in a $10 \times 10$ matrix. Call this \textsf{myMatrix}.
 4. Create a scatterplot of \textsf{Var1} vs. \textsf{Var2}. On the same plotting window include histograms of \textsf{Var1} and \textsf{Var2}.
-5. Write a function that takes as its inputs, $p = 2$ $n$-dimensional vectors and a vector of length $p$ containing the names of these vectors. Your function will combine these two vectors into a \textsf{data.frame()} toget the row-wise maximum and store this in a new vector. Finally produce a boxplot of this vector, store it as a separate .pdf, and return the mean value of this vector.
+5. Write a function that takes as its inputs, $p = 2$ $n$-dimensional vectors and a vector of length $p$ containing the names of these vectors. Your function will combine these two vectors into a \textsf{data.frame()} to get the row-wise maximum and store this in a new vector. Finally produce a boxplot of this vector, store it as a separate .pdf, and return the mean value of this vector.
