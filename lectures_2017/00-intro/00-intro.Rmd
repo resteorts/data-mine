@@ -142,20 +142,50 @@ The Exams
 1. All exams will be in class, closed book. 
 2. They will be cumulative as they go, but they will focus on the most recent material we have covered. 
 3. Make up exams will not be given. 
-4. You must take the final exam to pass the class! 
+4. You must take the second exam of the class to pass the class (this will be cumulative)! 
+5. You must also attend Datathon to pass the class. 
+
+Datathon
+===
+
+- Duke's first-ever datathon. 
+- Attack a dataset and come up with an analysis and visualization while racing against the clock. 
+- Top teams will win prizes, and all students will have the opportunity to interact with industry and academic sponsors.
+- There will be additional bootcamps available to prepare for this event as part of the MLBytes seminar series. 
+
+Datathon
+===
+
+- Saturday, October 27 
+- \url{http://dukeml.org/datathon/}
+- Students will work in pairs of three
+
+Expectations:
+
+1. Attend and complete Datathon
+2. You'll need to prepare a 6 minute presentation for the class and a three page report (with your code) in the appendix. This should all be submitted to Sakai similar to a homework
+3. Recommend having a plan of how you'll spend your 12 hours of Datathon
+
+Suggestions for Datathon:
+
+1. Slack may be a good way to communicate with your group 
+2. Github is a good place to store your code
+
+- Test these out before the day of so that you don't have issues. 
 
 Course Material
 ===
 1. Introduction (Today)
 2. Statistical Learning
-3. Linear Regression
-4. Classification
-5. Re-sampling Methods
-6. Linear Model Selection and Regularization
-7. Moving Beyond Linearity
-8. Tree Based Methods
-9. Support Vector Machines
-10. Unsupervised Learning
+3. Information Retrieval
+4. Linear Regression
+5. Classification
+6. Re-sampling Methods
+7. Linear Model Selection and Regularization
+8. Moving Beyond Linearity
+9. Tree Based Methods
+10. Support Vector Machines
+11. Unsupervised Learning
 
 Typos
 ===
@@ -232,6 +262,7 @@ x
 
 Installing RStudio and Markdown
 ===
+
 - How do I install \textcolor{blue}{\href{https://courses.edx.org/courses/UTAustinX/UT.7.01x/3T2014/56c5437b88fa43cf828bff5371c6a924/}{Rstudio}}?
 
 - How do I include markdown? 
