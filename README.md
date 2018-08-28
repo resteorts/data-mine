@@ -15,4 +15,4 @@ reading that goes with this material. Homeworks will be assigned in class.
 9. Classification and Regression Trees (CART). (Chapter 8 of ISLR).
 10. Bagging, Boosting, and Random Forests (Chapter 8 of ISLR). 
 
-Class structure: Class content will follow the lecture notes/slides. The Monday lab component is an optional review period each week taught by the class TA. Any missed classes will also be held during this time. Classes will be held on Tuesday/Thursdays. Please see the syllabus for full details regarding the class schedule and policies. 
+Class structure: Class content will follow the lecture notes/slides. The Monday lab component is an optional review period each week taught by the class TA. Any missed classes will also be held during this time. Classes will be held on Tuesday/Thursdays. Please see the syllabus for full details regarding the class schedule, policies, exams, office hours, and other required components of the course. 
