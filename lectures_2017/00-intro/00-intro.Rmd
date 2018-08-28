@@ -36,6 +36,10 @@ Machine Learning versus Statistics
 
 - To be successful, you need both insights and perspectives. (As a follow up class, take Cynthia Rudin's machine learning course). 
 
+
+
+
+
 Motivations
 ===
 Let's talk about a very small number of motivational problems in machine learning. 
@@ -314,19 +318,32 @@ Takeaways
 4. If you feel unprepared for the class, please speak with me now, rather than later. 
 5. Install RStudio and markdown. Use the lab with this lecture to make sure that you can do basic exercises
 in R and that they are reproducible. If you have trouble with the lab or first few homework assignments and exam, then please see me quickly to resolve issues.
+6. Make sure you can access the lectures on Github. 
 
-Other ways you can be involved in Machine Learning at Duke!
+Machine Learning at Duke
 ===
 
 There is now a space for undergraduates to do ML at Duke! 
 
-1. Board of students + faculty advisors
+1. Board of students + faculty advisor
 2. We're taking applications for new student board members
 
 Events: Datathon, fundraising for events, dinners, bootcamps, 
 seminar series (MLBytes), ML day in the spring.
 
 http://dukeml.org/
+
+Data+
+===
+
+Data+ is a 10-week summer research experience that welcomes Duke undergraduates interested in exploring new data-driven approaches to interdisciplinary challenges. Many students work on machine learning related research problems. 
+
+Data+ 
+===
+
+"The most surprising thing I gained from Data+ was patience. Starting the project, I imagined an explosion of results around every corner. Beautiful graphs with clear trends and machine learning models with near-perfect performance. But then I realized it isn't like picking plump fruit off a tree. It's more like hoeing potatoes from the ground. You need the persistence to keep digging and the humility to get dirty. Only then you start getting those golden nuggets."
+
+- 2018 Data+ Student 
 
 
 
