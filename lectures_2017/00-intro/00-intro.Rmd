@@ -117,7 +117,7 @@ The Machine Learning (ML) culture
 Machine Learning in Practice
 ===
 \url{https://www.youtube.com/watch?v=Nj2YSLPn6OY}
-\url{https://events.technologyreview.com/video/watch/innovators-under-35-rebecca-steorts/}
+
 
 The Book
 ===
@@ -167,13 +167,21 @@ Datathon
 Expectations:
 
 1. Attend and complete Datathon
-2. You'll need to prepare a 6 minute presentation for the class and a three page report (with your code) in the appendix. This should all be submitted to Sakai similar to a homework
+2. You'll need to prepare a 3 minute presentation for the class and a three page report (with your code) in the appendix. This should all be submitted to Sakai similar to a homework
 3. Recommend having a plan of how you'll spend your 12 hours of Datathon
+
+- What should your talk/presentation look like? 
+
+\url{https://events.technologyreview.com/video/watch/innovators-under-35-rebecca-steorts/}
+
+Datathon
+===
 
 Suggestions for Datathon:
 
 1. Slack may be a good way to communicate with your group 
 2. Github is a good place to store your code
+3. Using a Google document to share your ideas. 
 
 - Test these out before the day of so that you don't have issues. 
 
