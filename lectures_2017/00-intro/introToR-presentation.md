@@ -464,6 +464,16 @@ In R, a matrix is a specialization of a 2D array
 
 ```r
 factory <- matrix(c(40,1,60,3),nrow=2)
+(factory)
+```
+
+```
+     [,1] [,2]
+[1,]   40   60
+[2,]    1    3
+```
+
+```r
 is.array(factory)
 ```
 
@@ -478,9 +488,7 @@ is.matrix(factory)
 ```
 [1] TRUE
 ```
-could also specify `ncol`, and/or `byrow=TRUE` to fill by rows.
-
-Element-wise operations proceed as usual (e.g., `factory/5`)
+could also specify `ncol`, and/or `byrow=TRUE` to fill by rows. Element-wise operations proceed as usual (e.g., `factory/5`)
 
 Matrix multiplication
 ===
@@ -922,26 +930,6 @@ my.distribution$family
 [1] "exponential"
 ```
 
-Names in lists (cont'd.)
-===
-Creating a list with names:
-
-```r
-another.distribution <- list(family="gaussian",mean=7,sd=1,is.symmetric=TRUE)
-```
-
-Adding named elements:
-
-```r
-my.distribution$was.estimated <- FALSE
-my.distribution[["last.updated"]] <- "2011-08-30"
-```
-
-Removing a named list element, by assigning it the value `NULL`:
-
-```r
-my.distribution$was.estimated <- NULL
-```
 
 Key-Value pairs
 ===
