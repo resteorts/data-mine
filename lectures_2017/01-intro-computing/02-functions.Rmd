@@ -17,11 +17,11 @@ Agenda
 Why Functions?
 ===
 
-Data structures tie related values into one object
+- Data structures tie related values into one object
 
-Functions tie related commands into one object
+- Functions tie related commands into one object
 
-Both data structurs and functions are easier to work with. 
+- Both data structures and functions are easier to work with
 
 Defining a function
 ===
@@ -36,10 +36,10 @@ function.name <- function(arguments){
 What should be a function?
 ===
 
-- Things you're going to re-run, especially if it will be re-run with changes
+- Things you're going to re-run, especially if they will be re-run with changes
 - Chunks of code you keep highlighting and hitting return on
-- Chunks of code  which are small parts of bigger analyses
-- Chunks which are very similar to other chunks
+- Chunks of code that are small parts of bigger analyses
+- Chunks that are very similar to other chunks
 
 Trivial Example
 ===
@@ -107,18 +107,18 @@ curve(6611*x^(1/8),add=TRUE,col="blue")
 Example: Fitting a Model
 ===
 
-Want to fit the model
+We want to fit the model
 $$
 Y = y_0 N^{a} + \mathrm{noise}
 $$
 
 Take $y_0=6611$  for today
 
-Suppose we want to fit the above model, calculated it's mean squared error,
-and then we will stop fitting the model when the derivative the MSE "stop changing"
+Suppose we want to fit the above model, calculate its mean squared error,
+and then we stop fitting the model when the derivative of the MSE "stops changing"
 by some small amount. Our goal will be to write this into a function. 
 
-Mean squared error (MSE) and it's derivative 
+Mean squared error (MSE) and its derivative 
 ===
 
 Approximate the derivative of error w.r.t $a$ using the following: 
@@ -241,7 +241,7 @@ estimate.scaling.exponent.3 <- function(a, y0=6611,
 estimate.scaling.exponent.3(a=0.15)
 ```
 
-We're locked in to using specific columns of `gmp`; shouldn't have to re-write just to compare two data sets. Let's add more arguments for the response and preditor variable 
+We're locked in to using specific columns of `gmp`; shouldn't have to re-write just to compare two data sets. Let's add more arguments for the response and preditor variables. 
 
 More arguments (with defaults)
 ===
@@ -267,7 +267,7 @@ estimate.scaling.exponent.4(a=0.15)
 ```
 
 We could turn the `while()` loop into
-a `for()` loop, and nothing outside the function would care
+a `for()` loop, and nothing outside the function would change.
 
 Replacing `while()` loop with `for()` loop
 ===
@@ -307,7 +307,7 @@ Summary
 ===
 
 -  **Functions** bundle related commands together into objects.
-- Using functions make code easier to re-run, easier to re-use, easier to combine, easier to modify, less risk of error, easier to conceptualize 
+- Using functions make code easier to re-run, easier to re-use, easier to combine, easier to modify, less risk of error, easier to conceptualize.
 - We can write nice, clean programs by writing code that includes many functions. 
 
 
