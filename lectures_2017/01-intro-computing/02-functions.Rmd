@@ -88,7 +88,7 @@ where we have the following notation:
 
 Example: Fitting a Model
 ===
-
+\footnotesize
 ```{r}
 gmp <- read.table("gmp.dat")
 head(gmp)
