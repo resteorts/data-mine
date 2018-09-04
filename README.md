@@ -4,8 +4,9 @@ Course notes for STA 325 -- Data Mining and Machine Learning
 The course notes for STA 325 -- Data Mining and Machine Learning can be found below along with the corresponding 
 reading that goes with this material. Homeworks will be assigned in class. 
 
-1. Intro to Machine Learning and Review of R. (Read Ch 1 of ISLR). 
-2. Introduction to Statistical Computing in R. (This is Supplemental to ISLR). We will cover a review of R programming. In addition we will cover: functional programming and mining textual data. 
+0. Intro to Machine Learning and Review of R. (Read Ch 1 of ISLR). 
+1. Introduction to Statistical Computing in R. (This is Supplemental to ISLR). We will cover a review of R programming. In addition we will cover: functional programming and mining textual data.
+2. Introduction to Statistical Machine Learning and Notation (Chapters 1 -- 2 of ISLR)
 3. Information Retrieval (Read Chapters 1--3 of Mining Massive Databases). 
 4. Advanced Information Retrieval -- Locality Sensitive Hashing (Read Chapters 1-- 3 of Mining Massive Databases).
 5. Unsupervised Learning (Chapter 10 ISLR). PCA, Kmeans clustering, Hierarchical clustering, and evaluation metrics. 
