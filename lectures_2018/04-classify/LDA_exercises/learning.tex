@@ -1,0 +1,93 @@
+\documentclass[12pt]{book}
+\usepackage[dvips]{color}
+\setlength{\itemsep}{0pt}
+\setlength{\parsep}{0pt}
+\setlength{\topmargin}{-0.75in}
+\setlength{\oddsidemargin}{.25in}
+\setlength{\evensidemargin}{.25in}
+\setlength{\textheight}{9in}
+\setlength{\textwidth}{6in}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{bm}
+\pagestyle{empty}
+%\title{Homework 3 - STA 6934}
+%\author{Beka Steorts}
+\setlength{\parindent}{0in}
+\begin{document}
+%\maketitle
+\newcommand{\ba} {\bm{a}}
+\newcommand{\by} {\bm{y}}
+\newcommand{\bx} {\bm{x}}
+\newcommand{\bxn} {\bm{x_{new}}}
+\newcommand{\bok} {\bm{1_{K\times 1}}}
+\newcommand{\bon} {\bm{1_{N\times 1}}}
+Statistical Learning: STA 7934 and CIS 6930\\
+Exercises: Sections 4.1 - 4.3\\
+Rebecca Steorts\\
+
+
+\begin{enumerate}
+
+\item $\sum_k \hat{Y_k}(\bx) = 1$ for any $\bx$ as long as there is an intercept in the model. We assume that $\bx$ is a column vector.\\
+
+Proof: $$\sum_k \hat{Y_k}(\bx) =\bok' [(1,\bx)' \;\hat{B}]'.$$
+
+$$ = \bok' \hat{B}' (1, \bx).$$
+$$ = [\hat{B} \; \bok]' (1, \bx).$$
+Note that $$\hat{B} \bok = (X'X)^{-1}X'Y\bok.$$
+Then $$Y\bok = \bon \implies 
+\hat{B} \bok = (X'X)^{-1}X \bon.$$
+
+Recall $(X'X)^{-1}(X'X) = I.$ This implies that
+$$ (X'X)^{-1}X \bon = \bm{e_1}.$$
+
+Then $$ [\hat{B} \; \bok]' (1, \bx) = \bm{e_1}' (1, \bx) = 1.$$\\
+
+\item Fisher's problem amounts to maximizing
+
+$$ \max_{\ba}  \frac{\ba' B\ba }{\ba' W\ba }.$$
+
+
+
+Proof: Let $\by = W^{1/2}\ba.$ Then
+$$
+\frac{\ba' B\ba }{\ba' W\ba } = 
+\frac{\by' W^{-1/2}BW^{-1/2}\by}{\by' \by }.$$
+
+Consider $$\frac{\by' W^{-1/2}BW^{-1/2}\by}{\by' \by } =
+ \frac{\left(\frac{\by}{|| \by||}\right)'W^{-1/2}BW^{-1/2}\left(\frac{\by}{|| \by||}\right)}
+{\left(\frac{\by}{|| \by||}\right)'\left(\frac{\by}{|| \by||}\right)}.$$ But $\left(\frac{\by}{|| \by||}\right)'\left(\frac{\by}{|| \by||}\right) = 1$ so without loss of generality, we can assume $\by'\by = 1$ and simply maximize 
+
+$$\by' W^{-1/2}BW^{-1/2}\by$$ subject to this constraint.\\
+
+Let $A = W^{-1/2}BW^{-1/2}$ and note that it is symmetric. By the Spectral Decomposition Theorem, there exists an orthogonal matrix P and diagonal matrix D such that
+$$ \by' A \by = \by' PDP' \by,$$
+where $D = Diag(\lambda_1 \ldots \lambda_p)$ and $P$ is composed of the eigenvectors of $A.$\\
+
+Then let $x = P'y$ which implies that
+$$\by' PDP' \by = \bx'D\bx = \sum_i \lambda_i x_i^2.$$
+
+Thus, $$\max_x \by' A \by = \max_{\bx} \sum_i \lambda_i x_i^2.$$ \\
+
+Now consider $$\sum_i \lambda_i x_i^2 \leq \sum_i \lambda_{max} x_i^2 = \lambda_{max}.$$
+
+Note the last equality holds because $\by'\by = 1$ implies $\bx'\bx =1.$\\
+
+Suppose $\lambda_{max} = \lambda_k$ and take $y = e_k.$ Then
+$$ \sum_i \lambda_{max} x_i^2 = \lambda_{max},$$
+which implies given what we just showed that 
+$$\max_y \sum_i \lambda_i x_i^2 = \lambda_{max}.$$\\
+
+By what we just showed above this implies that 
+$$\max_y \by' W^{-1/2}BW^{-1/2}\by = \max \text{eigenvalue}\{W^{-1/2}BW^{-1/2}\}$$
+$$= \max \text{eigenvalue}\{W^{-1}B\}.$$
+
+
+
+
+
+\end{enumerate}
+
+
+\end{document}

@@ -1,0 +1,183 @@
+
+---
+title: "Comparison of Linear Regression with K-Nearest Neighbors"
+author: "Rebecca C. Steorts, Duke University "
+date: STA 325, Chapter 3.5 ISL
+output: 
+     beamer_presentation:
+      includes: 
+          in_header: custom2.tex
+font-size: 8px
+---
+
+Agenda
+===
+- Intro to KNN
+- Comparison of KNN and Linear Regression 
+
+K-Nearest Neighbors vs Linear Regression
+===
+Recall that linear regression is an example of a **parametric approach** because it assumes a linear functional form for f(X). 
+
+In this module, we introduce K-Nearest Neighbors (KNN), which is a **non-parametric method**
+
+Parametric methods
+===
+1. Advantages
+- Easy to fit. One needs to estimate a small number of coefficients. 
+- Often easy to interpret. 
+
+2. Disadvantages
+- They make strong assumptions about the form of $f(X)$. 
+- Suppose we assume a linear relationship between X and Y but the true relationship is far from linear, then the resulting model will provide a poor fit to the data, and any conclusions drawn from it will be suspect.
+
+Non-parametric models
+===
+1. Advantages
+- They do not assume an explicit form for $f(X)$, providing a more flexible approach. 
+2. Disadvantages 
+- They can be often more complex to understand and interpret 
+- If there is a small number of observations per predictor, then parametric methods then to work better. 
+
+K-Nearest Neighbors (KNN)
+===
+We introduce one of the simplest and best-known non-parametric methods, K-nearest neighbors regression (KNN). 
+
+It is closely related to the KNN classifier from Chapter 2 (see ISL and read on your own for more details).
+
+KNN method
+===
+1. Assume a value for the number of nearest neighbors $K$ and a prediction point $x_o.$
+
+2. KNN identifies the training observations $N_o$ closest to the prediction point $x_o$. 
+
+3. KNN estimates $f(x_o)$ using the average of all the reponses in $N_o$, i.e.
+$$ \hat{f}(x_o) = \frac
+{1}{K}\sum_{x_i \in N_o} y_i.$$
+
+Choosing K
+===
+- In general, the optimal value for $K$ will depend on the **bias-variance** tradeoff. 
+
+- A small value for K provides the most flexible fit, which will have low bias but high variance.
+
+- This variance is due to the fact that the prediction in a given region is entirely dependent on just one observation. 
+
+- In contrast, larger values of K provide a smoother and less variable fit; the prediction in a region is an average of several points, and so changing one observation has a smaller effect.
+
+Application of KNN (Chapter 4.6.5 of ISL)
+===
+Perform KNN using the \textcolor{bbrown}{knn()} function, which is part of the \textcolor{bbrown}{class} library.
+
+We call \textcolor{bbrown}{knn()} and it forms forms predictions using a single command, with four inputs: 
+
+
+1. A matrix containing the predictors associated with the training data (\textcolor{bbrown}{train.X}).
+2. A matrix containing the predictors associated with the data for which we wish to make predictions  (\textcolor{bbrown}{test.X}).
+3. A vector containing the class labels for the training observations \textcolor{bbrown}{train.Direction}.
+4. A value for K, the number of nearest neighbors to be used by the classifier.
+
+Smarket data
+===
+- We apply KNN to the \textcolor{bbrown}{Smarket} data of the \textcolor{bbrown}{ISLR} library. 
+
+- We will begin by examining some numerical and graphical summaries.  
+
+- This data set consists of percentage returns for the S&P 500 stock index over 1, 250 days, from the beginning of 2001 until the end of 2005. 
+
+- For each date, we have recorded the percentage returns for each of the five previous trading days, Lag1 through Lag5. We have also recorded Volume (the number of shares traded
+
+Smarket data
+===
+\begingroup\tiny
+```{r}
+library(ISLR)
+names(Smarket)
+dim(Smarket)
+```
+\endgroup
+
+Smarket data
+===
+\begingroup\tiny
+```{r}
+cor(Smarket[,-9])
+```
+\endgroup
+
+- As one would expect, the correlations between the lag variables and today’s returns are close to zero. 
+
+- In other words, there appears to be little correlation between today’s returns and previous days’ returns. The only substantial correlation is between Year and Volume.
+
+Correlation
+===
+\begingroup\tiny
+```{r, echo=FALSE}
+attach(Smarket)
+plot(Year, Volume)
+```
+\endgroup
+
+By plotting the data we see that Volume is increasing over time. In other words, the average number of shares traded daily increased from 2001 to 2005.
+
+KKN applied to the Smarket Data
+===
+We now fit a KNN to the Smarket data.
+
+We use the \textcolor{bbrown}{cbind()} function, short for column bind, to bind the \textcolor{bbrown}{Lag1} and \textcolor{bbrown}{Lag2} variables together into two matrices, one for the training set and the other for the test set.
+
+KKN applied to the Smarket Data
+===
+```{r}
+library(class)
+train = (Year < 2005)
+Smarket.2005= Smarket[!train ,]
+dim(Smarket.2005)
+Direction.2005=Direction[!train]
+```
+
+The object train is a vector of 1,250 elements, corresponding to the 
+observations in our data set. 
+
+The elements of the vector that correspond to observations that occurred before 2005 are set to TRUE, whereas those that correspond to observations in 2005 are set to FALSE. 
+
+The object train is a Boolean vector, since its elements are TRUE and FALSE.
+
+<!-- Boolean vectors can be used to obtain a subset of the rows or columns of a matrix. For instance, the command Smarket[train,] would pick out a submatrix of the stock market data set, corresponding only to the dates before 2005, since those are the ones for which the elements of train are TRUE.  -->
+
+KKN applied to the Smarket Data
+===
+
+```{r}
+train.X=cbind(Lag1 ,Lag2)[train ,]
+test.X=cbind(Lag1,Lag2)[!train,]
+train.Direction =Direction [train]
+```
+
+- Now the knn() function can be used to predict the market’s movement for the dates in 2005.
+
+- We set a seed for reproducibility. 
+
+
+KKN applied to the Smarket Data
+===
+```{r}
+set.seed(1)
+knn.pred=knn(train.X,test.X,train.Direction ,k=1)
+table(knn.pred,Direction.2005)
+```
+- The results using K = 1 are not very good, since only 50\% of the observa- tions are correctly predicted. 
+
+- Of course, it may be that K = 1 results in an overly flexible fit to the data.
+
+KKN applied to the Smarket Data
+===
+```{r}
+set.seed(1)
+knn.pred=knn(train.X,test.X,train.Direction ,k=3)
+table(knn.pred,Direction.2005)
+```
+
+The results have improved slightly. But increasing K further turns out to provide no further improvements. It turns out the KNN does not work very well for this data set.
+
+However, it did not take very long to make this conclusion. (If you try QDA, you will find it works quite well).

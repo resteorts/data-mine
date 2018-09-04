@@ -1,0 +1,531 @@
+
+---
+title: "Multiple Linear Regression"
+author: "Rebecca C. Steorts, Duke University "
+date: STA 325, Chapter 3 ISL
+output: 
+     beamer_presentation:
+      includes: 
+          in_header: custom2.tex
+font-size: 8px
+---
+
+Agenda
+===
+- How to extend beyond a SLR
+- Multiple Linear Regression (MLR)
+- Relationship Between the Response and Predictors
+- Model Selection: Forward Selection
+- Model Fit
+- Predictions
+- Application 
+- Qualitative Predictors with More than Two Levels
+- Additivity, Interactions, Polynomial Regression
+- Other Issues
+
+Multiple Linear Regression (MLR)
+===
+- SLR is a useful approach for predicting a response on the basis of a single predictor variable. 
+- However, in practice we often have more than one predictor.
+
+Advertising data set
+===
+- In the \textcolor{bbrown}{Advertising} data, we have examined the relationship between sales and TV advertising. 
+- We also have data for the amount of money spent advertising on the radio and in newspapers.
+- How can we extend our analysis of the advertising data in order to accommodate these two additional predictors?
+
+Run many SLR's!
+===
+We could run three SLRs. Not a good idea! Why?
+
+1. It is unclear how to make a single prediction of sales given levels of the three advertising media budgets, since each of the budgets is associated with a separate regression equation.
+
+2. Each of the three regression equations ignores the other two media in forming estimates for the regression coefficients. 
+
+MLR
+===
+Suppose we have $p$ preditors. Then the MLR takes the form
+\begin{align}
+Y = \beta_o + \beta_1 X_1 + \cdots \beta_p X_p + \epsilon,
+\end{align}
+where
+
+- $X_j$ represents the $j$th predictor
+- $\beta_j$ quantifies the association
+between that predictor and the response
+- We interpret $\beta_j$ as the average effect on $Y$ of a one unit increase in $X_j$, holding all other predictors fixed.
+
+Advertising
+===
+In the advertising example, the MLR
+becomes $$
+\textcolor{bbrown}{sales} = \beta_o 
++ \beta_1 \times \textcolor{bbrown}{TV} 
++ \beta_2 \times \textcolor{bbrown}{radio}
++ \beta_3 \times \textcolor{bbrown}{newspaper}
++ \epsilon
+$$
+
+Estimating the Regression Coefficients
+===
+As was the case in SLR, $\beta_o, \beta_1, \ldots, \beta_p$ are unknown and must be estimated by 
+$\hat{\beta}_o, \hat{\beta}_1, \ldots, \hat{\beta}_p.$
+
+Given the estimated coefficients (found by minimizing the RSS), we can make predictions using
+$$ \hat{y} = \hat{\beta}_o + \hat{\beta}_1 X_1 + \cdots + \hat{\beta}_p X_p.$$
+
+Solving for the LSE is beyond the scope of this class given the calculations are quite tedious and require matrix algebra.
+
+Important Questions to Keep in Mind
+===
+
+1. Is at least one of the predictors (X) useful in predicting the response?
+
+2. Do all the predictors help to explain Y, or is only a subset of the predictors useful?
+
+3. How well does the model fit the data?
+
+4. Given a set of predictor values, what response value should we predict, and how accurate is our prediction?
+
+We address these now, point by point.
+
+Relationship Between the Response and Predictors
+===
+- In the SLR setting, to determine whether there is a relationship between the response and the predictor we simply check whether $\beta_1 = 0$.
+
+- Are all of the regression coefficients zero?
+
+\begin{align}
+H_o &: \beta_o = \beta_1 = \cdots = \beta_p = 0\\
+H_a &: \text{at least one} \; \beta_j \; \text{is non-zero}.
+\end{align}
+
+The hypothesis test if performed by computing the F-statistic:
+$$F = \frac{(TSS-RSS)/p}{RSS/(n-p-1)}.$$
+
+Look at p-value and then make a conclusion.
+
+Remark: Suppose $p > n$, there are more coefficients $\beta_j$ to estimate than observations from which to estimate them. One simple approach to overcome this issue is **forward selection.** This high dimensional setting is discussed more in Chapter 6. 
+
+Deciding on Important Variables
+===
+The first step in a multiple regression analysis is to compute the F-statistic and to examine the associated p-value. 
+
+If we conclude on the basis of that p-value that at least one of the predictors is related to the response, then it is natural to wonder which are the guilty ones! 
+
+The task of determining which predictors are associated with the response, in order to fit a single model involving only those predictors, is referred to as **variable selection.** (See Chapter 6 for a more in depth discussion).
+
+Model selection
+===
+It is infeasible to look at all possible models since there are $2^p$ models that contain subsets of $p$ features. 
+
+For example, if p = 30, then we must consider $2^{30}$ = 1,073,741,824 models! 
+
+We will focus on **forward selection** since it can be used in high dimensional settings. 
+
+Forward selection
+===
+
+1. We begin with the null model. This is the that contains an intercept but no predictors. 
+2. We then fit $p$ simple linear regressions and add to the null model the variable that results in the lowest RSS. 
+3. We then add to that model the variable that results
+in the lowest RSS for the new two-variable model. 
+4. This approach is continued until some stopping rule is satisfied.
+
+Remark: **Forward selection** is a greedy approach, and might include variables early that later become redundant.
+
+Model Fit
+===
+Two of the most common numerical measures of model fit are the RSE and $R^2$, the fraction of variance explained. 
+
+These quantities are computed and interpreted in the same fashion as for simple linear regression.
+
+Remark: It turns out that $R^2$ **will always increase** when more variables are added to the model, even if those variables are only weakly associated with the response. 
+
+- This is due to the fact that adding another variable to the least squares equations must allow us to fit the training data (though not necessarily the testing data) more accurately.
+
+Predictions
+===
+Predictions are simple to make. But what is the uncertainty about our predictions? 
+
+1. The inaccuracy in the coefficient estimates is related to the reducible error from Chapter 2. We can computer a confidence interval in order to see how close $\hat{y}$ is to $f(X)$
+
+2. Assume that $f(X)$ is a linear model is almost never correct, so there is an additional source of reducible error here, called model bias. 
+
+3. We can calculate prediction intervals (recall these are always wider than confidence intervals). 
+
+MRL for Advertising data
+===
+
+- In order to fit a MLR using least squares we again use the \textcolor{bbrown}{lm()} function. 
+
+- The syntax \textcolor{bbrown}{$\text{lm}(y \sim x1 + x2 +x3)$} is used to fit a model with three predictors. 
+
+- The \textcolor{bbrown}{summary()}function outputs the regression coefficients for the predictors. 
+
+MRL for Advertising data
+===
+
+```{r, echo=FALSE}
+library(MASS)
+library(ISLR)
+```
+
+```{r}
+attach(Boston)
+names(Boston)
+dim(Boston)
+```
+
+Histograms of Boston data
+===
+```{r, echo=FALSE}
+# Multiple histograms
+par(mfrow=c(4, 4))
+colnames <- dimnames(Boston)[[2]]
+for (i in 1:14) {
+    hist(Boston[,i], main=colnames[i], probability=TRUE, col="gray", border="white")
+}
+```
+
+MRL for Advertising data
+===
+
+\begingroup\tiny
+```{r}
+lm.fit <- lm(medv~., data=Boston)
+summary(lm.fit)
+```
+\endgroup
+
+MRL for Advertising data
+===
+We can access each part of summary by typing \textcolor{bbrown}{?summary.lm} to see what is available
+\begingroup\tiny
+```{r}
+#r2
+summary(lm.fit)$r.sq
+#RMSE
+summary(lm.fit)$sigma
+summary(lm.fit)$residuals
+```
+\endgroup
+
+MRL for Advertising data
+===
+\begingroup\tiny
+```{r}
+summary(lm.fit)$coefficients
+```
+\endgroup
+
+MRL for Advertising data
+===
+Note that age has by far a very high p-value. 
+
+How do we re-run the regression, omitting age?
+
+\begingroup\tiny
+```{r}
+lm.fit1 <- lm(medv~. -age, data=Boston)
+summary(lm.fit1)
+```
+\endgroup
+
+Qualitative Predictors
+===
+So far, we have only considered quantitative predictors.
+
+What if the predictors are qualitative? 
+
+As an example, the \textcolor{bbrown}{Credit} data set records \textcolor{bbrown}{balance} (average credit card debt for individuals) for 
+
+- quantiative predictors: \textcolor{bbrown}{age}, \textcolor{bbrown}{cards}, \textcolor{bbrown}{education}, \textcolor{bbrown}{rating}
+- qualitative predictors: \textcolor{bbrown}{gender}, \textcolor{bbrown}{student} (status), \textcolor{bbrown}{status} (marital), and \textcolor{bbrown}{ethnicity}. 
+
+Qualitative Predictors with Two Levels
+===
+If the qualitative predictor (factor) has to levels, we can create an indicator or dummy variable. 
+
+Suppose we are dealing with gender (male, female)
+
+Then we create a new variable, where
+$$
+x_i=
+\begin{cases}
+1, \text{if the} \; $i$th \;\text{person is female}\\
+0,\text{otherwise} \\
+\end{cases}
+$$
+
+Qualitative Predictors with Two Levels
+===
+Using our indicator variable
+$$
+x_i=
+\begin{cases}
+1, \text{if the} \; $i$th \;\text{person is female}\\
+0,\text{otherwise}, \\
+\end{cases}
+$$
+
+we can then use this in our regression model:
+\begin{align}
+y_i &= \beta_0 + \beta_1 x_i + \epsilon_i \\
+&=
+\begin{cases}
+\beta_0 + \beta_1 + \epsilon_i, \text{if the} \; $i$th \;\text{person is female}\\
+\beta_0 + \epsilon_i,\text{otherwise} \\
+\end{cases}
+\end{align}
+
+- Now $\beta_0$ can be interpreted as the overall average credit card balance (ignoring the gender effect), and 
+
+- $\beta_1$ is the amount that females are above the average and males are below the average.
+
+Qualitative Predictors with More than Two Levels
+===
+When a qualitative predictor has more than two levels, a single dummy variable cannot represent all possible values. In this situation, we can create additional dummy variables.
+
+For example, for the ethnicity variable we create two dummy variables.
+
+$$
+x_{i1}=
+\begin{cases}
+1, \text{if the} \; $i$th \;\text{person is Asian}\\
+0,\text{if the} \; $i$th \;\text{person is not Asian} \\
+\end{cases}
+$$
+
+and
+
+$$
+x_{i2}=
+\begin{cases}
+1, \text{if the} \; $i$th \;\text{person is Caucasian}\\
+0,\text{if the} \; $i$th \;\text{person is not Caucasian} \\
+\end{cases}
+$$
+
+Qualitative Predictors with More than Two Levels
+===
+Then both of these variables can be used in the regression equation, in order to obtain the model
+
+\begin{align}
+y_i &= \beta_0 + \beta_1 x_{i1} + \beta_2 x_{i2} + \epsilon_i \\
+&=
+\begin{cases}
+\beta_0 + \beta_1 + \epsilon_i, \text{if the} \; $i$th \;\text{person is Asian}\\
+\beta_0 + \beta_2 + \epsilon_i, \text{if the} \; $i$th \;\text{person is Caucasian}\\
+\beta_0 + \epsilon_i,\text{if the} \; $i$th \;\text{person is African American}\\
+\end{cases}
+\end{align}
+
+Qualitative Predictors with More than Two Levels
+===
+- Now $\beta_0$ can be interpreted as the average credit card balance for African Americans, 
+
+- $\beta_1$ can be interpreted as the difference in the average balance between the Asian and African American categories, and 
+
+- $\beta_2$ can be interpreted as the difference in the average balance between the Caucasian and African American categories. 
+
+- There will always be one fewer dummy variable than the number of levels. 
+
+- The level with no dummy variable --- African American in this example --- is known as the **baseline**.
+
+Extensions of the Linear Model
+===
+We discuss removing two of the most important assumptions of the linear model: additivity and linearity. 
+
+Additivity
+===
+The **additive assumption** means that the effect of changes in a predictor $X_j$ on the response $Y$ is independent of the values of the other predictors.
+
+Removing the Additive Effect
+===
+Suppose that spending money on radio advertising actually increases the effectiveness of TV ad- vertising, so that the slope term for TV should increase as radio increases. 
+
+Given a fixed budget of $100,000, spending half on radio and half on TV may increase sales more than allocating the entire amount to either TV or to radio. This is referred to as an **interaction effect**.
+
+Interaction Effect
+===
+One way of extending this model to allow for interaction effects is to include a third predictor, called an **interaction term**, which is constructed by computing the product of $X_1$ and $X_2$, which results in
+
+\begin{align}
+\label{eqn:interaction}
+Y = \beta_0 +\beta_1 X_1 + \beta_2 X_2 +\beta_3 X_1 X_2 + \epsilon.
+\end{align}
+
+How does inclusion of this interaction term relax the additive assumption?
+
+Equation \ref{eqn:interaction} can be rewritten as
+
+\begin{align}
+\label{eqn:interaction2}
+Y &= \beta_0 +(\beta_1 + \beta_3 X_2) X_1 +\beta_2 X_2  + \epsilon \\
+&=\beta_0 + \tilde{\beta}_1 X_1 +\beta_2 X_2  + \epsilon \\
+\end{align}
+where 
+$\tilde{\beta}_1 = \beta_1 + \beta_3 X_2.$
+
+Interaction Effect
+===
+Since $\tilde{\beta}_1$ changes with $X_2$, the effect of $X_1$ on $Y$ is no longer constant: adjusting $X_2$ will change the impact of $X_1$ on $Y.$
+
+
+Linear Assumption
+===
+The linear assumption means that the change in the response Y due to a one-unit change in $X_j$ is constant, regardless of the value of $X_j$.
+
+In our previous analysis of the Advertising data, we concluded that both TV and radio seem to be associated with sales. 
+ 
+For example, the linear model states that the average effect on sales of a one-unit increase in TV is always $\beta_1$, regardless of the amount spent on radio.
+
+However, the simple model may be incorrect.
+
+Polynomial regression
+===
+We present a very simple way to directly extend the linear model to accommodate non-linear relationships, using **polynomial regression**
+
+Polynomial regression
+===
+Let us consider a motivating example from the \textcolor{bbrown}{Auto} data set.  
+\begingroup\tiny
+```{r}
+attach(Auto)
+plot(horsepower, mpg)
+```
+\endgroup
+
+Polynomial regression
+===
+ATTN: I can't get the polynomail onto the regression line!
+\begingroup\tiny
+```{r, echo=FALSE}
+plot(horsepower, mpg)
+lm.fit = lm(mpg~horsepower, data=Auto)
+lm.fit2 = lm(mpg~horsepower + I(horsepower^2), data=Auto)
+lm.fit5 = lm(mpg~horsepower + I(horsepower^5), data=Auto)
+lm.fit.poly2 = lm(mpg~poly(horsepower,2))
+abline(lm.fit, lwd=1, col="red")
+#abline(lm.fit2, lwd=2, col="blue")
+#abline(lm.fit5, lwd=3, col="green")
+abline(lm.fit.poly2, lwd=3, col="brown")
+```
+\endgroup
+
+Linear regression
+===
+\begingroup\tiny
+```{r, echo=FALSE}
+#par(mfrow =c(2,2))
+plot(lm.fit, lwd=3)
+```
+\endgroup
+
+Polynomial regression
+===
+\begingroup\tiny
+```{r, echo=FALSE}
+#par(mfrow =c(2,2))
+plot(lm.fit.poly2, lwd=3)
+```
+\endgroup
+
+
+Potential Problems
+===
+There are many issues that can arise in linear regression since it is a simple method. 
+
+Non-linearity of the response-predictor relationships
+===
+This can be checked using residual plots to identify for non-linearity. 
+
+That is plot the residuals $e_i$ versus $x_i$.
+
+In the MLR setting, plot the residual versus the predicted (fitted) values $\hat{y}_i.$
+
+An ideal plot will have no pattern! 
+
+Correlation of Error Terms
+===
+An important assumption of the linear model is that the error terms are uncorrelated. 
+
+If there is correlation in the error terms, then the estimation standard errors will tend to understimate the true standard errors. 
+
+As a result, confidence and prediction intervals will be more narrow than they should be. 
+
+Why might we have correlated errors? We could have time series data, where such data points that appear are correlated by the time structure. 
+
+Non-constant Variance of Error Terms
+===
+Another important assumption is that the linear regresion model is that the error terms have constant variance ($\sigma^2$).
+
+Often, the variance of the error terms are non-constant. 
+
+One can identify non-constant errors (or heterscedarcity) from the presence of a **funnel shape** in the residual plot.
+
+One easy solution is transforming the response using a concave function such as log or sqrt. 
+
+Then recheck the residual plot. 
+
+Outliers
+===
+An outlier is a point for which $y_i$ is far from the value predicted by the model. 
+
+Outliers can arise for a variety of reasons, such as incorrect recording of an observation during data collection.
+
+Residual (studentized) plots can be used to identify outliers.
+
+High Leverage Points
+===
+We just saw that outliers are observations for which the response $y_i$ is
+unusual given the predictor $x_i.$ 
+
+In contrast, observations with high leverage high leverage have an unusual value for $x_i.$
+
+High leverage observations tend to have a sizable impact on the estimated regression line. 
+
+For this reason, it is important to identify high leverage observations.
+
+In order to quantify an observation’s leverage, we compute the **leverage statistic**. A large value of this statistic indicates an observation with high leverage leverage.
+
+For SLR, 
+$$h_i = \frac{1}{n}
++\frac{(x_i-\bar{x})}{\sum_{j=1}^n(x_j-\bar{x}}.$$
+
+Collinearity
+===
+Collinearity refers to the situation in which two or more predictor variables are closely related to one another.
+
+Collinearity
+===
+Let's consider the \textcolor{bbrown}{Credit} data set. 
+
+```{r}
+Credit <- read.csv("data/credit.csv",header=TRUE, sep=",")
+pdf(file = "examples/collinear.pdf")
+par(mfrow=c(1, 2))
+plot(Credit$Limit, Credit$Age, xlab="Limit", ylab="Age")
+plot(Credit$Limit, Credit$Rating, xlab="Limit", 
+     ylab="Rating")
+dev.off()
+```
+
+Collinearity
+===
+
+\begin{figure}
+  \begin{center}
+    \includegraphics[width=0.8\textwidth]{examples/collinear}
+    % Source: Original work by RCS
+  \end{center}
+  \caption{Scatterplots of the observations from the Credit data set. Left: Plot of
+  \textcolor{bbrown}{age} versus \textcolor{bbrown}{limit}. Right: A plot of \textcolor{bbrown}{age} versus \textcolor{bbrown}{rating}, with a high correlated relationship. }
+  \label{figure:sales-eda}
+\end{figure}
+
+
+The Marketing Plan
+===
+Exercise: Now that we have walked through this, see Section 3.4 and answer these questions on your own. 

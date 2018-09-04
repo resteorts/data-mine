@@ -1,0 +1,48 @@
+library(tm)
+
+docs = vector(length=8,mode="list")
+for (i in 1:8) {
+a = readLines(paste("docs/",i,".txt",sep=""))
+docs[[i]] = paste(a,collapse=" ")
+}
+docs[[9]] = "Raphael is cool, but rude! Michelangelo is a party dude!"
+names(docs) = c(paste("doc",1:8),"query")
+
+save(file="docs.Rdata",docs)
+
+corp = VCorpus(VectorSource(docs))
+dtm = DocumentTermMatrix(corp, control=list(tolower=TRUE,removePunctuation=TRUE,removeNumbers=TRUE)))
+q = c("but","cool","dude","party","michelangelo","raphael","rude")
+
+mydtm = as.matrix(dtm)
+mat = cbind(
+mydtm[,q],
+sqrt(colSums((t(mydtm[1:9,])-mydtm[9,])^2)))
+#colSums(abs(t(mydtm[1:9,])-mydtm[9,])))
+colnames(mat) = c(q,"dist")
+
+mydtm.dl = mydtm/rowSums(mydtm)
+mat.dl = cbind(
+mydtm.dl[,q],
+sqrt(colSums((t(mydtm.dl[1:9,])-mydtm.dl[9,])^2)))
+#colSums(abs(t(mydtm.dl[1:9,])-mydtm.dl[9,])))
+colnames(mat.dl) = c(q,"dist")
+
+mydtm.el = mydtm/sqrt(rowSums(mydtm^2))
+mat.el = cbind(
+mydtm.el[,q],
+sqrt(colSums((t(mydtm.el[1:9,])-mydtm.el[9,])^2)))
+#colSums(abs(t(mydtm.el[1:9,])-mydtm.el[9,])))
+colnames(mat.el) = c(q,"dist")
+
+a = cbind(mat.dl[,8],mat.el[,8])
+colnames(a) = c("dist/doclen","dist/l2len")
+
+dtm3 = DocumentTermMatrix(corp, control=list(tolower=TRUE,removePunctuation=TRUE,removeNumbers=TRUE,weighting=weightTfIdf))
+mydtm3 = as.matrix(dtm3)
+mat3 = cbind(
+mydtm3[,q],
+sqrt(colSums((t(mydtm3[1:9,])-mydtm3[9,])^2)))
+#colSums(abs(t(mydtm3[1:9,])-mydtm3[9,])))
+colnames(mat3) = c(q,"dist")
+

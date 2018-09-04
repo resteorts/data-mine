@@ -1,0 +1,65 @@
+avgfromclust = function(x, cluster, k) {
+p = ncol(x)
+centers = matrix(0,k,p)
+for (i in 1:k) {
+j = cluster==i
+if (sum(j)==0) centers[i,] = rep(NA,p)
+else centers[i,] = colMeans(x[j,,drop=FALSE])
+}
+return(centers)
+}
+
+medfromclust = function(x, cluster, k) {
+p = ncol(x)
+centers = matrix(0,k,p)
+for (i in 1:k) {
+j = cluster==i
+if (sum(j)==0) centers[i,] = rep(NA,p)
+else {
+d = as.matrix(dist(x[j,],diag=T,upper=T)^2)
+ii = which(j)[which.min(colSums(d))]
+centers[i,] = x[ii,]
+}
+}
+return(centers)
+}
+
+kclust = function(x, centers=NULL, k=NULL, alg="kmeans", maxiter=100) {
+n = nrow(x)
+p = ncol(x)
+if (is.null(centers)) {
+if (alg=="kmeans") centers = matrix(runif(k*p,min(x),max(x)),nrow=k)
+else centers = x[sample(n,k),]
+}
+k = nrow(centers)
+cluster = matrix(0,nrow=0,ncol=n)
+
+for (iter in 1:maxiter) {
+dist = matrix(0,n,k)
+for (i in 1:k) {
+dist[,i] = colSums((t(x) -centers[i,])^2)
+}
+cluster = rbind(cluster,max.col(-dist,ties="first"))
+centers.old = centers
+if (alg=="kmeans") centers = avgfromclust(x,cluster[iter,],k)
+else centers = medfromclust(x,cluster[iter,],k)
+j = is.na(centers[,1])
+if (sum(j)>0) centers[j,] = centers.old[j,]
+if (iter>1 & sum(cluster[iter,]!=cluster[iter-1,])==0) break
+}
+return(list(centers=centers,cluster=cluster[iter,],iter=iter,hist=cluster))
+}
+
+wcv = function(x,cluster,centers) {
+p = ncol(x)
+k = nrow(centers)
+wcv = 0
+for (i in 1:k) {
+j = cluster==i
+nj = sum(j)
+if (nj>0) {
+wcv = wcv + nj*sum((t(x[j,])-centers[i,])^2)
+}
+}
+return(wcv)
+}

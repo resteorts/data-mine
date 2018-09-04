@@ -1,0 +1,148 @@
+---
+title: "Factor Analysis"
+author: "Rebecca C. Steorts, Duke University "
+date: STA 325, Chapter 10 ISL
+output: 
+     beamer_presentation:
+      includes: 
+          in_header: custom2.tex
+font-size: 8px
+---
+
+Agenda
+===
+Add later
+
+From PCA to Factor Analysis
+===
+Our data in practice won't be altogether accurate --- it will have noise in it which may be due to measurement error. 
+
+What is measurement error? 
+
+
+Measurement error results from the fact that the person who created the data set didn't create them perfectly and hence they have intristic noise in them.  
+
+Examples: transcription errors, collection errors, etc. 
+
+PCA versus Factor Analysis
+===
+Let's start with PCA. 
+
+- PCA doesn’t care about measurement error.
+
+- PCA will try to reproduce true-value-plus-noise from a small number of components.
+
+- Can we do something like PCA, where we reduce a large number of features to additive combinations of a smaller number of variables, but which allows for noise (measurement error)?
+
+Starting simple
+===
+The simplest model starting with PCA would be the following: 
+
+- Suppose each object or data point has $p$ features. 
+
+- That is $X_{ij}$ is the value of feature $j$ for object $i.$ 
+
+- Let's assume all observations are centered. 
+
+Factor analysis
+===
+- Let's assume there are $q$ factor variables and each observation is a linear combination of the factor scores $F_{ir}$ plus some noise:
+
+\begin{align}
+X_{ij} &= \sum_{r=1}^k F_{ir}w_{rj} + \epsilon_{ij}
+\label{eqn:factor}
+\end{align}
+
+- $w_{rj}$ are factor loadings of the observed features. They say how much feature $j$ changes (on average) in response to a one-unit change in factor score $r.$
+
+- $\epsilon_{ij}$ is the noise for feature $j$ on object $i$. We assume $\epsilon_{ij} \sim (0, \phi_j).$
+
+- We further assume that $E[\epsilon_{ij}\epsilon_{\ell m}] = 0$ unless $i=\ell, j=m$ (each object and feature has uncorrelated noise). 
+
+Factor analysis
+===
+We can rewrite the model as
+\begin{align}
+X_i = \epsilon_i + F_i w_{q\times p}
+\end{align}
+
+We can stack the vector into a matrix and get
+
+\begin{align}
+X = \epsilon + F w_{q\times p}
+\end{align}
+
+Our task is to estimate the factor loadings $w$, factor scores $, and the variances $\phi_j.$
+
+General question: where did this model come from? We made hypothesized it and we check if it works. We do this in practice with all models. 
+
+Preserving correlations
+===
+- PCA aims to preserve variance, or (what comes to the same thing) minimize mean-squared residuals (reconstruction error). 
+
+- But it doesn’t preserve correlations. 
+
+- That is, the correlations of the features of the image vectors are not the same as the correlations among the features of the original vectors (unless $q = p$, and we’re not really doing any data reduction).
+
+- We might ask for a set of vectors whose image in the feature space will have the same correlation matrix as the original vectors, or as close to the same correlation matrix as possible while still reducing the number of dimensions.
+
+- This also leads to the factor analysis model, but we need to take a somewhat circuitous root to get there.
+
+Factor Estimation
+===
+- Assume all the factor scores are uncorrelated with each other and have variance 1. 
+
+- also that they are uncorrelated with the noise terms. 
+
+- We’ll solve the estimation problem for factor analysis by reducing it to an eigenvalue problem again. 
+
+- Since, again this requires linear algebrea and is beyond the scope of ISLR and the pre-reqs, we omit the details. 
+
+Application to frmi data
+====
+In your homework this week, you are looking at PCA at fmri data. 
+Let's look at an exercise regarding this for factor analysis. 
+
+The data
+===
+Please download the first patient data (data from subject P1) from \url{http://www.cs.cmu.edu/afs/cs/project/theo-73/www/science2008/data.html}.  
+
+The data for this assignment comes from a brain imaging (fMRI) experiment on reading.  The participants (9 adults from the Carnegie Mellon community) were shown line drawings and noun labels of 60 concrete objects from 12 semantic categories with 5 exemplars per category.  The entire set of 60 stimuli was presented 6 times during the experiment, in a different random order each time.  Participants silently viewed the stimuli and were asked to think of the same item properties consistently across the 6 presentations.\footnote{Each stimulus was presented for 3s, followed by a 7s rest period, during which the participants were instructed to fixate on an X displayed in the center of the screen. There were two additional presentations of the fixation, 31s each, at the beginning and at the end of each session, to provide a baseline measure of activity.}  For imaging purposes, the participants brains were divided into "volume elements" or "voxels", and functional magnetic resonance imaging (fMRI) measured the brain activity in each voxel during each stimulus presentation. More information on the study can be found on the listed webpage.
+
+Reading in the data
+===
+```{r}
+library(R.matlab)
+fmri.p1 <- readMat("data-science-P1.mat")
+fmri <- do.call(rbind,lapply(fmri.p1$data,unlist)) 
+colnames(fmri) <- 1:dim(fmri)[2]
+```
+
+The command \verb_fmri <- do.call(rbind, fmri.p1$data,unlist)_ should return a matrix of dimension 360 by 21764, where the columns are voxels in the participants's brain and rows represents trials. Each trial is one exposure to one of the 60 stimuli. 
+
+Factor Analysis and PCA
+===
+Taking the fmri object, perform factor analysis (for one factor only) and PCA using \texttt{prcomp}.
+
+Then interpret the 40th and 41st factor loadings and compare these to the 40th and 41st loadings on the first principal component. What do you find?
+
+Find the $R^2$ value and interpret it after running the factor analysis and PCA. Interpret your results.
+ 
+PCA 
+===
+```{r}
+#perform principal components on data
+fmri.pca <- prcomp(fmri, scale=TRUE)
+fmri.pca$rotation[40:41,1]
+```
+
+Factor Analysis
+===
+```{r}
+#perform a factor analysis using 1 factor on the stimuli
+fmri.fa1 <- factanal(fmri,factors=1,scores="regression")
+dim(fmri.fa1$score)
+fmri.fa1$scores[40:41,1]
+```
+
+
