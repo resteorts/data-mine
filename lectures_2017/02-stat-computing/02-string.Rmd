@@ -1,0 +1,444 @@
+---
+title: "Introduction to Strings/Text"
+author: "STA 325, Supplemental Material"
+date: Rebecca C. Steorts
+output: 
+     beamer_presentation:
+      includes: 
+          in_header: custom2.tex
+font-size: 8px
+---
+
+Agenda
+===
+- Introduction to strings and string operations
+- Extracting and manipulating string objects
+- Introduction to general search
+
+Why Characters?
+================
+
+Most data we deal with is in character form!
+
+- web pages can be scraped
+- emails can be analyzed for network properties
+- survey responses must be processed and compared
+
+Even if you only care about numbers, it helps to be able to extract them from text and manipulate them easily.
+
+
+Characters versus Strings
+========================
+
+- ***Character***: a symbol in a written language, specifically what you can enter at a keyboard: letters, numerals, punctuation, space, newlines, etc.
+
+```
+'L', 'i', 'n', 'c', 'o', 'l'
+```
+
+- ***String***: a sequence of characters bound together
+
+```
+Lincoln
+```
+
+Characters/Strings
+====
+
+R does not have a separate type for characters and strings
+
+```{r}
+mode("L")
+mode("Lincoln")
+class("Lincoln")
+```
+
+Making Strings
+==============
+
+- To construct a string use single or double quotations.
+- Use `nchar()` to get the length of a single string. 
+
+Constructing Strings
+====
+\footnotesize
+```{r}
+"Lincoln"
+"Abraham Lincoln"
+"Abraham Lincoln's Hat"
+"As Lincoln never said, \"Four score and seven beers ago\""
+```
+
+
+
+
+Whitespace
+==========
+
+- The space, `" "` is a character 
+
+- Multiple spaces `"   "` and the empty string `""` are also characters
+
+- Some characters are special, so we have "escape characters" to specify them in strings:
+
+1. quotes within strings: `\"`
+2. tab: `\t`
+3. new line `\n` and carriage return `\r`  (use the former rather than the latter when possible)
+
+
+The character data type
+=========================
+
+- The character data type is one of the atomic data types, like `numeric` or `logical`
+
+- The character data type can go into scalars, vectors, arrays, lists, or can be the type of a column in a data frame. 
+
+Constructing Strings 
+===
+```{r}
+length("Abraham Lincoln's beard")
+length(c("Abraham", "Lincoln's", "beard"))
+nchar("Abraham Lincoln's beard")
+nchar(c("Abraham", "Lincoln's", "beard"))
+```
+
+Character-Valued Variables
+==========================
+
+They work just like others, e.g., with vectors:
+
+```{r}
+president <- "Lincoln" # variable assignment
+nchar(president)  # not 9
+presidents <-
+  c("Fillmore","Pierce",
+    "Buchanan","Davis","Johnson")
+presidents[3] # shows element 3
+presidents[-(1:3)] # removes elements 1 through 3
+```
+
+Displaying Characters
+=====================
+
+- `print()`: directly prints to the console
+
+- `cat()` writes the string directly to the console (removes the quotations)
+
+- `message()`: Is for debugging purposes (read about more on your own from the R help files). 
+
+Displaying Characters
+=====================
+
+```{r}
+print("Abraham Lincoln")
+cat("Abraham Lincoln")
+cat(presidents)
+message(presidents)
+```
+
+
+Substring Operations
+================
+
+***Substring***: This is a subset of a larger string. It's also a string in it's own right.  
+
+A string is not a vector or a list, so we ***cannot*** use subscripts like `[[ ]]` or `[ ]` to extract substrings. 
+
+To work with substring, we use  `substr()` instead.
+
+We take the string and break it into a small string (substring) beginning with the start character and ending with the stop character. 
+
+Substring Operations
+================
+\footnotesize
+```{r}
+phrase <- "Christmas Bonus"
+substr (phrase, start=8, stop=12) 
+```
+
+We can also use `substr` to replace elements:
+
+```{r}
+substr(phrase, 13, 13) <- "g"
+phrase
+```
+
+Does white space count as a character? Yes! 
+
+```{r}
+substr(phrase, 10, 10) <- "Z"
+phrase
+```
+
+
+substr() for String Vectors
+============================
+
+`substr()` vectorizes over all its arguments.
+
+Let's recall our variable that we created earlier of a few presidents.
+
+\footnotesize
+```{r}
+presidents
+```
+
+substr() for String Vectors
+============================
+\footnotesize
+```{r}
+presidents
+substr(presidents,1,2)   # First two characters
+```
+
+substr() for String Vectors
+============================
+\footnotesize
+
+```{r}
+presidents
+nchar(presidents)
+# Last two characters
+substr(presidents,nchar(presidents)-1,nchar(presidents))   
+
+```
+
+substr() for String Vectors
+============================
+ 
+
+\footnotesize
+```{r}
+presidents
+# No such substrings so return the null string
+substr(presidents,20,21)    
+```
+
+substr() for String Vectors
+============================
+
+
+
+\footnotesize
+```{r}
+presidents
+# Explain!
+substr(presidents,7,7)      
+```
+
+Dividing Strings into Vectors
+=============================
+
+`strsplit()` divides a string according to key characters by splitting each element of the character vector `x` at appearances of the pattern `split`.
+
+The output is a list of character vectors. 
+
+Dividing Strings into Vectors
+=============================
+```{r}
+scarborough.fair <- "parsley, sage, rosemary, thyme"
+strsplit (scarborough.fair, ",")
+strsplit (scarborough.fair, ", ")
+```
+
+Dividing Strings into Vectors
+=============================
+
+Pattern is recycled over elements of the input vector:
+\footnotesize
+```{r}
+strsplit(c(scarborough.fair, 
+           "Garfunkel, Oates", "Clement, McKenzie"), ", ")
+```
+
+
+Combining Vectors into Strings
+==============================
+
+Converting one variable type to another is called ***casting***: 
+
+```{r}
+as.character(7.2)            # Obvious
+as.character(7.2e12)         # Obvious
+as.character(c(7.2,7.2e12))  # Obvious
+as.character(7.2e5)          # Not quite so obvious
+```
+
+
+Building strings from multiple parts
+====================
+
+The `paste()` function is very flexible!
+
+With one vector argument, works like `as.character()`:
+
+```{r}
+paste(41:45)
+```
+
+
+Building strings from multiple parts
+====================
+
+- We can build strings from multiple parts easily. 
+
+- For example, with 2 or more vector arguments,
+we can combine them with recycling:
+
+\scriptsize
+```{r}
+paste(presidents,41:45) # None are historically accurate!
+paste(presidents,c("R","D"))
+paste(presidents,"(",c("R","D"),41:45,")") 
+```
+
+
+A More Complicated Example of Recycling
+=======================================
+
+Exercise: Convince yourself of why this works as it does
+
+\scriptsize
+```{r}
+rep(1:11,times=rep(2,11)) 
+paste(c("HW","Lab"),rep(1:11,times=rep(2,11)))
+```
+
+
+Condensing Multiple Strings
+===========================
+
+Default value of `collapse` is `NULL` (meaning the function doesn't use it) 
+
+Let's produce one large string and utilize `collapse`
+
+\scriptsize
+```{r}
+paste(presidents, " (", 41:45, ")", sep="", collapse="; ")
+```
+
+
+Text of Some Importance
+=========
+
+
+  If we shall suppose that American slavery is one of those
+  offenses which, in the providence of God, must needs come, but which, having
+  continued through His appointed time, He now wills to remove, and that He
+  gives to both North and South this terrible war as the woe due to those by
+  whom the offense came, shall we discern therein any departure from those
+  divine attributes which the believers in a living God always ascribe to Him?
+  Fondly do we hope, fervently do we pray, that this mighty scourge of war may
+  speedily pass away.  Yet, if God wills that it continue until all the wealth
+  piled by the bondsman's two hundred and fifty years of unrequited toil shall
+  be sunk, and until every drop of blood drawn with the lash shall be paid by
+  another drawn with the sword, as was said three thousand years ago, so still
+  it must be said "the judgments of the Lord are true and righteous
+  altogether."
+  
+- Abraham Lincoln, Second Inaugural Address, 1865
+
+Lincoln's Second Inaugural Address (1865)
+=========
+The full text can be found in `lincoln.txt`
+
+Let's start by looking at a summary of this textual data 
+
+\tiny
+```{r}
+al2 <- readLines("lincoln.txt")
+length(al2)
+head(al2)
+```
+
+`al2` is a vector, one element per line of text
+
+
+A Hint Of The Future: Search
+============================
+
+Narrowing down entries: use `grep()` to find which strings have a matching search term
+
+1. grep: returns the index value of each matched pattern
+
+2. grepl: returns a logical output for each indices in the original vector with "TRUE" representing matched patterns
+
+grep versus grepl
+===
+
+\scriptsize
+```{r}
+grep("God", al2)  
+grepl("God", al2) 
+al2[grep("God", al2)] # Returns the strings of matches
+```
+
+
+Task 1: Breaking words apart
+==============
+
+Task 1: How would one make a long string using the text and then split all the words? 
+
+Task 2:  Then how would we count how often each word appears and put these in order?
+
+Task 3: What do we find that is unexpected and expected from this simple exercise? 
+
+\scriptsize
+```{r}
+al2 <- paste(al2, collapse=" ")
+al2.words <- strsplit(al2, split=" ")[[1]]
+head(al2.words)
+```
+
+Task 2: Counting Words with table()
+=============================
+
+Tabulate how often each word appears, put in order:
+
+\scriptsize
+```{r}
+wc <- table(al2.words)
+wc <- sort(wc,decreasing=TRUE)
+head(wc,20)
+```
+
+`names(wc)` gives all the distinct words in `al2.words` (***types***); `wc` counts how often they appear (***tokens***)
+
+
+
+
+Task 3: Unexpected
+==========
+
+The null string is the third-most-common word:
+```{r}
+names(wc)[3]
+```
+
+```{r}
+wc["years"]
+wc["years,"]
+```
+
+Task 3: Unexpected
+==========
+
+Capitalization:
+```{r}
+wc["that"]
+wc["That"]
+```
+
+All of this can be fixed if we learn how to work with text patterns and not just constants.
+
+Summary
+=======
+
+- Text is data, just like everything else
+- `substr()` extracts and substitutes
+- `strsplit()` turns strings into vectors
+- `paste()` turns vectors into strings
+- `table()` for counting how many tokens belong to each type
+
+Next time: searching for text patterns using regular expressions
+
