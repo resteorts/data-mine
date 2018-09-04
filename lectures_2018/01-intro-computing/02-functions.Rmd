@@ -115,9 +115,9 @@ $$
 
 Take $y_0=6611$  for today
 
-Suppose we want to fit the above model, calculate its mean squared error,
-and then we stop fitting the model when the derivative of the MSE "stops changing"
-by some small amount. Our goal will be to write this into a function. 
+Goal: Perform the tasks below and write these into a function.
+
+Specific Goal: Suppose we want to fit the above model, calculate its mean squared error, and then we stop fitting the model when the derivative of the MSE "stops changing" by some small amount. Our goal will be to write this into a function. 
 
 Mean squared error (MSE) and its derivative 
 ===
