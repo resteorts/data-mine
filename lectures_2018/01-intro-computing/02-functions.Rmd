@@ -68,6 +68,22 @@ squared(c(1,2,3,4))
 squared(matrix(c(1,2,3,4),nrow=2))
 ```
 
+Making function more general
+===
+```{r}
+# Input: a number (scalar, vector, matrix), power called c
+# Output: the number squared
+squared.general <- function(number, c) {
+     return(number^c)
+}
+```
+
+Testing our function
+===
+```{r}
+squared.general(number = 2, c = 3)
+```
+
 Example: Fitting a Model
 ===
 
