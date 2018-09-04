@@ -1,0 +1,19 @@
+---
+title: 'Review of \texttt{R}, Part II'
+author: "STA 325: Lab 2, Fall 2018"
+output: pdf_document
+---
+
+Today's agenda: A continued review of \texttt{R}, getting used to R markdown, sequences, the normal density function, and more practice with functions and loops.
+
+Programming partners:
+You should have a programming partner for each lab, and you should switch off who is programming, and use each other for help. We will spend about 30--50 minutes per week on lab exercises and you will be expected to bring your laptops to class to work on these exercises in class. Myself and the TA will be in class to help you.
+
+***Lab Tasks***
+
+
+1. Store a sequence of integers from $ 1,\dots,25 $ in the variable \textsf{mySeq} using the $a:b$ method.
+2. Use the \textsf{sample()} function to select a sample of size $n=5$ from \textsf{mySeq} with replacement. 
+3. Use the command \textsf{set.seed(1)} to set the seed for the random number generator. 
+4. Use the function \textsf{rnorm()} to generate $n = 100$ standard normal draws and store this in the variable \textsf{myData}. 
+5. Write a function named \textsf(anotherTrivialFunction()) that takes as its inputs one argument, a data vector. Your function should store this vector, by row, into a square $10 \times10$ matrix. Next, create an empty \textsf{list} of length 5 using the \textsf{vector()} command. Loop through this list and at each empty position in the list, store a $10 \times 10$ matrix that contains $10$ rows sampled, with replacement from your original matrix. Finally, return this list. Apply your function to \textsf{myData}. 
