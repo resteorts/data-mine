@@ -21,7 +21,7 @@ Why Characters?
 Most data we deal with is in character form!
 
 - web pages can be scraped
-- email can be analyzed for network properties
+- emails can be analyzed for network properties
 - survey responses must be processed and compared
 
 Even if you only care about numbers, it helps to be able to extract them from text and manipulate them easily.
@@ -114,7 +114,7 @@ presidents <-
   c("Fillmore","Pierce",
     "Buchanan","Davis","Johnson")
 presidents[3] # shows element 3
-presidents[-(1:3)] # removes elements 1 and 3
+presidents[-(1:3)] # removes elements 1 through 3
 ```
 
 Displaying Characters
@@ -229,7 +229,7 @@ substr(presidents,7,7)
 Dividing Strings into Vectors
 =============================
 
-`strsplit()` divides a string according to key characters, by splitting each element of the character vector `x` at appearances of the pattern `split`.
+`strsplit()` divides a string according to key characters by splitting each element of the character vector `x` at appearances of the pattern `split`.
 
 The output is a list of character vectors. 
 
@@ -287,9 +287,9 @@ we can combine them with recycling:
 
 \scriptsize
 ```{r}
-paste(presidents,41:45)
-paste(presidents,c("R","D"))  # Not historically accurate!
-paste(presidents,"(",c("R","D"),41:45,")")
+paste(presidents,41:45) # None are historically accurate!
+paste(presidents,c("R","D"))
+paste(presidents,"(",c("R","D"),41:45,")") 
 ```
 
 
