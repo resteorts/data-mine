@@ -1,6 +1,5 @@
 .STA-521-LABS/
 .hws-solutions/
-*.txt
 *solutions/
 *.aux
 *.bbl
