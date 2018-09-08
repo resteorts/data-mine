@@ -91,9 +91,11 @@ Rest of the module
 ===
 In the rest of the module, we will do the following:
 
--- review Tukey's method for outliers
--- review the three functions (from lab 2) needed for Tukey's method
--- look at an exercise at how all these functions work together on the rainfall dataset from your first homework assignment 
+- review Tukey's method for outliers
+
+- review the three functions (from lab 2) needed for Tukey's method
+
+- look at an exercise at how all these functions work together on the rainfall dataset from your first homework assignment 
 
 
 Tukey's method
@@ -208,6 +210,9 @@ Task 2
 
 we obtain the error ```Error in quantile.default(x, 0.25) : missing values and NaN's not allowed if 'na.rm' is FALSE```
 
+Task 2
+===
+
 In order to understand what's happening, we can take a look at this in the console,
 to understand this further. This error makes it look like the problem might be happening when we call the built-in function \texttt{quantile}, in our \texttt{quartile} function. Using \texttt{traceback} confirms this:
 
@@ -219,11 +224,15 @@ to understand this further. This error makes it look like the problem might be h
 1: tukey.outlier(rain[, 6])
 ```
 
+Task 2
+===
+
 This makes it seem like \texttt{quantile} is refusing to process the data,
 because it contains \texttt{NA} values.  Does it?
 
 ```{r}
-sum(is.na(rain[,6]))
+length(rain[,6]) #number of values in column 6
+sum(is.na(rain[,6])) #number of NA values in column 6
 ```
 
 Yes, note that 111 of the 5,070 values in the 6th column are NA.
