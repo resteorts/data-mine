@@ -275,8 +275,9 @@ Task 3 (Case 2)
 
 Case 2: Suppose we want to return \texttt{NA}. Our test case might look like the following: 
 
+\footnotesize
 ```
-x.with.nas <- c(x,NA)
+x.with.nas <- c(x,NA);
 x.with.nas.pattern <- c(x.pattern,NA)
 stopifnot(identical(tukey.outlier(x.with.nas),x.with.nas.pattern))
 ```
@@ -287,11 +288,12 @@ stopifnot(identical(tukey.outlier(x.with.nas),x.with.nas.pattern))
 Task 3 
 ===
 
-The current code for \texttt{tukey.outlier} will {\em fail} this test case;
-in fact, running \texttt{test.tukey.outlier} at this stage should produce
+- The current code for \texttt{tukey.outlier} will fail this test case. 
+
+- In fact, running \texttt{test.tukey.outlier} at this stage should produce
 the same error message as in the previous question.
 
-To keep the solutions to a reasonable length, we'll just cover the option
+- To keep the solutions to a reasonable length, we'll just cover the option
 of making \texttt{NA}s NOT outliers, rather than returning NA for
 them. 
 
@@ -420,6 +422,11 @@ sum(tukey.outlier(rain))
 
 Summary
 ===
+
+- We have seen how multiple functions can be used together to perform a task
+- We have also seen how conditions can be used to improve these functions
+- We have also looked at how to more easily work with markdown by sourcing our scripts
+once we know that we work, so we can more easily/efficiently work with functions/code 
 
 
 
