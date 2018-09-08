@@ -14,7 +14,7 @@ Agenda
 ===
 - Multiple functions: Doing different things to the same object
 - Sub-functions: Breaking up big jobs into small ones
-- Example: Back to resource allocation
+- Example: Back to Tukey's outlier method
 
 Why Functions?
 ===
@@ -86,6 +86,7 @@ Keep related things together
 - Source them together
 - Use comments to note ***dependencies***
 
+
 Rest of the module
 ===
 In the rest of the module, we will do the following:
@@ -128,6 +129,7 @@ quartiles <- function(x) {
 
 # Input: data
 # Output: outliers according to Tukey's rule 
+# Dependence: quartiles() 
 tukey.outlier <- function(x) {
   quartiles <- quartiles(x)
   lower.limit <- quartiles[1]-1.5*quartiles[3]
@@ -139,6 +141,7 @@ tukey.outlier <- function(x) {
 # Input: no arguments
 # Output: TRUE if all tests passes, 
 # o/w error at first failed test
+# Dependence: tukey.outlier(), quartiles()
 test.tukey.outlier <- function() {
   x <- c(2.2, 7.8, -4.4, 0.0, -1.2, 3.9, 4.9, 2.0, -5.7, -7.9, -4.9,  28.7,  4.9)
   x.pattern <- rep(FALSE,length(x)); x.pattern[12] <- TRUE
@@ -157,6 +160,22 @@ Let's load in the data set on rainfall from the first homework assignment.
 # read in rainfall data set 
 rain <- read.table("data/rnf6080.dat")
 ```
+
+Our goal will be to walk through five tasks, where we will call the three
+functions from Tukey's method.
+
+Tasks
+===
+
+1. The entries of \texttt{-999} represent missing observations, not
+hours of negative rainfall.  Replace the negative numbers with \texttt{NA}.
+2. Run the 6th column of the cleaned data through your \texttt{tukey.outlier} function.What error message do you get?  Where is the error happening?  Why is it happening?
+3. Write a test case, based on the \texttt{x} vector from lab, which
+shows how you would like your outlier-detector to handle \texttt{NA} values.  Add it to your testing function.
+4. Modify your code for \texttt{tukey.outlier} until it passes all your test cases, including the new one with \texttt{NA}.  What did you have to change? Hint: consider the \texttt{quantile} function. 
+5. How many observations in the 6th column of the rainfall data are
+anomalies according to your improved \texttt{tukey.outlier}?  How many are
+anomalies in the whole data set?
 
 Task 1
 ===
@@ -272,8 +291,7 @@ Remark: We will modify the \texttt{tukey.outlier} code in the next task section.
 Task 4
 ===
 
-Write a test case, based on the \texttt{x} vector from lab, which
-shows how you would like your outlier-detector to handle \texttt{NA} values.  Add it to your testing function.
+Modify your code for \texttt{tukey.outlier} until it passes all your test cases, including the new one with \texttt{NA}.  What did you have to change? Hint: consider the \texttt{quantile} function. 
 
 Task 4
 ===
@@ -357,6 +375,47 @@ Remark: you may have noticed that the first three columns actually give the cale
 ```{r}
 sum(tukey.outlier(rain[,-(1:3)]))
 ```
+
+Putting everything together
+===
+
+Now that we have completed these tasks, let's consider how we can handle all the final functions efficiently and a few of the tasks. 
+
+More specifically, we'll do the following:
+
+1. We will put all our functions that we will call in a tukey.R file
+2. We will then `source` this into our markdown file
+3. Finally, we can check to make sure that we are able to call the functions and perform analysis on them. 
+4. This allows for a smoother workflow (and we don't have messy functions running about in our main document).
+
+Putting everything together
+===
+
+Let's source \texttt{tukey.R}
+
+The \texttt{source} command loads in an R script and all the functions that you have written.
+```{r}
+source("scripts/tukey.R")
+```
+
+Putting everything together
+===
+
+Let's look back at one of our tasks and see what out put we receive from the sourced
+file 
+
+```{r}
+sum(tukey.outlier(rain[,6]))
+sum(tukey.outlier(rain))
+```
+
+Summary
+===
+
+
+
+
+
 
 
 
