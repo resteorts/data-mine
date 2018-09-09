@@ -118,6 +118,15 @@ Tukey's rule says that the outliers are values more than $1.5$ times the interqu
 
 Testing for outliers
 ===
+We have three fuctions:
+
+1. \texttt{quartiles}: Outputs the quartiles given a vector
+2. \texttt{tukey.outlier}: Tells us what indices of a vector are the outlying values
+3. \texttt{test.tukey.outlier}: Testing function to make sure our tukey.outlier function
+is working properly 
+
+Testing for outliers
+===
 \tiny
 ```{r}
 # Input: data
@@ -150,13 +159,25 @@ test.tukey.outlier <- function() {
   stopifnot(all(tukey.outlier(x) == x.pattern))
   return(TRUE)
 }
-test.tukey.outlier()
 ```
 
-Back to rain
+Calling each function
+===
+\footnotesize
+```{r}
+# define a vector of data 
+x <- c(2.2, 7.8, -4.4, 0.0, -1.2, 3.9, 4.9, 
+       2.0, -5.7, -7.9, -4.9,  28.7,  4.9) 
+quartiles(x) # will give the quartiles
+tukey.outlier(x) # output the indices of the outlying data point(s)
+test.tukey.outlier() # do all the conditions pass? yes! 
+```
+
+Rainfall data set
 ===
 
-Let's load in the data set on rainfall from the first homework assignment. 
+Let's look at a real example now, and one we've seen before with missing values --
+the rainfall dataset (see homework 1).
 
 ```{r}
 # read in rainfall data set 
@@ -171,7 +192,7 @@ Tasks
 
 1. The entries of \texttt{-999} represent missing observations, not
 hours of negative rainfall.  Replace the negative numbers with \texttt{NA}.
-2. Run the 6th column of the cleaned data through your \texttt{tukey.outlier} function.What error message do you get?  Where is the error happening?  Why is it happening?
+2. Run the 6th column of the cleaned data through your \texttt{tukey.outlier} function. What error message do you get?  Where is the error happening?  Why is it happening?
 3. Write a test case, based on the \texttt{x} vector from lab, which
 shows how you would like your outlier-detector to handle \texttt{NA} values.  Add it to your testing function.
 4. Modify your code for \texttt{tukey.outlier} until it passes all your test cases, including the new one with \texttt{NA}.  What did you have to change? Hint: consider the \texttt{quantile} function. 
@@ -212,12 +233,13 @@ we obtain the error ```Error in quantile.default(x, 0.25) : missing values and N
 
 Task 2
 ===
+To understand the error further, we use the \texttt{traceback} command in the console to inspect this further.\footnote{1 is the command that we ran. 2 -- 5 are the issues that came up from running command 1.}
 
-In order to understand what's happening, we can take a look at this in the console,
-to understand this further. This error makes it look like the problem might be happening when we call the built-in function \texttt{quantile}, in our \texttt{quartile} function. Using \texttt{traceback} confirms this:
+This error makes it look like the problem might be happening when we call the built-in function \texttt{quantile}, in our \texttt{quartile} function. Using \texttt{traceback} confirms this.
 
 ```
-5: stop("missing values and NaN's not allowed if 'na.rm' is FALSE")
+5: stop("missing values and NaN's not allowed 
+  if 'na.rm' is FALSE")
 4: quantile.default(x, 0.25, names = FALSE)
 3: quantile(x, 0.25, names = FALSE) at #2
 2: quartiles(x) at #2
@@ -313,38 +335,34 @@ incorporate a new test when faced with an NA value (missing is not an outlier).
 
 Task 4
 ===
-\tiny
-```{r}
-# Re-defining test.tukey.outlier to incorporate a new test case
-  # Return FALSE when faced with an NA value, i.e., missing is
-  # not an outlier
-test.tukey.outlier <- function() {
-  x <- c(2.2, 7.8, -4.4, 0.0, -1.2, 3.9, 4.9, 2.0, -5.7, -7.9, -4.9,  28.7,  4.9)
-  x.pattern <- rep(FALSE,length(x)); x.pattern[12] <- TRUE
-  stopifnot(all(tukey.outlier(x) == x.pattern))
-  stopifnot(all(tukey.outlier(-x) == tukey.outlier(x)))
-  stopifnot(all(tukey.outlier(100*x) == tukey.outlier(x)))
-  x.with.nas <- x
-  x.with.nas[7] <- NA
-  stopifnot(all(tukey.outlier(x.with.nas)==x.pattern))
-  return(TRUE)
-}
+We will adjust each of the three functions to hanlde NA values (missing is not an outlier). 
 
+\footnotesize
+```{r}
 # Redefine quartile to handle NAs
 quartiles <- function(x) {
-  q1<-quantile(x,0.25,na.rm=TRUE,names=FALSE)
+  # na.rm = TRUE removes the NA values
+  q1<-quantile(x,0.25,na.rm=TRUE,names=FALSE)  
   q3<-quantile(x,0.75,na.rm=TRUE,names=FALSE)
   quartiles <- c(first=q1,third=q3,iqr=q3-q1)
   return(quartiles)
 }
+```
 
+Task 4
+===
+\footnotesize
+```{r}
 # Redefine tukey.outlier to output FALSE where the input value
 # is NA i.e., missing values are never outliers
 tukey.outlier <- function(x) {
   quartiles <- quartiles(x)
   lower.limit <- quartiles[1]-1.5*quartiles[3]
   upper.limit <- quartiles[2]+1.5*quartiles[3]
+  # Here, we still have NA's that need to be removed 
   outliers <- ((x < lower.limit) | (x > upper.limit))
+  # Replace all NA values to FALSE 
+  # We are treating them as not being outliers
   outliers[is.na(outliers)] <- FALSE
   return(outliers)
 }
@@ -352,6 +370,49 @@ tukey.outlier <- function(x) {
 
 Task 4
 ===
+\footnotesize
+```{r}
+# Re-defining test.tukey.outlier to incorporate a new test case
+  # Return FALSE when faced with an NA value, i.e., missing is
+  # not an outlier
+test.tukey.outlier <- function() {
+  x <- c(2.2, 7.8, -4.4, 0.0, -1.2, 3.9, 4.9, 
+         2.0, -5.7, -7.9, -4.9,  28.7,  4.9)
+  # Initialize all values to FALSE
+  x.pattern <- rep(FALSE,length(x))
+  # Put the true outlier to be TRUE
+  x.pattern[12] <- TRUE
+  stopifnot(all(tukey.outlier(x) == x.pattern))
+  stopifnot(all(tukey.outlier(-x) == tukey.outlier(x)))
+  stopifnot(all(tukey.outlier(100*x) == tukey.outlier(x)))
+  # Initialize the vectors with NA's
+  x.with.nas <- x
+  # Introduce the NA value
+  x.with.nas[7] <- NA
+  stopifnot(all(tukey.outlier(x.with.nas)==x.pattern))
+  return(TRUE)
+}
+```
+
+Task 4
+===
+Let's test this out before finishing the task. 
+
+```{r}
+x <- c(2.2, 7.8, -4.4, 0.0, -1.2, 3.9, 4.9, 
+       2.0, -5.7, -7.9, -4.9,  28.7,  4.9)
+x.with.nas <- x
+x.with.nas[7] <- NA
+quartiles(x.with.nas)
+test.tukey.outlier()
+tukey.outlier(x.with.nas)
+```
+
+Task 4
+===
+
+Now, we test this more fully on the rain data set. 
+
 ```{r}
 summary(tukey.outlier(rain[,6]))
 test.tukey.outlier()

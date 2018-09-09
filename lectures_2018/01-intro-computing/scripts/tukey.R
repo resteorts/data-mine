@@ -7,7 +7,8 @@
   # not an outlier
 test.tukey.outlier <- function() {
   x <- c(2.2, 7.8, -4.4, 0.0, -1.2, 3.9, 4.9, 2.0, -5.7, -7.9, -4.9,  28.7,  4.9)
-  x.pattern <- rep(FALSE,length(x)); x.pattern[12] <- TRUE
+  x.pattern <- rep(FALSE,length(x))
+  x.pattern[12] <- TRUE
   stopifnot(all(tukey.outlier(x) == x.pattern))
   stopifnot(all(tukey.outlier(-x) == tukey.outlier(x)))
   stopifnot(all(tukey.outlier(100*x) == tukey.outlier(x)))
@@ -31,7 +32,10 @@ tukey.outlier <- function(x) {
   quartiles <- quartiles(x)
   lower.limit <- quartiles[1]-1.5*quartiles[3]
   upper.limit <- quartiles[2]+1.5*quartiles[3]
+  # Here, we still have NA's that need to be removed 
   outliers <- ((x < lower.limit) | (x > upper.limit))
+  # Replace all NA values to FALSE 
+  # We are treating them as not being outliers
   outliers[is.na(outliers)] <- FALSE
   return(outliers)
 }
