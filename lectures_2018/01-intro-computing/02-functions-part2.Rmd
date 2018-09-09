@@ -62,7 +62,7 @@ Meta-solutions:
 Writing Multiple Related Functions
 ===
 
-- In machine learning want to do lots of things with models/algorithms: estimate, predict, visualize, test, compare, simulate, uncertainty, etc. 
+- In machine learning, we want to do lots of things with models/algorithms: estimate, predict, visualize, test, compare, simulate, uncertainty, etc. 
 
 - Write multiple functions to do these things
 
@@ -72,8 +72,8 @@ Writing Multiple Related Functions
 Consistent Interfaces
 ===
 
-- Functions for the same kind of object should use the same arguments, and presume the same structure
-- Functions for the same kind of task should use the same arguments, and
+- Functions for the same kind of object should use the same arguments and presume the same structure
+- Functions for the same kind of task should use the same arguments and
   return the same sort of value
 
 (to the extent possible)
@@ -335,7 +335,7 @@ incorporate a new test when faced with an NA value (missing is not an outlier).
 
 Task 4
 ===
-We will adjust each of the three functions to hanlde NA values (missing is not an outlier). 
+We will adjust each of the three functions to handle NA values (missing is not an outlier). 
 
 \footnotesize
 ```{r}
@@ -442,6 +442,7 @@ sum(tukey.outlier(rain))
 ```
 total observations that are anomalies according to our improved \texttt{tukey.outlier}. 
 
+#TODO: This isn't fitting on the slide
 Remark: you may have noticed that the first three columns actually give the calendar date of the observations, and it doesn’t make much sense to ask whether those are outliers or not, so it’s also legitimate to give an answer as well for the total observations that are anomalies (for the entire data set):
 
 ```{r}
@@ -487,7 +488,7 @@ Summary
 - We have seen how multiple functions can be used together to perform a task
 - We have also seen how conditions can be used to improve these functions
 - We have also looked at how to more easily work with markdown by sourcing our scripts
-once we know that we work, so we can more easily/efficiently work with functions/code 
+once we know that they work, so we can more easily/efficiently work with functions/code 
 
 
 
