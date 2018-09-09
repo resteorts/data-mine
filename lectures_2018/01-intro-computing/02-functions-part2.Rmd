@@ -442,7 +442,9 @@ sum(tukey.outlier(rain))
 ```
 total observations that are anomalies according to our improved \texttt{tukey.outlier}. 
 
-#TODO: This isn't fitting on the slide
+Task 5
+===
+
 Remark: you may have noticed that the first three columns actually give the calendar date of the observations, and it doesn’t make much sense to ask whether those are outliers or not, so it’s also legitimate to give an answer as well for the total observations that are anomalies (for the entire data set):
 
 ```{r}
