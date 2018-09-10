@@ -161,7 +161,7 @@ test.tukey.outlier <- function() {
 }
 ```
 
-Calling each function
+Quartiles and Outliers
 ===
 \footnotesize
 ```{r}
@@ -170,8 +170,21 @@ x <- c(2.2, 7.8, -4.4, 0.0, -1.2, 3.9, 4.9,
        2.0, -5.7, -7.9, -4.9,  28.7,  4.9) 
 quartiles(x) # will give the quartiles
 tukey.outlier(x) # output the indices of the outlying data point(s)
-test.tukey.outlier() # do all the conditions pass? yes! 
+which(tukey.outlier(x)) # outliers 
 ```
+
+What is the point of \texttt{test.tukey.outlier()}?
+===
+- I have a function called \texttt{tukey.outlier()}
+- How do I know that it works the way that it should? 
+- A ***testing*** function allow one to perform santity checks to make sure the function behaves as intended  
+
+Testing function
+===
+```{r}
+test.tukey.outlier() # do all the conditions pass? yes!
+```
+
 
 Rainfall data set
 ===
@@ -283,13 +296,11 @@ x.with.nas <- x
 # Create a vector which modifies data slightly by
 # adding an NA in the middle, at position 7
 x.with.nas[7] <- NA
+# stop if the pattern is not matched
 stopifnot(all(tukey.outlier(x.with.nas)==x.pattern))
 ```
 
-That is, we create a vector which modifies \texttt{x} slightly by adding an
-NA in the middle, at position 7.  That wasn't the location of an outlier
-before, so if we don't want \texttt{NA}s to count as outliers we should
-still return false there.  We just add these three lines to
+These three lines can be added to our testing function: 
 \texttt{test.tukey.outlier}.
 
 Task 3 (Case 2)
@@ -312,19 +323,16 @@ Task 3
 
 - The current code for \texttt{tukey.outlier} will fail this test case. 
 
-- In fact, running \texttt{test.tukey.outlier} at this stage should produce
-the same error message as in the previous question.
+- In fact, running \texttt{test.tukey.outlier} at this stage should produce the same error message as in the previous question.
 
-- To keep the solutions to a reasonable length, we'll just cover the option
-of making \texttt{NA}s NOT outliers, rather than returning NA for
-them. 
+- To keep the solutions to a reasonable length, we'll just cover the option of making \texttt{NA}s NOT outliers, rather than returning NA for them. 
 
 Remark: We will modify the \texttt{tukey.outlier} code in the next task section. 
 
 Task 4
 ===
 
-Modify your code for \texttt{tukey.outlier} until it passes all your test cases, including the new one with \texttt{NA}.  What did you have to change? Hint: consider the \texttt{quantile} function. 
+Modify your code for \texttt{tukey.outlier} until it passes all your test cases, including the new one with \texttt{NA} What did you have to change? Hint: consider the \texttt{quantile} function. 
 
 Task 4
 ===
