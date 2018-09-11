@@ -373,6 +373,12 @@ grepl("God", al2)
 al2[grep("God", al2)] # Returns the strings of matches
 ```
 
+Exercises
+===
+
+There are some simple exercises (tasks) to test you knowledge
+of this material. Please go through this on your own. 
+
 
 Task 1: Breaking words apart
 ==============
@@ -440,5 +446,4 @@ Summary
 - `paste()` turns vectors into strings
 - `table()` for counting how many tokens belong to each type
 
-Next time: searching for text patterns using regular expressions
 
