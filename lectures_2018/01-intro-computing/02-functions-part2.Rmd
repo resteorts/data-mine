@@ -10,6 +10,14 @@ output:
 font-size: 8px
 ---
 
+Announcements
+===
+
+1. I will post the date of Exam II no later than Exam I. 
+2. Exam I material will consist will include all lectures through the statistical computing material and homeworks 1 -- 3.
+3. I will talk about the exam in more depth next week. 
+4. Reminder: Exam I Review will be Monday Sept 24, Exam I will be in class Tuesday, Sept 25. 
+
 Agenda
 ===
 - Multiple functions: Doing different things to the same object
