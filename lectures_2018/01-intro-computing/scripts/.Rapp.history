@@ -1,0 +1,19 @@
+square.root <- function(data) {#
+return(sqrt(data))#
+}
+x <- c(4, 8)
+square.root(x)
+test.square.root <- function(){#
+x <- c(4, 8)#
+x.pattern <- rep(FALSE, length(x))#
+stopifnot(all(square.root(x) == x.pattern))#
+}
+test.square.root()
+square.root(16)
+z <- matrix(c(4,16,64,128),nrow=2)
+square.root(z)
+z <- matrix(c(4,16,64,136),nrow=2)
+square.root(z)
+square.root(z)
+z <- matrix(c(4,16,64,100),nrow=2)
+square.root(z)

@@ -1,0 +1,68 @@
+---
+title: "Preparation for Exam I"
+author: "STA 325, Supplemental Material"
+date: Rebecca C. Steorts
+output: 
+     beamer_presentation:
+      includes: 
+          in_header: custom2.tex
+font-size: 8px
+---
+
+Annoucements
+===
+
+Reminder: Datathon is October 27, 2018
+
+- dukeml.org/register
+(For students to apply to the datathon.)
+
+- There will be extra workshops for the datathon. Please sign up below if you would like to participate
+
+- If you know someone that might be a good mentor, please feel free to suggest this to them 
+
+dukeml.org/mentor
+(For mentors and workshops.)
+
+Exam I
+===
+
+- Exam I Review will be Monday Sept 24
+- Exam I will be in class Tuesday, Sept 25. 
+
+Exam I Material
+===
+
+- Module 0
+- Module 1
+
+- Please review all class modules, homeworks,
+and labs in preparation for the exam. 
+
+Exam I Material
+===
+
+- Introduction to Machine Learning
+- Reproducible code/R Markdown
+- Review of R
+- Introduction to Functions
+- Advanced Functions
+- Dealing with Textual/String Data 
+
+Review
+===
+
+0. What is machine learning? 
+1. What are applications of machine learning? 
+2. What is reproducible research?
+3. What is a vector, data structure, list etc? 
+4. What is a function?
+5. How do you define a function?
+6. How do multiple functions work together? 
+7. Why do we use functions?
+8. What is a simple example of a function? 
+9. How do we test that a function works properly?
+10. What is a character? What is a string?
+11. Does R distinguish between characters and strings?
+12. What is a substring? 
+13. Know how to work with a piece of text, analyze it, and manipulate it (like in the lecture and homework).
