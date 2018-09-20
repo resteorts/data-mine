@@ -252,48 +252,31 @@ Bigger Example
 - Load the data
 
 ```{r}
-# load the text mining package
 library(tm)
-# load our Wikipedia data (8 articles)
 load(file="docs.Rdata")
 ```
 
-\texttt{tm} package
+Bigger Example
 ===
 
-- We're going to take advantage of the \texttt{tm} package in \texttt{R.}
-- In order to grab the Wikipedia text stored in \texttt{docs.Rdata}, we'll use the \texttt{VectorSource} function.
-- We first take our documents and put them into a corpus. Next, we'll take the corpus and transform these into a document term matrix.
-
-- Please see \url{https://cran.r-project.org/web/packages/tm/vignettes/tm.pdf} for commands available in this package
-
-Create a corpus of documents
-===
+Pre-process and create document term matrix (DTM)
 
 ```{r}
 # make a corpus of documents
 corp = VCorpus(VectorSource(docs))
-head(corp)
-```
-
-Create the document term matrix (DTM)
-===
-```{r}
-# create the DTM and perform some minor cleaning
+# create the DTM and clean
 dtm = DocumentTermMatrix(corp, control=list(tolower=TRUE,
 removePunctuation=TRUE,removeNumbers=TRUE))
 ```
 
-The DTM
+Bigger Example
 ===
-Here we get a sample of terms and can see a sparse representation of the DTM. Converting the DTM into a matrix, will tranform it to a dense matrix (and this is more memory intensive to store for large matrices). 
-\tiny
+What does the DTM look like?
 ```{r}
-inspect(dtm)
+dtm
 ```
 
-
-Convert to Matrix
+Bigger Example
 ===
 Let's convert the \texttt{dtm} into a matrix and see what it looks like! 
 \scriptsize
@@ -308,22 +291,9 @@ Let's now compute the un-normalized distance.
 
 \scriptsize
 ```{r}
-# Inspect the columns of row 9 (query). 
-head(mydtm[9,])
 # Compute unnormalized distance
-dist = sqrt(rowSums((scale(mydtm,center=mydtm[9,],scale=FALSE)^2)))
-head(dist)
-```
-
-Bigger Example
-===
-Let's finish with the un-normalized distance.
-
-\scriptsize
-```{r}
-# the query
 q = c("but","cool","dude","party","michelangelo","raphael","rude") 
-# make a matrix of the query and distance
+dist = sqrt(rowSums((scale(mydtm,center=mydtm[9,],scale=F)^2)))
 mat = cbind(mydtm[,q],dist)
 colnames(mat) = c(q,"dist")
 head(mat)
@@ -354,7 +324,7 @@ query  & 1  &  &1    1   &  1   &         1  &     1  &  1   &    0.000\\
 \end{table}
 
 Does this matrix make sense given that the document lengths vary? 
-
+Let's think about this some more. 
 
 
 Varying document lengths and normalization
@@ -367,11 +337,10 @@ doc 1 doc 2 doc 3 doc 4 doc 5 doc 6 doc 7 doc 8 query
 ```
 
 \vspace{-5pt}
-- Wikipedia entry on Michelangelo the painter is almost twice as long as that on Michelangelo the TMNT (6524 vs 3330 words). 
+- Wikipedia entry on Michelangelo the painter is almost twice as long
+as that on Michelangelo the TMNT (6524 vs 3330 words). 
 
 - And query is only 7 words long! 
-
-- That is, we want to make sure we're taking into the length of each document so that we can do more fair comparisons.
 
 - We should normalize the count vectors $X_d$ and $Y$ in some way. 
 
@@ -394,7 +363,6 @@ the document.
 
 Back to Wikipedia example
 ===
-\footnotesize
 ```{r}
 # Document length normalization
 mydtm.dl = mydtm/rowSums(mydtm)
@@ -420,23 +388,15 @@ c("(tmnt leo)","(tmnt rap)","(tmnt mic)","(tmnt don)",
 "(real leo)","(real rap)","(real mic)","(real don)"))
 ```
 
-Back to Wikipedia example
+Back to our Wikipedia example
 ===
-\footnotesize
 ```{r}
 a
 ```
 
-How do we interpret our results?
+Great!
 
-1. According to the document length distance, doc 7 (real mic) is closest to our query since it's distance 0.381 is smallest. 
-
-2. According to the Euclidean distance, doc 3 (tmnt mic) is closest to our query since it's distance 1.319 is smallest. 
-
-Can we do better than this? (Notice that many of the distances are very close in magnitude). 
-
-What's next
-===
+\bigskip
 So far we've dealt with varying document lenghts.
 What about some words being more helpful than
 others? Common words, especially, are not
@@ -444,19 +404,18 @@ going to help us find relevant documents
 
 Common words and IDF weighting
 ===
+Someone asked in class last time about selectively paying less attention to certain words, especially common words, and more to the rest. This is an excellent notion.
+
 
 To deal with common words, we could just keep a list
 of words like "the'', "this'', "that'', etc. to
-exclude from our representation. 
-
-But this would be both too crude and time
+exclude from our representation. But
+this would be both too crude and time
 consuming.
 
-Inverse document frequency weighting
-===
+\bigskip
 Inverse document frequency (IDF) weighting
 is smarter and more efficient
-
 \begin{itemize}
 \item
 For each word $w$, let $n_w$ be the number of 
@@ -469,7 +428,7 @@ $\log(D/n_w)$.
 
 \bigskip
 If a word appears in every document, then it gets
-a weight of zero, so it's effectively tossed out of the representation.
+a weight of zero, so effectively tossed out of the representation.
 
 \bigskip
 (Future reference: IDF performs something like
@@ -631,6 +590,23 @@ Notation:
 - $|R|$ and $|NR|$ are the number of relevant and non-relevant documents
 - $\alpha$ say how much continuity there is between the old search and the new search. 
 - $\beta$ and $\gamma$ guage our preference for recall (we find more relevant documents) versus precision (more of what we find is relevant).
+
+Text mining in R
+===
+Helpful methods implemented in the package 
+\textcolor{blue}{tm}, available on the CRAN repository
+
+```{r, echo=FALSE}
+library(tm)
+```
+```latex
+dtm <- DocumentTermMatrix(corp, 
+  control=list(tolower=TRUE,
+  removePunctuation=TRUE,
+  removeNumbers=TRUE,
+  stemming=TRUE,
+  weighting=weightTfIdf))
+```
 
 Recap: information retrieval
 ===
