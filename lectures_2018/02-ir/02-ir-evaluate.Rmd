@@ -7,15 +7,6 @@ output:
           in_header: custom2.tex
 font-size: 8px
 ---
-Exam I
-====
-- Exam I will be on Thursday, September 28. 
-- It will cover material through Information Retrieval. 
-- You will be responsible for material from the modules (class notes), 
-homeworks, and the labs. 
-- You may be asked to comment pieces of code, write code/pseudo code, know definitions, define terms, and many other types of things. 
-- We won't have time to cover Rocchio's algorithm in detail, so you don't need to know it! 
-
 
 Information Retrieval
 ===
