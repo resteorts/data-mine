@@ -304,20 +304,25 @@ mydtm[,100:110]
 
 Bigger Example
 ===
-Let's now compute the un-normalized distance.
+
+- Let's now compute the Euclidan distance (un-normalized).
+
+- Use the \texttt{scale(x, center = TRUE, scale = TRUE)} function to help us! 
 
 \scriptsize
 ```{r}
 # Inspect the columns of row 9 (query). 
 head(mydtm[9,])
-# Compute unnormalized distance
+# Intermediate Check 
+dim(scale(mydtm,center=mydtm[9,],scale=FALSE)^2)
+# Compute Euclidean distance (vectorized version)
 dist = sqrt(rowSums((scale(mydtm,center=mydtm[9,],scale=FALSE)^2)))
 head(dist)
 ```
 
 Bigger Example
 ===
-Let's finish with the un-normalized distance.
+Let's visualize this in a matrix, so we can analze the results
 
 \scriptsize
 ```{r}
@@ -326,13 +331,13 @@ q = c("but","cool","dude","party","michelangelo","raphael","rude")
 # make a matrix of the query and distance
 mat = cbind(mydtm[,q],dist)
 colnames(mat) = c(q,"dist")
-head(mat)
+mat
 ```
 
 
 Bigger Example
 ===
-Here, we output the un-normalized distance into a table. 
+Here, we output the un-normalized Euclidean distance into a table. 
 
 \begin{table}[ht]
 \begin{center}
@@ -383,12 +388,11 @@ Varying document lengths and normalization
 by its sum,
 \vspace{-5pt}
 $$X \leftarrow X/\sum_{w=1}^W X_w$$
-\item $\ell_2$ length normalization: divide $X$ 
+\item Euclidean or $\ell_2$ length normalization: divide $X$ 
 by its $\ell_2$ length,
 \vspace{-5pt}
 $$X \leftarrow X / \|X\|_2$$
-\item  apparently, normalizing by $\ell_2$ length tends 
- to better de-emphasize words that are rare in 
+\item  One can show emprically or theoretically that normalizing by $\ell_2$ length tends  to better de-emphasize words that are rare (not common) in 
 the document.
 \end{itemize}
 
@@ -413,9 +417,9 @@ Back to Wikipedia example
 ===
 ```{r}
 # Compare two normalization schemes
-a = cbind(mat.dl[,8],mat.l2[,8])
-colnames(a) = c("dist/doclen","dist/l2len")
-rownames(a) = paste(rownames(a),
+wikipedia = cbind(mat.dl[,8],mat.l2[,8])
+colnames(wikipedia) = c("dist/doclen","dist/l2len")
+rownames(wikipedia) = paste(rownames(wikipedia),
 c("(tmnt leo)","(tmnt rap)","(tmnt mic)","(tmnt don)",
 "(real leo)","(real rap)","(real mic)","(real don)"))
 ```
@@ -424,7 +428,7 @@ Back to Wikipedia example
 ===
 \footnotesize
 ```{r}
-a
+wikipedia
 ```
 
 How do we interpret our results?
@@ -460,7 +464,7 @@ is smarter and more efficient
 \begin{itemize}
 \item
 For each word $w$, let $n_w$ be the number of 
-documents that contain this word.
+documents that contain the word $w$.
 \item
 Then for each vector $X_d$ and $Y$, multiply 
 $w$th component by 
@@ -517,6 +521,46 @@ or its $\ell_2$ norm $\|X\|_2$)
 \item We can use both, just normalize first and then 
 perform IDF weighting
 \end{itemize}
+
+Wikipedia (with IDF and Document Length Norm)
+===
+\footnotesize
+```{r}
+# Weight the DTM using IDF 
+dtm.idf = DocumentTermMatrix(corp, control=list(tolower=TRUE,removePunctuation=TRUE,       removeNumbers=TRUE,weighting=weightTfIdf))
+mydtm.idf.dl = as.matrix(dtm.idf)
+mat.idf.dl = cbind(mydtm.idf.dl[,q],
+sqrt(colSums((t(mydtm.idf.dl[1:9,])-mydtm.idf.dl[9,])^2)))
+colnames(mat.idf.dl) = c(q,"dist")
+```
+
+For more information about \texttt{weighting}, see \url{https://www.rdocumentation.org/packages/tm/versions/0.7-5/topics/weightTfIdf}
+
+Wikipedia (with IDF and Euclidean Norm)
+===
+```{r}
+mydtm.idf.l2 = mydtm.idf.dl * rowSums(mydtm) / sqrt(rowSums(mydtm^2))
+mat.idf.l2 = cbind(
+mydtm.idf.l2[,q],
+sqrt(colSums((t(mydtm.idf.l2[1:9,])-mydtm.idf.l2[9,])^2)))
+colnames(mat.idf.l2) = c(q,"dist")
+```
+
+Wikipedia (with IDF)
+===
+```{r}
+wikipedia.idf = cbind(mat.idf.dl[,8], mat.idf.l2[,8])
+colnames(wikipedia.idf) = c("dist/doclen/idf", "dist/l2len/idf")
+rownames(wikipedia.idf) = paste(rownames(wikipedia),
+c("(tmnt leo)","(tmnt rap)","(tmnt mic)","(tmnt don)",
+"(real leo)","(real rap)","(real mic)","(real don)"))
+```
+
+Wikipedia (with IDF)
+===
+```{r}
+wikipedia.idf
+```
 
 Back to our Wikipedia example, again
 ===
@@ -610,27 +654,9 @@ feedback from the user about document relevance
 and then refines the query and repeats the search
 giving more weight to what user's like, and less to what user's don’t like.
 
-Feedback and Rocchio's algorithm
-=== 
-\begin{enumerate}
-\item User gives an initial query $Y$
-\item Computer returns documents it believes
-to be relevant, and user divides these into sets:
-revelant $R$ and not relevant $NR$
-\item Computer updates the query string as
-$$Y \leftarrow \alpha Y + 
-\frac{\beta}{|R|} \sum_{X_d \in R} X_d -
-\frac{\gamma}{|NR|} \sum_{X_d \in NR} X_d$$
-\item Repeat steps 2 and 3
-\end{enumerate}
-We have to choose constants $\alpha,\beta,\gamma>0$
-(interpretations?)
+You may wish to read more about this on your own or take more advanced machine learning classes. 
 
-Notation: 
 
-- $|R|$ and $|NR|$ are the number of relevant and non-relevant documents
-- $\alpha$ say how much continuity there is between the old search and the new search. 
-- $\beta$ and $\gamma$ guage our preference for recall (we find more relevant documents) versus precision (more of what we find is relevant).
 
 Recap: information retrieval
 ===
@@ -653,4 +679,6 @@ $k$ documents whose word count vectors are closest to the query vector
 Important extensions include normalization (row scaling)
 and IDF weighting (column scaling) the document-term matrix,
 before computing distances. Other extensions: stemming, feedback
+
+ 
 
