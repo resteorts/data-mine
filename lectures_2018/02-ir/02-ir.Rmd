@@ -527,7 +527,10 @@ Wikipedia (with IDF and Document Length Norm)
 \footnotesize
 ```{r}
 # Weight the DTM using IDF 
-dtm.idf = DocumentTermMatrix(corp, control=list(tolower=TRUE,removePunctuation=TRUE,       removeNumbers=TRUE,weighting=weightTfIdf))
+ dtm.idf = DocumentTermMatrix(corp,
+    control=list(tolower=TRUE,
+    removePunctuation=TRUE, 
+    removeNumbers=TRUE,weighting=weightTfIdf))        
 mydtm.idf.dl = as.matrix(dtm.idf)
 mat.idf.dl = cbind(mydtm.idf.dl[,q],
 sqrt(colSums((t(mydtm.idf.dl[1:9,])-mydtm.idf.dl[9,])^2)))
@@ -538,6 +541,7 @@ For more information about \texttt{weighting}, see \url{https://www.rdocumentati
 
 Wikipedia (with IDF and Euclidean Norm)
 ===
+\footnotesize
 ```{r}
 mydtm.idf.l2 = mydtm.idf.dl * rowSums(mydtm) / sqrt(rowSums(mydtm^2))
 mat.idf.l2 = cbind(
@@ -548,6 +552,7 @@ colnames(mat.idf.l2) = c(q,"dist")
 
 Wikipedia (with IDF)
 ===
+\footnotesize
 ```{r}
 wikipedia.idf = cbind(mat.idf.dl[,8], mat.idf.l2[,8])
 colnames(wikipedia.idf) = c("dist/doclen/idf", "dist/l2len/idf")
@@ -558,6 +563,7 @@ c("(tmnt leo)","(tmnt rap)","(tmnt mic)","(tmnt don)",
 
 Wikipedia (with IDF)
 ===
+\footnotesize
 ```{r}
 wikipedia.idf
 ```
