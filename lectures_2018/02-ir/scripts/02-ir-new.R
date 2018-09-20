@@ -33,7 +33,17 @@ rownames(a) = paste(rownames(a),
 c("(tmnt leo)","(tmnt rap)","(tmnt mic)","(tmnt don)",
 "(real leo)","(real rap)","(real mic)","(real don)"))
 
+nw = colSums(mydtm!=0)
+mydtm.idf.dl = scale(mydtm.dl,center=FALSE,scale=1/log(9/nw))
+mydtm.idf.el = scale(mydtm.el,center=FALSE,scale=1/log(9/nw))
+
 # Let's work on the IDF weighting
-# This is the number of words in each document
-rowSums(mydtm)
+D = nrow(mydtm)
+nw = colSums(mydtm!=0)
+
+a = mydtm/rowSums(mydtm)
+aa = scale(a,center=FALSE,scale=1/log(D/nw))
+
+b = scale(mydtm,center=FALSE,scale=1/log(D/nw))
+bb = b/rowSums(b)
 

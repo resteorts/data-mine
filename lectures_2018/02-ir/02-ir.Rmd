@@ -433,7 +433,7 @@ wikipedia
 
 How do we interpret our results?
 
-1. According to the document length distance, doc 7 (real mic) is closest to our query since it's distance 0.381 is smallest. 
+1. According to the document length distance, doc 2 (tmnt rap) is closest to our query since it's distance 0.377 is smallest. 
 
 2. According to the Euclidean distance, doc 3 (tmnt mic) is closest to our query since it's distance 1.319 is smallest. 
 
