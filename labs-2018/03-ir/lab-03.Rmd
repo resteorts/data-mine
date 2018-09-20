@@ -1,0 +1,24 @@
+---
+title: 'Information Retrieval'
+author: "STA 325: Lab 3, Fall 2017"
+output: pdf_document
+---
+
+Today's agenda: Information Retrieval, document term matrices, queries, text mining, writing functions.
+
+Programming partner's:
+You should have a programming partner for each lab, and you should switch off who is programming, and use each other for help. We will spend about 30--50 minutes per week on lab exercises and you will be expected to bring you laptops to class to work on these exercises in class. Myself and the TA's will be in class to help you.
+
+***Lab Tasks***
+
+
+1. Read the text data (provided) on Shakespeare into \textsf{R} with the \textsf{load()} function. The variable \textsf{shakespeare} contains the complete works of William Shakespeare. Apply the function \textsf{length()} to determine how many documents are present. 
+
+2. Create a corpus of this text using the following command \newline\textsf{Corpus(VectorSource(shakespeare))} and store this in the variable \textsf{corp}. 
+
+3. Use the \textsf{tm\textunderscore map()} command to pre-process the data: remove punctuation, convert to lower case, and remove any numbers present in the data. After the processing, create a document term matrix (DTM) of this corpus and store it in the variable \textsf{dtm}. Apply \textsf{as.matrix()} to the final matrix.
+
+4. Set the variable \textsf{myQuery} to the following \textsf{c("something","rotten", \newline"state","denmark")} 
+
+5. Write a function called \textsf{myTextMiner()} that accepts as its inputs, a string vector containing keywords (akin to \textsf{myQuery}), and a corpus. The function should then process the corpus to first convert all entries to lower case, then remove all punctuation, then remove any numbers present and finally construct a document term matrix (DTM) that is normalized by the length of each document. Finally based on the query above, compute the Euclidean distance to each document in the \textsf{shakespeare} corpus. Note that the easiest way to do so involves including the query in the DTM. The function should return a subset of the normalized DTM with those columns that are shared with the query, with one additional column that contains the Euclidean distance for each document that has been normalized by document length. Name this column \textsf{distanceMetric}.} \textbf{Hint}: Remember to use \textsf{as.matrix()} on the DTM before any calculations.
+
