@@ -1,0 +1,70 @@
+---
+title: "Datathon Slide Template"
+author: "Rebecca C. Steorts"
+date: September 27 2018
+output: 
+     beamer_presentation:
+      includes: 
+          in_header: custom2.tex
+          
+
+font-size: 12px
+---
+
+
+Data set
+===
+
+- Explain the data set very quickly! 
+- You may want to give a quick visualization of the data set
+and what it looks like. 
+
+Exploring the Dataset 
+===
+
+- How did you explore the data set? 
+- How did this motivate what method you used? 
+- Again, visuals please! 
+
+Challenges of the Dataset
+===
+
+- Note any challenges of the dataset. 
+- How did you deal with these? 
+
+Methods
+===
+
+- How did you analyze the data set
+- Stick to your best method that worked
+- How did you evaluate how your method worked 
+
+Methods (Continued)
+===
+
+- How did you analyze the data set
+- Stick to your best method that worked
+- How did you evaluate how your method worked 
+
+Results
+===
+
+- Highlight your results from the methods that you used 
+- Again, be sure to use visuals here. 
+
+Results (continued)
+===
+
+- Highlight your results from the methods that you used 
+- Again, be sure to use visuals here. 
+
+Conclusions
+===
+
+Here, you should provide some conclusions regarding 
+the datathon, data analysis, etc. 
+
+
+
+
+
