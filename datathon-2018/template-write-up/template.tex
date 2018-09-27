@@ -1,0 +1,189 @@
+
+%%%%%%%%%%%%%%%%%%%%%%% file typeinst.tex %%%%%%%%%%%%%%%%%%%%%%%%%
+%
+% This is the LaTeX source for the instructions to authors using
+% the LaTeX document class 'llncs.cls' for contributions to
+% the Lecture Notes in Computer Sciences series.
+% http://www.springer.com/lncs       Springer Heidelberg 2006/05/04
+%
+% It may be used as a template for your own input - copy it
+% to a new file with a new name and use it as the basis
+% for your article.
+%
+% NB: the document class 'llncs' has its own and detailed documentation, see
+% ftp://ftp.springer.de/data/pubftp/pub/tex/latex/llncs/latex2e/llncsdoc.pdf
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\documentclass[11pt]{llncs}\usepackage[]{graphicx}\usepackage[]{color}
+%% maxwidth is the original width if it is less than linewidth
+%% otherwise use linewidth (to make sure the graphics do not exceed the margin)
+\makeatletter
+\def\maxwidth{ %
+  \ifdim\Gin@nat@width>\linewidth
+    \linewidth
+  \else
+    \Gin@nat@width
+  \fi
+}
+\makeatother
+
+\definecolor{fgcolor}{rgb}{0.345, 0.345, 0.345}
+\newcommand{\hlnum}[1]{\textcolor[rgb]{0.686,0.059,0.569}{#1}}%
+\newcommand{\hlstr}[1]{\textcolor[rgb]{0.192,0.494,0.8}{#1}}%
+\newcommand{\hlcom}[1]{\textcolor[rgb]{0.678,0.584,0.686}{\textit{#1}}}%
+\newcommand{\hlopt}[1]{\textcolor[rgb]{0,0,0}{#1}}%
+\newcommand{\hlstd}[1]{\textcolor[rgb]{0.345,0.345,0.345}{#1}}%
+\newcommand{\hlkwa}[1]{\textcolor[rgb]{0.161,0.373,0.58}{\textbf{#1}}}%
+\newcommand{\hlkwb}[1]{\textcolor[rgb]{0.69,0.353,0.396}{#1}}%
+\newcommand{\hlkwc}[1]{\textcolor[rgb]{0.333,0.667,0.333}{#1}}%
+\newcommand{\hlkwd}[1]{\textcolor[rgb]{0.737,0.353,0.396}{\textbf{#1}}}%
+\let\hlipl\hlkwb
+
+\usepackage{framed}
+\makeatletter
+\newenvironment{kframe}{%
+ \def\at@end@of@kframe{}%
+ \ifinner\ifhmode%
+  \def\at@end@of@kframe{\end{minipage}}%
+  \begin{minipage}{\columnwidth}%
+ \fi\fi%
+ \def\FrameCommand##1{\hskip\@totalleftmargin \hskip-\fboxsep
+ \colorbox{shadecolor}{##1}\hskip-\fboxsep
+     % There is no \\@totalrightmargin, so:
+     \hskip-\linewidth \hskip-\@totalleftmargin \hskip\columnwidth}%
+ \MakeFramed {\advance\hsize-\width
+   \@totalleftmargin\z@ \linewidth\hsize
+   \@setminipage}}%
+ {\par\unskip\endMakeFramed%
+ \at@end@of@kframe}
+\makeatother
+
+\definecolor{shadecolor}{rgb}{.97, .97, .97}
+\definecolor{messagecolor}{rgb}{0, 0, 0}
+\definecolor{warningcolor}{rgb}{1, 0, 1}
+\definecolor{errorcolor}{rgb}{1, 0, 0}
+\newenvironment{knitrout}{}{} % an empty environment to be redefined in TeX
+
+\usepackage{alltt}
+
+% packages
+\usepackage{amssymb, amsmath}
+\setcounter{tocdepth}{3}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{multirow}
+
+\usepackage{url}
+\def\UrlBreaks{\do\/\do-}
+\usepackage{float, color} % tables and color comments
+\usepackage[sort&compress, numbers]{natbib}
+
+%% TODO: REMOVE BEFORE SUBMISSION
+% \usepackage[displaymath, mathlines]{lineno}
+% \linenumbers
+% \pagenumbering{arabic}
+% \pagestyle{plain}
+%%
+
+% Play with these default values to fix spacing between floats and text
+% \textfloatsep: 20.0pt plus 2.0pt minus 2.0pt
+% \floatsep: 12.0pt plus 2.0pt minus 2.0pt
+% \intextsep: 12.0pt plus 2.0pt minus 2.0pt
+
+\setlength{\textfloatsep}{5pt plus 2.0pt minus 2.0pt}
+\setlength{\floatsep}{6pt plus 1.0pt minus 1.0pt}
+\setlength{\intextsep}{6pt plus 1.0pt minus 1.0pt}
+
+\newcommand{\keywords}[1]{\par\addvspace\baselineskip
+\noindent\keywordname\enspace\ignorespaces#1}
+\RequirePackage[colorlinks,citecolor=blue,urlcolor=blue]{hyperref}
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\begin{document}
+
+\mainmatter  % start of an individual contribution
+\title{Title of your Report}
+%\title{The Downstream Task from Record Linkage Applied to Linear and Logistic Regression}
+%\title{An Investigation of Error Propagation to Downstream Analyses from Record Linkage for Various Methods of Data Merging}
+\titlerunning{Short Title of your Report}
+
+
+\author{Names of All Authors
+  \thanks{Be sure to thank anyone that helped you with your report (mentors, etc).}
+ }
+
+\institute{Duke University, Department of Statistical Science \\
+%P.O. Box 90251, Durham, NC 27708-0251 \\
+\path|{andrea.kaplan,bb222}@duke.edu, {beka}@stat.duke.edu|
+}
+
+
+\maketitle
+
+
+\begin{abstract}
+Here you should have an abstract outlining the findings from DataFest. (This should be a very short paragraph).
+
+\keywords{put the key-words for your report here.}
+\end{abstract}
+
+% Add an libraries that you need below
+
+
+\section{Introduction}
+\label{sec:introduction}
+Here, you should have text summarizing the following (1) the motivating data set, (2) the goal presented to your by the Datathon, (3) how you approached the problem at hand, (4) and summarize your results and conclusions.
+
+You should also outline each section for your report. In section \ref{sec:datset}, we describe the dataset from Datathon. In section \ref{sec:eda}, we provide an exploratory data analysis (EDA) of [[said data set]] before considering any methods or algorithms. Based upon our EDA, we considered the methods/algorithms in section \ref{sec:methods}. In section \ref{sec:application}, we consider the methods from \ref{sec:methods} and evaluate them based upon [[what metrics]]. In section \ref{sec:discussion}, we summarize our findings and provide suggestions for future analysis.
+
+\section{Data set}
+\label{sec:datset}
+In this section, we describe the [[insert the name of the dataset and provide a descripion of it]]. This should be about one paragraph in length.
+
+\subsection{Exploratory Data Analysis}
+\label{sec:eda}
+In this section, we provide an EDA of [[said data set]].
+
+\section{Methods}
+\label{sec:methods}
+In this section, we consider applying the methods of (1) linear regression, (2) [what else], (3) [what else] to [said data set]. We evaluate each method based upon the following evaluation metrics: [[list these]]. Before applying each method to [[said dataset]], we review each method below.
+
+First, we consider the method of [[blah]].
+
+Second, we consider the method of [[blah]].
+
+Summarize each method in this section and why the method is appropriate for the dataset at hand.
+
+\section{Application to [[said dataset]]}
+\label{sec:application}
+In this section, we apply each of the methods from section \ref{sec:methods} to [said dataset] and summarize our results.
+
+
+\section{Discussion}
+\label{sec:discussion}
+In this section, [[summarize your results and findings.]]
+
+\newpage
+
+% bibliography
+\footnotesize{
+\bibliographystyle{plain}
+\bibliography{refs}
+}
+
+\newpage
+
+\section*{Appendix}
+% appendices
+\appendix
+
+Put any information that is not crucial to the paper in the appendix and
+be sure to reference it in the main body of the paper.
+
+\section{Algorithm}
+\label{sec:appendix-a}
+
+
+
+\end{document}
