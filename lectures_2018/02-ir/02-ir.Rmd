@@ -662,6 +662,77 @@ giving more weight to what user's like, and less to what user's don’t like.
 
 You may wish to read more about this on your own or take more advanced machine learning classes. 
 
+Other measures of similarity
+===
+
+There are other ways we can measure the similarity between the document and query, and one is using the cosine measure. 
+
+The cosine similarity between two vectors X and Y is defined as 
+
+$$d_{\text{cos}} = \sum_i x_i y_i$$
+
+In order to normalize the similarity measure, we simply adjust in the following manner: 
+
+$$d_{\text{cos}} = \frac{\sum_i x_i y_i}{||x||||y||}$$
+
+Visualizations
+====
+
+One common question that often arises is how might we visualize a bag of words representation? 
+
+When we create a bag of word representation, we typically have vectors (X,Y) that typically have more than three dimensions and this is hard to visualize. 
+
+However, we can compute the distance between any two vectors, which will tell us how far apart our vectors are. 
+
+But, we can compute the distance between any two vectors, so we know how far apart these vectors are. 
+
+
+Visualization: Multidimensional Scaling
+===
+
+Multidimensional scaling (MDS) is the general name for a family of algorithms which take high-dimensional vectors and map them down to two- or three-dimensional vectors, trying to preserve all the relevant distances.
+
+Visualization: Multidimensional Scaling
+===
+
+Abstractly, we start with vectors $v_1, \ldots, v_n$ that live in a p-dimensional space, where $p$ is large.
+
+We want to find new vectors $x_1, \ldots, x_n$ such that $$\sum_{i=1}^n \sum_{j \neq i} (\delta(v_1,v_2) - d(x_1,x_2)),$$
+
+where $\delta$ is the distance in the original space and $d$ is the Euclidean distance in the new space.
+
+Note that the new or image points $x_i$ are representations of the $v_i$, i.e., representations of representations.
+
+Visualization: Multidimensional Scaling
+===
+
+These plots can be very useful because they are nice visualization tools. 
+
+They are often used to visualize data reduction methods because sometimes we want to preserve properties besides distances. 
+
+Visualization: Multidimensional Scaling
+===
+
+1. The bag of words representation gives each of our original coordinates/features some meaning because it says something very definite about the document being represented. 
+
+2. This is not the case with the coordinates we get after doing the MDS. 
+
+
+- We could rotate all of the image points arbitrarily.
+
+- This would make it very hard to assign any  interpretation to where the images fall on the axes.
+
+- While this is not a proof, hopefully it gives you some intuition. 
+
+- This is true of many other dimensionality-reduction methods as well.
+
+Multidimensional scaling in R
+===
+
+To make a multi-dimensional scaling plot in R, you will
+want to use the \texttt{cmdscale} function(). 
+
+  
 
 
 Recap: information retrieval
@@ -683,8 +754,7 @@ $k$ documents whose word count vectors are closest to the query vector
 
 \bigskip
 Important extensions include normalization (row scaling)
-and IDF weighting (column scaling) the document-term matrix,
-before computing distances. Other extensions: stemming, feedback
+and IDF weighting (column scaling) the document-term matrix, before computing distances. Other extensions: stemming, feedback, multi-dimensional scaling
 
  
 
