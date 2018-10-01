@@ -22,12 +22,12 @@ I want to learn about that magic trick with the rings!
 Then: go to the library
 \begin{center}
 \begin{tabular}{ccc}
-\includegraphics[height=1in]{librarian.jpg} & 
-\includegraphics[height=1in]{catalog.jpg} & 
+\includegraphics[height=1in]{figures/librarian.jpg} & 
+\includegraphics[height=1in]{figures/catalog.jpg} & 
 \hspace{-12pt}
 \setlength\fboxsep{0pt}
 \setlength\fboxrule{0.5pt}
-\fbox{\includegraphics[height=0.5in]{metadata.png}} \\
+\fbox{\includegraphics[height=0.5in]{figures/metadata.png}} \\
 Librarian & Card catalog & Metadata
 \end{tabular}
 \end{center}
@@ -39,7 +39,7 @@ What we do now
 ===
 Now: search the web!
 \begin{center}
-\includegraphics[height=0.7\textheight]{googlesearch.png}
+\includegraphics[height=0.7\textheight]{figures/googlesearch.png}
 \end{center}
 
 \vspace{-10pt}
@@ -70,7 +70,7 @@ Try using the meaning of documents
 \begin{tabular}{cc}
 \hspace{-15pt}
 \parbox{0.5\textwidth}{
-\includegraphics[width=0.5\textwidth]{wikipedia.png}} & 
+\includegraphics[width=0.5\textwidth]{figures/wikipedia.png}} & 
 \parbox{0.5\textwidth}{
 What if we tried to represent the meaning of 
 documents? E.g., 
@@ -230,14 +230,14 @@ Documents: 8 Wikipedia articles
 \vspace{-20pt}
 \begin{tabular}{ccccccccc} 
 \hspace{-10pt}
-\includegraphics[width=0.4in]{leo.jpg} & 
-\includegraphics[width=0.4in]{rap.jpg} &
-\includegraphics[width=0.4in]{mic.jpg} &
-\includegraphics[width=0.4in]{don.jpg} &
-\includegraphics[width=0.4in]{leo2.jpg} &
-\includegraphics[width=0.4in]{rap2.jpg} &
-\includegraphics[width=0.4in]{mic2.jpg} &
-\includegraphics[width=0.4in]{don2.jpg} \\ 
+\includegraphics[width=0.4in]{figures/leo.jpg} & 
+\includegraphics[width=0.4in]{figures/rap.jpg} &
+\includegraphics[width=0.4in]{figures/mic.jpg} &
+\includegraphics[width=0.4in]{figures/don.jpg} &
+\includegraphics[width=0.4in]{figures/leo2.jpg} &
+\includegraphics[width=0.4in]{figures/rap2.jpg} &
+\includegraphics[width=0.4in]{figures/mic2.jpg} &
+\includegraphics[width=0.4in]{figures/don2.jpg} \\ 
 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8
 \end{tabular}
 \end{center}

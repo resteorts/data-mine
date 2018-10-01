@@ -1,0 +1,272 @@
+---
+title: "An Introduction to Information Retrieval, Part II"
+author: "STA 325, Supplemental Material"
+output: 
+     beamer_presentation:
+      includes: 
+          in_header: custom2.tex
+font-size: 8px
+---
+
+Install packages
+===
+```{r}
+library("xtable")
+```
+
+Information retrieval applied to NY Times
+===
+
+Let's consider applying our information retrieval skills to a corpus of documents from the NY Times. 
+
+NY Times corpus
+===
+
+Let's start by seeing what kind of data
+we have. To do this, we're going to use some 
+pre-written functions located in \texttt{ir.R}
+that you are welcome to use. 
+
+Loading scripts
+===
+
+
+```{r echo=TRUE, cache= F}
+source("scripts/ir.R")
+```
+
+
+Reading in the data
+===
+```{r, warning=FALSE}
+library(XML)
+music <- read.directory("nyt_corpus/music")
+art <- read.directory("nyt_corpus/art")
+```
+
+Let's examine the data
+===
+```{r}
+length(music)
+length(art)
+```
+
+We have 45 music articles and 57 art articles from the NYTimes. 
+
+Let's examine the data
+===
+
+
+1. What command would you use to extract the 37th word of story number 1595645 in art? (That word is “experiencing”.) 
+
+2. Give a command to count the number of times the word “the” appears in that story. 
+
+(Try this on your own and don't look at the solution.)
+
+Solution
+===
+
+```{r}
+which(dir("nyt_corpus/art")=="1595645.xml")
+```
+
+The 37th word is
+
+```{r}
+art[[48]][37]
+```
+
+Solution (continued)
+===
+
+One way to see how often “the” appears in the story above is
+using the following command:
+
+```{r}
+sum(art[[48]] == "the")
+```
+
+
+Bag of words
+===
+
+3. Give the commands you would use to construct a bag-of-words data-frame from the document vectors for the art and music stories. 
+
+(Try this on your own and don't look at the solution.)
+
+Solution 
+===
+
+lapply is one of the most useful functions in R: it takes two arguments, a data structure (vector, list, array,...) and a function, and returns a list which it gets by applying the function to each element of the data structure.
+
+```{r}
+art.bow <- lapply(art,table)
+music.bow <- lapply(music,table)
+is.list(music.bow)
+length(music.bow)
+```
+
+Solution (continued)
+===
+
+```{r}
+nyt.frame <- make.BoW.frame(c(art.bow,music.bow))
+dim(nyt.frame) 
+```
+
+The number of rows should equal the total number of stories, and 45+57 = 102.
+
+Distance matrices
+===
+
+Create distance matrices from this data frame for (a) the straight Euclidean distance, (b) the distance with word-count normalization and (c) the distance with vector-length scaling, and then for all three again with inverse-document-frequency weighting.  Be sure to give the commands that you use. \footnote{Note: There are six different distance commands that can be found in the function \texttt{distances}. Some of these were covered in class and some of these are new ones that you have not seen before that you will explore during the assignment.}
+
+Partial solution
+===
+
+Let's just look at seeing how to tackle this problem. 
+
+\footnotesize
+```{r}
+dist.plain = distances(nyt.frame)
+dim(dist.plain)
+round(dist.plain[1:5,1:5],2)
+dist.wordcount = distances(div.by.sum(nyt.frame))
+dist.euclen = distances(div.by.euc.length(nyt.frame))
+```
+
+On your own
+===
+
+Now, do the idf weights on your own. 
+
+
+On your own
+===
+
+\footnotesize
+```{r}
+nyt.frame.idf = idf.weight(nyt.frame)
+dist.idf.plain = distances(nyt.frame.idf)
+dist.idf.wordcount = distances(div.by.sum(nyt.frame.idf))
+dist.idf.euclen = distances(div.by.euc.length(nyt.frame.idf))
+```
+
+Average distances between stories
+===
+
+For each of the six different difference measures in the function \texttt{distances}, what is the average
+distance between stories in the same category and between stories in different categories? 
+
+Solution
+===
+
+There are multiple ways to do this. 
+
+The simplest is to realize that, in this case, the first 57 stories are all art, and the last 45 are all music. 
+
+- So if d is a distance matrix, the within-category entries are \texttt{d[1:57,1:57]} and \texttt{d[58:102,58:102]}, and the between-category entries are \texttt{d[1:57,58:102]}. 
+
+- Then \texttt{mean(c(d[1:57,1:57],d[58:102,58:102]))}}
+would give the average distance between stories in the same category, similarly \texttt{mean(d[58:102,1:57])} for the between-category average. 
+
+Solution
+===
+
+The \texttt{outer()} function takes three arguments: two data-structures and another function. (Here the function is \texttt{!=}, which I put in quotes so that R realizes I’m naming a function, and not asking it to evaluate an expression.) 
+
+It returns a matrix which it gets from applying the function to each pair of components from its first two arguments. 
+
+Here those first two arguments are vectors of length 102, so what it gives back is a 102 × 102 matrix, where \texttt{are.different[i,j]} shows whether \texttt{class.label[i] != class.label[j]}. In other words, it’s TRUE if documents i and j belong to different classes. 
+
+Solution
+===
+\footnotesize
+```{r}
+class.labels = c(rep("art",57),rep("music",45))
+head(class.labels)
+are.different = outer(class.labels,class.labels,"!=")
+head(are.different)
+```
+
+
+Solution
+===
+
+And a logical array picks out elements from another array: \texttt{mean(d[are.different])}
+is the average distance between classes. To average within classes, \texttt{mean(d[!are.different])}
+Not only does this work if the classes are intermingled (we just have to get the \texttt{class.labels} vector right), we can also use this to not include the distance from a document to itself in the within-class average:
+
+With-in class differences (with self)
+===
+\footnotesize
+```{r}
+# calculate with-in class differences, with self
+are.same = !are.different
+diag(are.same) = TRUE
+mean(dist.plain[are.same])
+mean(dist.wordcount[are.same])
+mean(dist.euclen[are.same])
+mean(dist.idf.plain[are.same])
+mean(dist.idf.wordcount[are.same])
+mean(dist.idf.euclen[are.same])
+```
+
+With-in class differences (without self)
+===
+\footnotesize
+```{r}
+# calculate with-in class differences, without self
+are.same = !are.different
+diag(are.same) = FALSE
+mean(dist.plain[are.same])
+mean(dist.wordcount[are.same])
+mean(dist.euclen[are.same])
+mean(dist.idf.plain[are.same])
+mean(dist.idf.wordcount[are.same])
+mean(dist.idf.euclen[are.same])
+```
+
+Between category averages
+===
+\footnotesize
+```{r}
+# calculate between category averages
+mean(dist.plain[58:102,1:57])
+mean(dist.wordcount[58:102,1:57])
+mean(dist.euclen[58:102,1:57])
+mean(dist.idf.plain[58:102,1:57])
+mean(dist.idf.wordcount[58:102,1:57])
+mean(dist.idf.euclen[58:102,1:57])
+```
+
+Output into an xtable
+===
+\tiny
+```{r}
+wselfwdif<-c(mean(dist.plain[are.same]), 
+             mean(dist.wordcount[are.same]), 
+             mean(dist.euclen[are.same]), 
+             mean(dist.idf.plain[are.same]), 
+             mean(dist.idf.wordcount[are.same]), 
+             mean(dist.idf.euclen[are.same]))
+wselfwodif<-c(mean(dist.plain[are.same]), 
+              mean(dist.wordcount[are.same]), 
+              mean(dist.euclen[are.same]), 
+              mean(dist.idf.plain[are.same]), 
+              mean(dist.idf.wordcount[are.same]), 
+              mean(dist.idf.euclen[are.same]))
+betweendif<-c(mean(dist.plain[58:102,1:57]), 
+              mean(dist.wordcount[58:102,1:57]), 
+              mean(dist.euclen[58:102,1:57]), 
+              mean(dist.idf.plain[58:102,1:57]), 
+              mean(dist.idf.wordcount[58:102,1:57]), 
+              mean(dist.idf.euclen[58:102,1:57]))
+mat<-cbind(wselfwdif, wselfwodif, betweendif)
+rownames(mat)<-c("Plain {without IDF}", 
+                 "Sum-normed {without IDF}", "Length-normed 
+                 {without IDF}", "Plain {with IDF}", "Sum-normed 
+                 {with IDF}", "Length-normed {with IDF}")
+colnames(mat)<-c("Within-class, with self", "Within-class, without               self", "Between-class")
+print(xtable(mat))
+```
