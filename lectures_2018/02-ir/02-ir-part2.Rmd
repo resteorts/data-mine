@@ -20,6 +20,8 @@ Datathon
 - You can find some preliminary resources for datathon 
 here: \url{https://github.com/resteorts/data-mine/tree/master/datathon-2018}
 
+- Above you will find a template for your presentation and your final write up. 
+
 Groups for Datathon
 ===
 
