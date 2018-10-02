@@ -268,5 +268,51 @@ rownames(mat)<-c("Plain {without IDF}",
                  {without IDF}", "Plain {with IDF}", "Sum-normed 
                  {with IDF}", "Length-normed {with IDF}")
 colnames(mat)<-c("Within-class, with self", "Within-class, without               self", "Between-class")
+```
+
+Print xtable
+===
+\footnotesize
+```{r}
 print(xtable(mat))
 ```
+
+Multidimensional scaling plots
+===
+
+Create multidimensional scaling plots for the different distances, and describe what you see. (Include the code you used, the plots, and explanations for the code).
+
+Solution
+===
+
+Recall the point of multi-dimensional scaling is such that we can take our distance matrix and represent this in lower dimensions, namely two, so that we can visualize it. 
+
+Solution
+===
+```{r, fig.width=10, fig.height=10}
+# we run classical MDS on our distance matrices
+head(cmdscale(as.matrix(dist.plain)))
+```
+
+Solution
+===
+```{r, fig.width=10, fig.height=10, echo=FALSE}
+par(mfrow=c(3,3))
+plot(cmdscale(as.matrix(dist.plain)),xlab="Dimension 1", ylab="Dimension 2", col=c("red","blue"),
+     main = "No normalization, no weighting")
+plot(cmdscale(as.matrix(dist.wordcount)), xlab="Dimension 1", ylab="Dimension 2", col=c("red","blue"), main= "Word-count normalization, no weighting")
+plot(cmdscale(as.matrix(dist.euclen)), xlab="Dimension 1", ylab="Dimension 2", col=c("red", "blue"), main = "Euclidean length normalization, no weighting")
+plot(cmdscale(as.matrix(dist.idf.plain)), xlab="Dimension 1", ylab="Dimension 2", col=c("red", "blue"),  main= "No normalization, IDF weighting")
+plot(cmdscale(as.matrix(dist.idf.wordcount)), xlab="Dimension 1", ylab="Dimension 2", col=c("red", "blue"), main = "Word-count normalization, IDF weighting")
+plot(cmdscale(as.matrix(dist.idf.euclen)), xlab="Dimension 1", ylab="Dimension 2", col=c("red", "blue"), main = "Euclidean length normalization, IDF weighting")
+```
+
+Top row, without IDF. Bottom row, with IDF. Left column, un-normalized vectors. Middle column, normalized by word-count. Right column, normalized by Euclidean length. Red circles are art, blue squares music.
+
+Solution
+===
+```{r, fig.width=5, fig.height=5, echo=FALSE}
+plot(cmdscale(as.matrix(dist.idf.euclen)), xlab="Dimension 1", ylab="Dimension 2", col=c("red", "blue"), main = "Euclidean length normalization, IDF weighting")
+```
+
+Only with both IDF weights and Euclidean-length normalization do we get reasonable separation of the two categories.
