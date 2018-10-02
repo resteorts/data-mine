@@ -8,6 +8,54 @@ output:
 font-size: 8px
 ---
 
+Announcements
+===
+
+- Exam I grades, summaries, etc have been posted
+- Preparing for datathon
+
+Datathon
+===
+
+- You can find some preliminary resources for datathon 
+here: \url{https://github.com/resteorts/data-mine/tree/master/datathon-2018}
+
+Groups for Datathon
+===
+
+You'll find group leaders below for datathon as well as your groups. 
+
+\footnotesize
+```{r}
+groupLeaders <- c("Donheiser, Julia ", "Wohl, Julia", "Rajan, Hari", 
+      "Donahoe, Grace", "Chen, Carolyn", "Holland, Ethan", 
+      "Ben Alexander")
+
+Donheiser <- c("Agarwal, Naman", "Deng, Ziqi","Lin, Vincent")
+Wohl <- c("Erfurth, Sophie", "Gao,An", "Lyu, Cheng", "Xu,Yingzhi")
+Rajan <- c("Metz, Audreya", "Giraud, Paul", "Ma, Calvin")
+Donahoe <- c("Marsalek, Oskar", "Gu, Yunxiang","Shmueli, Sara")
+Chen <- c("San-Martin, Jose", "Hsiao, Man-Lin","Tan, Michael")
+Holland <- c("Taylor, Moriah", "Huang, Howard","Wang, Harry")
+Alexander <- c("Malone, Alexis", "Jiang, Debra","Xiao, Claire")
+```
+
+Datathon
+===
+
+1. Recommendations: Work on upcoming homeworks with your group members.
+2. Today: work on the in class assignment with your group (part of homework 5 so you can better prepare for the datathon).
+3. Group leader should be in charge of delegating tasks to other members of the group. 
+4. Feel free to ask myself/Ben questions when you work on in class assignments to prepare for the datathon. 
+
+Agenda
+===
+
+1. The exercise for today will integrate with homework 5.
+2. We will work thorugh parts of it so that you can work in your datathon teams.
+3. The rest you will finish on your own, but feel free to meet up with your datathon team. 
+4. Our task today will be analyzing NYTimes articles about music and art and using our skills relating to information retrieval. We'll also be using our skills with functional programming. In essence, the goal of this homework is to put all of our knowledge thus far in the class to use! 
+
 Install packages
 ===
 ```{r}
@@ -316,3 +364,10 @@ plot(cmdscale(as.matrix(dist.idf.euclen)), xlab="Dimension 1", ylab="Dimension 2
 ```
 
 Only with both IDF weights and Euclidean-length normalization do we get reasonable separation of the two categories.
+
+Summary
+===
+
+- We have completed a first analysis of the NYTimes articles in this class (and assignment). 
+
+- In homework 5 you'll re-inforce this knowledge on your own and complete a few other exercises. 
