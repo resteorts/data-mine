@@ -50,6 +50,41 @@ Datathon
 3. Group leader should be in charge of delegating tasks to other members of the group. 
 4. Feel free to ask myself/Ben questions when you work on in class assignments to prepare for the datathon. 
 
+Grading for Datathon
+===
+
+- Datathon is worth 30 percent of your course grade
+
+You'll be graded on datathon based upon two components: a written report (20 percent) and an oral presentation (10 percent)
+
+Remark: If a group member is not participating in any component of datathon, the report, or oral presentation, the group leader should email me. In the event, your group leader is not being active, any group member should contact me to let me know ASAP. 
+
+Written report (20 percent)
+===
+
+Your grade will be based upon 5 components:
+
+1. Reproducibility of code and document (20 points)
+2. Exploratory analysis provided on data set and description of 
+data set (20 points)
+3. Creativity, originality of proposed methods (20 points)
+4. Analysis applied to the data set and conclusions made (visulizations, evaluations) (20 points)
+5. Oral presentation (clarity, ease of reading) (20 points)
+
+Oral presentation (10 percent)
+===
+
+1. 5 percent of your grade will be based upon your slide submission
+2. 5 percent of your grade will be based upon your oral presentation to the
+class 
+
+- Both of the written and oral presentations are due to Sakai by your group on Wednesday November 7, 10 PM (Sakai). 
+
+Note: all components of the written and oral presentation must be reproducible. Failure to do so will result in a 20 point penalty, so please check this in your group before submission. 
+
+- Your oral presentations to the class (6 minutes/group) will be on December 4 and 6. 
+
+
 Agenda
 ===
 
