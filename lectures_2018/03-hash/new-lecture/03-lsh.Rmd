@@ -292,7 +292,7 @@ ggplot(jaccard) +
 
 # Hashing
 
-For a dataset of size $n$, the number of comparisons we must compute is $\frac{n(n-1)}{2}$ 
+For a dataset of size $n$, the number of comparisons we must compute is $$\frac{n(n-1)}{2}$$ 
 
 \vfill
 - For our set of records, we needed to compute $`r scales::comma(nrow(dat)*(nrow(dat) - 1)/2)`$ comparisons
@@ -318,7 +318,6 @@ Instead of storing the strings (shingles), we can just store the *hashed values*
 These are integers, they will take less space
 
 \footnotesize
-
 ```{r hash-tokens, echo=TRUE}
 # instead store hash values (less memory)
 hashed_shingles <- apply(dat, 1, function(x) {
