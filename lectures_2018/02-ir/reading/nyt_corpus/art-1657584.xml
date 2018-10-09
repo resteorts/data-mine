@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE nitf SYSTEM "http://www.nitf.org/IPTC/NITF/3.3/specification/dtd/nitf-3-3.dtd">
+<nitf change.date="June 10, 2005" change.time="19:30" version="-//IPTC//DTD NITF 3.3//EN">
+  <head>
+    <title>CALENDAR</title>
+    <meta content="17HCAL$01" name="slug"/>
+    <meta content="17" name="publication_day_of_month"/>
+    <meta content="3" name="publication_month"/>
+    <meta content="2005" name="publication_year"/>
+    <meta content="Thursday" name="publication_day_of_week"/>
+    <meta content="House &amp; Home/Style Desk" name="dsk"/>
+    <meta content="9" name="print_page_number"/>
+    <meta content="F" name="print_section"/>
+    <meta content="3" name="print_column"/>
+    <meta content="Home and Garden; Style" name="online_sections"/>
+    <meta content="http://www.nytimes.com/2005/03/17/garden/17hcal.html" name="alternate_url"/>
+    <docdata>
+      <doc-id id-string="1657584"/>
+      <doc.copyright holder="The New York Times" year="2005"/>
+      <identified-content>
+        <classifier class="indexing_service" type="descriptor">NO INDEX TERMS FROM NYTIMES</classifier>
+        <classifier class="online_producer" type="types_of_material">Schedule</classifier>
+        <classifier class="online_producer" type="taxonomic_classifier">Top/Features/Home and Garden</classifier>
+        <classifier class="online_producer" type="taxonomic_classifier">Top/Features/Style</classifier>
+        <classifier class="online_producer" type="taxonomic_classifier">Top/Features/Arts/Art and Design</classifier>
+        <classifier class="online_producer" type="taxonomic_classifier">Top/Features/Travel/Guides/Activities and Interests/Architecture</classifier>
+        <classifier class="online_producer" type="taxonomic_classifier">Top/Classifieds/Job Market/Job Categories/Engineering and Architecture</classifier>
+        <classifier class="online_producer" type="descriptor">Architecture</classifier>
+        <classifier class="online_producer" type="general_descriptor">Architecture</classifier>
+        <org class="online_producer">Queens Botanical Garden</org>
+        <person class="online_producer">Rudolph, Paul</person>
+      </identified-content>
+    </docdata>
+    <pubdata date.publication="20050317T000000" ex-ref="http://query.nytimes.com/gst/fullpage.html?res=9905E3DB133CF934A25750C0A9639C8B63" item-length="537" name="The New York Times" unit-of-measure="word"/>
+  </head>
+  <body>
+    <body.head>
+      <hedline>
+        <hl1>CALENDAR</hl1>
+        <hl2 class="online_headline">Calendar</hl2>
+      </hedline>
+    </body.head>
+    <body.content>
+      <block class="lead_paragraph">
+        <p>Paul Rudolph Retrospective  Gallery of the New York School of Interior Design, 161 East 69th Street; (212) 472-1500.</p>
+        <p>''Paul Rudolph: An Interior Perspective,'' an exhibition of drawings, furniture and lighting fixtures by the architect Paul Rudolph (1918-97), continues through April 30. Rudolf, an American in the Modernist tradition, designed houses and structures like the Art and Architecture Building at Yale. The museum is open Monday through Saturday, 10 a.m. to 5 p.m. Free.</p>
+        <p>Architecturally Speaking  Urban Center Books at the Municipal Art Society, 457 Madison Avenue (51st Street); (212) 935-3595.</p>
+        <p>A series of talks by architects will begin on Tuesday at 6:30 p.m. with a lecture by Robert Venturi and Denise Scott Brown about their theories and their new book, ''Architecture as Signs and Systems'' (Harvard University Press). Joel Sanders, a New York architect who has designed homes and museum exhibitions, will speak on April 5; Peter Eisenman will talk on April about his design for a memorial to the murdered Jews of Europe in Berlin; and David Adjaye, a Briton whose projects include homes, a cultural center and commercial space, will speak on April 29. The series will also include a lecture on April 19 by Matilda McQuaid, the head of the textiles department at the Cooper-Hewitt National Design Museum, on innovations in textiles and new interior designs. Tickets, $10 for each program; Municipal Art Society members, $5.</p>
+      </block>
+      <block class="online_lead_paragraph">
+        <p>Paul Rudolph Retrospective.</p>
+      </block>
+      <block class="full_text">
+        <p>Paul Rudolph Retrospective  Gallery of the New York School of Interior Design, 161 East 69th Street; (212) 472-1500.</p>
+        <p>''Paul Rudolph: An Interior Perspective,'' an exhibition of drawings, furniture and lighting fixtures by the architect Paul Rudolph (1918-97), continues through April 30. Rudolf, an American in the Modernist tradition, designed houses and structures like the Art and Architecture Building at Yale. The museum is open Monday through Saturday, 10 a.m. to 5 p.m. Free.</p>
+        <p>Architecturally Speaking  Urban Center Books at the Municipal Art Society, 457 Madison Avenue (51st Street); (212) 935-3595.</p>
+        <p>A series of talks by architects will begin on Tuesday at 6:30 p.m. with a lecture by Robert Venturi and Denise Scott Brown about their theories and their new book, ''Architecture as Signs and Systems'' (Harvard University Press). Joel Sanders, a New York architect who has designed homes and museum exhibitions, will speak on April 5; Peter Eisenman will talk on April about his design for a memorial to the murdered Jews of Europe in Berlin; and David Adjaye, a Briton whose projects include homes, a cultural center and commercial space, will speak on April 29. The series will also include a lecture on April 19 by Matilda McQuaid, the head of the textiles department at the Cooper-Hewitt National Design Museum, on innovations in textiles and new interior designs. Tickets, $10 for each program; Municipal Art Society members, $5.</p>
+        <p>In addition Urban Center Books will offer three free midday lectures. Alastair Gordon will speak about his book ''Naked Airport: A Cultural History of the World's Most Revolutionary Structure'' (Metropolitan Books, 2004) on March 31. David Garrard Lowe, an architectural historian, will look at the Art Deco movement in New York on April 7, and Julia Holmes will speak on April 14 about where some of the famous and powerful have lived in New York.</p>
+        <p>These programs start at noon.</p>
+        <p>Green Thoughts  Queens Botanical Garden, 43-50 Main Street at Dahlia Avenue, Flushing; (718) 886-3800.</p>
+        <p>The botanical garden will offer a program on growing a lawn without chemical products on Saturday, from 11 a.m. to 1 p.m. Coming lecture topics include making herbal-based spa treatments, April 3 at 1 p.m.; backyard composting, April 16 at 11 a.m.; and plant propagation, April 17 at 1 p.m. Admission to each program is $5, except for April 16, which is free.</p>
+        <p>Craft Classes  Brookfield Craft Center, junction of Routes 25 and 7, Brookfield, Conn.; (203)775-4526.</p>
+        <p>Spring classes and workshops start on April 2 and 3 with two-day programs on gold-leaf gilding, weaving table linens and painting furniture. Other weekend workshops, which are either one or two days, will include Victorian-style cloth dolls (April 9); an introduction to wood turning (Apil 23-24); and ceramics (May 14). There will also be weeklong classes in jewelry, ceramics, decorative painting and folk art. A catalog is available by calling and at www.brookfieldcraftcenter.org.</p>
+      </block>
+    </body.content>
+  </body>
+</nitf>

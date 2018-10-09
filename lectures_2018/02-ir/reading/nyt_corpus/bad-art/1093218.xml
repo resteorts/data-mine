@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE nitf SYSTEM "http://www.nitf.org/IPTC/NITF/3.3/specification/dtd/nitf-3-3.dtd">
+<nitf change.date="June 10, 2005" change.time="19:30" version="-//IPTC//DTD NITF 3.3//EN">
+  <head>
+    <title>Art Schools Of Cuba, Forgotten No More</title>
+    <meta content="18CUBA$02" name="slug"/>
+    <meta content="18" name="publication_day_of_month"/>
+    <meta content="3" name="publication_month"/>
+    <meta content="1999" name="publication_year"/>
+    <meta content="Thursday" name="publication_day_of_week"/>
+    <meta content="House &amp; Home/Style Desk" name="dsk"/>
+    <meta content="3" name="print_page_number"/>
+    <meta content="F" name="print_section"/>
+    <meta content="1" name="print_column"/>
+    <meta content="Home and Garden; Style" name="online_sections"/>
+    <docdata>
+      <doc-id id-string="1093218"/>
+      <doc.copyright holder="The New York Times" year="1999"/>
+      <series series.name="CURRENTS: LOS ANGELES -- REVOLUTIONS"/>
+      <identified-content>
+        <classifier class="indexing_service" type="descriptor">Art</classifier>
+        <classifier class="indexing_service" type="descriptor">Photography</classifier>
+        <location class="indexing_service">Cuba</location>
+        <person class="indexing_service">Anderton, Frances</person>
+        <person class="indexing_service">Loomis, John A</person>
+        <person class="indexing_service">Castro, Fidel (Pres)</person>
+        <object.title class="indexing_service">Currents (Times Column)</object.title>
+        <object.title class="indexing_service">Cuba's Forgotten Art Schools (Book)</object.title>
+        <classifier class="online_producer" type="taxonomic_classifier">Top/Features/Home and Garden</classifier>
+        <classifier class="online_producer" type="taxonomic_classifier">Top/Features/Style</classifier>
+        <classifier class="online_producer" type="taxonomic_classifier">Top/Features/Arts/Art and Design</classifier>
+        <classifier class="online_producer" type="taxonomic_classifier">Top/Features/Travel/Guides/Activities and Interests/Art</classifier>
+        <classifier class="online_producer" type="taxonomic_classifier">Top/Classifieds/Job Market/Job Categories/Art and Design</classifier>
+        <classifier class="online_producer" type="taxonomic_classifier">Top/Features/Travel/Guides/Destinations/Caribbean and Bermuda</classifier>
+        <classifier class="online_producer" type="taxonomic_classifier">Top/Features/Travel/Guides/Destinations/Caribbean and Bermuda/Cuba</classifier>
+        <classifier class="online_producer" type="general_descriptor">Photography</classifier>
+        <classifier class="online_producer" type="general_descriptor">Art</classifier>
+      </identified-content>
+    </docdata>
+    <pubdata date.publication="19990318T000000" ex-ref="http://query.nytimes.com/gst/fullpage.html?res=9C0DEED91F3EF93BA25750C0A96F958260" item-length="282" name="The New York Times" unit-of-measure="word"/>
+  </head>
+  <body>
+    <body.head>
+      <hedline>
+        <hl1>Art Schools Of Cuba, Forgotten No More</hl1>
+      </hedline>
+      <byline class="print_byline">By Frances Anderton</byline>
+      <byline class="normalized_byline">Anderton, Frances</byline>
+      <abstract>
+        <p>Creation and abandonment of project by Govt of Cuban Pres Fidel Castro to build new arts institution on Havana golf course that was deemed too decadent are documented in book, Cuba's Forgotten Art Schools: Revolution of Forms, by John A Loomis and photographic exhibit at MAK Center for Art and Architecture in West Hollywood (Currents); photo (S)</p>
+      </abstract>
+    </body.head>
+    <body.content>
+      <block class="lead_paragraph">
+        <p>In 1961, Fidel Castro and Che Guevara played golf at Havana's most exclusive country club. Too decadent, they thought. Instead, they decided, the land should be used for an arts institution to develop a ''new culture'' for the ''new man,'' said John A. Loomis, an author and architect. So, Ricardo Porro, Vittorio Garatti and Roberto Gottardi, architects, designed five schools -- for plastic arts (top far right, as photographed in 1965), modern dance (bottom far right, 1965), music, theater and ballet. These brick and tile buildings, with Catalan vaults (right, 1992), fused Afro-Cuban culture with Hispanic-American and modernist ideas. Mr. Porro's School of Plastic Arts was inspired by the fertility goddesses of Afro-Cuban animist beliefs. It was, he said ecstatically last week, ''a city of breasts.'' But in 1965, construction was suspended, and the schools were opened unfinished. Castro had aligned himself with the Soviet model of standardized buildings. Mr. Porro left for Paris, and the schools fell into disrepair.</p>
+      </block>
+      <block class="full_text">
+        <p>In 1961, Fidel Castro and Che Guevara played golf at Havana's most exclusive country club. Too decadent, they thought. Instead, they decided, the land should be used for an arts institution to develop a ''new culture'' for the ''new man,'' said John A. Loomis, an author and architect. So, Ricardo Porro, Vittorio Garatti and Roberto Gottardi, architects, designed five schools -- for plastic arts (top far right, as photographed in 1965), modern dance (bottom far right, 1965), music, theater and ballet. These brick and tile buildings, with Catalan vaults (right, 1992), fused Afro-Cuban culture with Hispanic-American and modernist ideas. Mr. Porro's School of Plastic Arts was inspired by the fertility goddesses of Afro-Cuban animist beliefs. It was, he said ecstatically last week, ''a city of breasts.'' But in 1965, construction was suspended, and the schools were opened unfinished. Castro had aligned himself with the Soviet model of standardized buildings. Mr. Porro left for Paris, and the schools fell into disrepair.</p>
+        <p>The creation and abandonment of the project -- and attempts to draw attention to the schools, still partly in use -- are documented in a book by Mr. Loomis, ''Cuba's Forgotten Art Schools: Revolution of Forms'' (Princeton Architectural Press, 1999). A photography show, ''Architecture and Revolution: Escuelas Nacionales de Arte en La Habana,'' runs through May 7 at the MAK Center for Art and Architecture in West Hollywood, (323) 651-1510, and the Buell Center for the Study of American Architecture, Columbia University, (212) 854-8165.</p>
+        <p>CURRENTS: LOS ANGELES -- REVOLUTIONS</p>
+      </block>
+    </body.content>
+  </body>
+</nitf>

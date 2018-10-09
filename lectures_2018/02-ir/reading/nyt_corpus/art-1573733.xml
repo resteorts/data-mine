@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE nitf SYSTEM "http://www.nitf.org/IPTC/NITF/3.3/specification/dtd/nitf-3-3.dtd">
+<nitf change.date="June 10, 2005" change.time="19:30" version="-//IPTC//DTD NITF 3.3//EN">
+  <head>
+    <title>Experts Assess the Merits of Meditation in Motion</title>
+    <meta content="13MART$10" name="slug"/>
+    <meta content="13" name="publication_day_of_month"/>
+    <meta content="4" name="publication_month"/>
+    <meta content="2004" name="publication_year"/>
+    <meta content="Tuesday" name="publication_day_of_week"/>
+    <meta content="Health &amp; Fitness" name="dsk"/>
+    <meta content="5" name="print_page_number"/>
+    <meta content="F" name="print_section"/>
+    <meta content="2" name="print_column"/>
+    <meta content="Health" name="online_sections"/>
+    <meta content="http://www.nytimes.com/2004/04/13/health/nutrition/13MART.html" name="alternate_url"/>
+    <docdata>
+      <doc-id id-string="1573733"/>
+      <doc.copyright holder="The New York Times" year="2004"/>
+      <identified-content>
+        <classifier class="indexing_service" type="descriptor">Medicine and Health</classifier>
+        <classifier class="indexing_service" type="descriptor">Alternative and Complementary Medicine</classifier>
+        <classifier class="indexing_service" type="descriptor">Exercise</classifier>
+        <classifier class="indexing_service" type="descriptor">Tai Chi (Oriental Exercise)</classifier>
+        <classifier class="indexing_service" type="descriptor">Research</classifier>
+        <classifier class="indexing_service" type="descriptor">Acquired Immune Deficiency Syndrome</classifier>
+        <classifier class="indexing_service" type="descriptor">Research</classifier>
+        <location class="indexing_service">Florida</location>
+        <location class="indexing_service">Miami-Dade County (Fla)</location>
+        <org class="indexing_service">Tufts University</org>
+        <org class="indexing_service">Archives of Internal Medicine</org>
+        <person class="indexing_service">Derr, Mark</person>
+        <person class="indexing_service">Morris, Jeff</person>
+        <person class="indexing_service">Wang, Chenchen (Dr)</person>
+        <classifier class="online_producer" type="taxonomic_classifier">Top/News/Health</classifier>
+        <classifier class="online_producer" type="taxonomic_classifier">Top/News/Health/Fitness and Nutrition</classifier>
+        <classifier class="online_producer" type="taxonomic_classifier">Top/News/Health/Diseases, Conditions, and Health Topics/AIDS</classifier>
+        <classifier class="online_producer" type="taxonomic_classifier">Top/Classifieds/Job Market/Job Categories/Healthcare</classifier>
+        <classifier class="online_producer" type="taxonomic_classifier">Top/News/Health/Diseases, Conditions, and Health Topics/Medicine and Health</classifier>
+        <classifier class="online_producer" type="taxonomic_classifier">Top/News/Health/Diseases, Conditions, and Health Topics/Alternative and Complementary Medicine</classifier>
+        <classifier class="online_producer" type="taxonomic_classifier">Top/Classifieds/Job Market/Job Categories/Fashion, Beauty and Fitness</classifier>
+        <classifier class="online_producer" type="taxonomic_classifier">Top/Features/Travel/Guides/Destinations/North America</classifier>
+        <classifier class="online_producer" type="taxonomic_classifier">Top/Features/Travel/Guides/Destinations/North America/United States</classifier>
+        <classifier class="online_producer" type="taxonomic_classifier">Top/Features/Travel/Guides/Destinations/North America/United States/Florida</classifier>
+        <classifier class="online_producer" type="taxonomic_classifier">Top/Features/Travel/Guides/Destinations/North America/United States/Florida/Miami</classifier>
+        <classifier class="online_producer" type="descriptor">Martial Arts</classifier>
+        <classifier class="online_producer" type="descriptor">Exercise</classifier>
+        <classifier class="online_producer" type="descriptor">Medicine and Health</classifier>
+        <classifier class="online_producer" type="descriptor">Aged</classifier>
+        <classifier class="online_producer" type="general_descriptor">Alternative and Complementary Medicine</classifier>
+        <classifier class="online_producer" type="general_descriptor">Acquired Immune Deficiency Syndrome</classifier>
+        <classifier class="online_producer" type="general_descriptor">Acquired Immune Deficiency Syndrome</classifier>
+        <classifier class="online_producer" type="general_descriptor">Exercise</classifier>
+        <classifier class="online_producer" type="general_descriptor">Research</classifier>
+        <classifier class="online_producer" type="general_descriptor">Martial Arts</classifier>
+        <classifier class="online_producer" type="general_descriptor">Aged</classifier>
+        <classifier class="online_producer" type="general_descriptor">Viruses</classifier>
+        <classifier class="online_producer" type="general_descriptor">Diseases and Conditions</classifier>
+        <classifier class="online_producer" type="general_descriptor">Medicine and Health</classifier>
+      </identified-content>
+    </docdata>
+    <pubdata date.publication="20040413T000000" ex-ref="http://query.nytimes.com/gst/fullpage.html?res=950CE6DC1E38F930A25757C0A9629C8B63" item-length="1387" name="The New York Times" unit-of-measure="word"/>
+  </head>
+  <body>
+    <body.head>
+      <hedline>
+        <hl1>Experts Assess the Merits of Meditation in Motion</hl1>
+        <hl2 class="online_headline">They Call It Meditation in Motion, but Does Tai Chi Heal Ills?</hl2>
+      </hedline>
+      <byline class="print_byline">By MARK DERR</byline>
+      <byline class="normalized_byline">Derr, Mark</byline>
+      <dateline>MIAMI BEACH, April 12</dateline>
+      <abstract>
+        <p>Medical community is investigating health benefits of tai chi, centuries-old Chinese martial art; Jeff Morris, who teaches tai chi at various Miami-Dade County locations, turned to exercise of mind and body in 1986 when he was diagnosed with full-blown AIDS; HIV is now barely detectable in his blood; studies have suggested health benefits for variety of diseases and disorders, but because tai chi is taught in many different forms, results are not conclusive; Dr Chenchen Wang, Tufts-New England Medical Center researcher whose study on medical use of tai chi appears in Archives of Internal Medicine, holds that potential benefits from discipline are high, but contends that not enough information is available to recommend it over other forms of exercise; photo (M)</p>
+      </abstract>
+    </body.head>
+    <body.content>
+      <block class="lead_paragraph">
+        <p>On a languid March evening, Jeff Morris, a lean, muscular man with a calm smile and shaved head, led a class of three men and two women with slow, fluid, continuous movements through the formalized postures of tai chi, the centuries-old Chinese Taoist martial art.</p>
+        <p>For 75 minutes, the participants focused their attention on controlling the positions of their arms, legs, torsos and spines, guiding them in concert repeatedly through their poses with varying degrees of gracefulness.</p>
+      </block>
+      <block class="online_lead_paragraph">
+        <p>Tai chi is said to enhance balance, flexibility, gait, posture, digestion, concentration, memory and overall physical and mental well-being.</p>
+      </block>
+      <block class="full_text">
+        <p>On a languid March evening, Jeff Morris, a lean, muscular man with a calm smile and shaved head, led a class of three men and two women with slow, fluid, continuous movements through the formalized postures of tai chi, the centuries-old Chinese Taoist martial art.</p>
+        <p>For 75 minutes, the participants focused their attention on controlling the positions of their arms, legs, torsos and spines, guiding them in concert repeatedly through their poses with varying degrees of gracefulness.</p>
+        <p>Told in 1986 that he had full-blown AIDS and just a year to live, Mr. Morris turned to tai chi, its companion discipline qigong and later a cocktail of antiviral drugs. Now, H.I.V. is virtually undetectable in his blood, and he teaches tai chi at various locations in Miami-Dade County.</p>
+        <p>Mr. Morris is not alone in attributing healing value to what is often called meditation in motion. But as with acupuncture and other non-Western healing arts, determining just how well this ancient discipline works challenges researchers.</p>
+        <p>Tai chi first gained adherents in the United States in the late 1960's. The practice is said to enhance balance, flexibility, gait, posture, digestion, concentration, memory and overall physical and mental well-being. Its proponents say it is especially beneficial for the elderly and for people with chronic medical disorders.</p>
+        <p>Tai chi's methods and purpose stand in stark contrast to more active aerobic activities, like running, cycling, swimming or even brisk walking. Eastern exercises like tai chi emphasize internal strength and energy; Western activities traditionally focus on building muscles, said Dr. Chenchen Wang, who studies the medical use of tai chi at the Tufts-New England Medical Center.</p>
+        <p>Over the past five decades, dozens of clinical studies have suggested that tai chi may benefit people with high blood pressure, heart problems, injuries, multiple sclerosis, arthritis, Parkinson's disease, Alzheimer's disease, anxiety and depression, among other ailments.</p>
+        <p>But despite the generally favorable findings on the physiological and psychological value of tai chi, Dr. Wang said, the studies were neither conclusive nor definitive.</p>
+        <p>Dr. Wang based her conclusions on an analysis of 47 medical studies conducted in China and the United States over the past five decades.</p>
+        <p>She and two collaborators, Dr. Joseph Lau of the Tufts-New England Medical Center in Boston and Dr. Jean-Paul Collet of Jewish General Hospital at McGill University in Montreal, published their findings in the March 8 issue of the journal Archives of Internal Medicine.</p>
+        <p>''The promise of tai chi is great,'' Dr. Wang said, ''but given the current state of knowledge, I wouldn't recommend to my patients to do tai chi over other exercise.''</p>
+        <p>She added that more and better studies were needed to determine which of the many forms of tai chi were best for which problems, how long a patient needed to follow a program to show improvement and whether tai chi was more effective than other forms of exercise.</p>
+        <p>Dr. Wang is now preparing to publish the findings of a comprehensive study of the effectiveness of tai chi in helping people with rheumatoid arthritis improve their balance and prevent falls.</p>
+        <p>It is axiomatic that exercise is essential to good health.</p>
+        <p>Although recommendations vary somewhat among organizations and for different age groups, the National Center for Chronic Disease Prevention and Health Promotion recommends for adults a minimum of 30 minutes of moderate-intensity activity -- brisk walking, for example -- at least five days a week, or a minimum of 20 minutes of vigorous exercise, like running, three or more days a week.</p>
+        <p>Dr. Deborah Rohm Young, a kinesiologist at the University of Maryland, said the question for the 80 to 85 percent of Americans who do not meet that threshold, for reasons including chronic illness, is which exercise is best -- well-known aerobic activities like walking, jogging or cycling or Eastern exercises like yoga, tai chi or even the physically passive qigong, which focuses on meditation and breathing.</p>
+        <p>In a clinical trial in the late 1990's, Dr. Young and her colleagues found that moderate-intensity aerobic exercise was slightly better than low-intensity tai chi at lowering blood pressure and noticeably better at improving fitness in a group of 62 sedentary elderly people over 12 weeks.</p>
+        <p>But the style of tai chi they taught, known as yang -- popular because of its slow, continuous movements -- performed well enough to lead the researchers to conclude that it might help sedentary older adults who could not engage in more rigorous exercise, or did not want to.</p>
+        <p>Studies of tai chi are hard to conduct, because tai chi masters differ in their instruction methods and often do not want to change what they do to conform with other teachers, said Dr. Jorge Juncos, a neurologist at the Emory University School of Medicine.</p>
+        <p>Dr. Juncos is conducting a study comparing the relative effectiveness of tai chi, qigong and traditional huff-and-puff aerobics in helping patients with Parkinson's disease improve their gait, balance, posture and conditioning.</p>
+        <p>Exercise may benefit Parkinson's patients primarily through caloric expenditure; in that case, the form matters less than the intensity, Dr. Juncos said. Alternatively, it may be the emphasis in tai chi on integrating the mind and the body that is beneficial.</p>
+        <p>To find out, Dr. Juncos made sure that in his study, the tai chi practitioners worked as hard physically as those doing aerobics. Because tai chi emphasizes the meeting of mind and body, some experts believe it is potentially more effective for people with neurological disorders than aerobic activities like walking or pedaling a stationary bicycle.</p>
+        <p>While performing those activities, people often listen to music, read or talk, Dr. Juncos noted.</p>
+        <p>Tai chi is thought to engage the brain through concentrated breathing. The theory is that the breathing begins to shift primary neurological functions to other brain regions, correcting to some degree the poor balance or gait that are hallmarks of Parkinson's.</p>
+        <p>Tai chi may also help alleviate the thinking and memory problems that affect some people with Parkinson's, Dr. Juncos said.</p>
+        <p>Many studies do not continue long enough to measure the full effects of tai chi, which takes time and practice to master, said Dr. Fuzhong Li, a research scientist at the Oregon Research Institute.</p>
+        <p>In a study that has not yet been published, Dr. Li found that falls were significantly reduced in a group of elderly people during six months of training in tai chi.</p>
+        <p>A follow-up survey showed that six months after the end of the training, there were still fewer falls among the people who were trained in tai chi than among those who were not.</p>
+        <p>Seventy percent of the tai chi group had continued practicing after the training period.</p>
+        <p>Because it can take months to learn proper tai chi movement, Dr. Li has tried to make the exercise easier for people, so they do not quit prematurely.</p>
+        <p>He developed a simplified version of yang-style tai chi that emphasizes weight shifts, hand-eye coordination, trunk rotation and slow, continuous, even flow through eight forms, or postures.</p>
+        <p>''We're not interested in the aerobic aspect of exercise,'' Dr. Li said. ''We are interested in physical functioning and balance.''</p>
+        <p>What makes tai chi valuable, he added, is that the physical movements are combined with meditation, that it is low-impact and can be performed anywhere, and that people, especially those who are older, enjoy the social interactions of the classes.</p>
+        <p>At the Advanced Sports Medicine Wellness Institute in Miami Beach, without breaking a sweat or driving his pulse rate far above normal, a physically fit visitor with Parkinson's disease found Mr. Morris's 75-minute session to be intense and hard.</p>
+        <p>But it seemed no better mentally, and was certainly less aerobic, than swimming laps.</p>
+      </block>
+    </body.content>
+  </body>
+</nitf>

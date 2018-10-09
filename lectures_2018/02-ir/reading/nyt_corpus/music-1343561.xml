@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE nitf SYSTEM "http://www.nitf.org/IPTC/NITF/3.3/specification/dtd/nitf-3-3.dtd">
+<nitf change.date="June 10, 2005" change.time="19:30" version="-//IPTC//DTD NITF 3.3//EN">
+  <head>
+    <title>Tinkling Melodies, Shoring Up The Chords</title>
+    <meta content="17JAMA" name="slug"/>
+    <meta content="17" name="publication_day_of_month"/>
+    <meta content="11" name="publication_month"/>
+    <meta content="2001" name="publication_year"/>
+    <meta content="Saturday" name="publication_day_of_week"/>
+    <meta content="Arts &amp; Ideas/Cultural Desk" name="dsk"/>
+    <meta content="20" name="print_page_number"/>
+    <meta content="A" name="print_section"/>
+    <meta content="1" name="print_column"/>
+    <meta content="Arts" name="online_sections"/>
+    <meta content="http://www.nytimes.com/2001/11/17/arts/music/17JAMA.html" name="alternate_url"/>
+    <docdata>
+      <doc-id id-string="1343561"/>
+      <doc.copyright holder="The New York Times" year="2001"/>
+      <series series.name="JAZZ REVIEW"/>
+      <identified-content>
+        <classifier class="online_producer" type="types_of_material">Review</classifier>
+        <classifier class="online_producer" type="taxonomic_classifier">Top/News</classifier>
+        <classifier class="online_producer" type="taxonomic_classifier">Top/Features/Arts</classifier>
+        <classifier class="online_producer" type="taxonomic_classifier">Top/Features/Arts/Music/Reviews</classifier>
+        <classifier class="online_producer" type="taxonomic_classifier">Top/Features/Arts/Music/Reviews/Jazz</classifier>
+        <classifier class="online_producer" type="taxonomic_classifier">Top/Features/Arts/Music</classifier>
+        <classifier class="online_producer" type="taxonomic_classifier">Top/Features/Travel/Guides/Activities and Interests/Music</classifier>
+        <classifier class="online_producer" type="descriptor">Jazz</classifier>
+        <classifier class="online_producer" type="general_descriptor">Jazz</classifier>
+        <classifier class="online_producer" type="general_descriptor">Music</classifier>
+        <person class="online_producer">Jamal, Ahmad</person>
+        <person class="online_producer">Johnson, James</person>
+      </identified-content>
+    </docdata>
+    <pubdata date.publication="20011117T000000" ex-ref="http://query.nytimes.com/gst/fullpage.html?res=9D00E2D9153BF934A25752C1A9679C8B63" item-length="436" name="The New York Times" unit-of-measure="word"/>
+  </head>
+  <body>
+    <body.head>
+      <hedline>
+        <hl1>Tinkling Melodies, Shoring Up The Chords</hl1>
+        <hl2 class="online_headline">Tinkling Melodies, Shoring Up the Chords</hl2>
+      </hedline>
+      <byline class="print_byline">By BEN RATLIFF</byline>
+    </body.head>
+    <body.content>
+      <block class="lead_paragraph">
+        <p>There's an amount of bandleader control in Ahmad Jamal's performances that you seldom see in any jazz trio. At Iridium on Tuesday evening  he sat at the piano with his back to his drummer, James Johnson, and at an 8 o'clock angle to his bassist, James Cammack; without looking at them directly he ordered them through the set.</p>
+        <p>After the completion of each short, self-contained notion, his left hand shot up to indicate a change in tempo or he used a loud, declarative figure to introduce a new vamping or melody pattern. Every so often he abruptly stood up, leaning with his back to the keyboard, scrutinizing his charges with arms folded.</p>
+      </block>
+      <block class="online_lead_paragraph">
+        <p>There's an amount of bandleader control in Ahmad Jamal's performances that you seldom see in any jazz trio.</p>
+      </block>
+      <block class="full_text">
+        <p>There's an amount of bandleader control in Ahmad Jamal's performances that you seldom see in any jazz trio. At Iridium on Tuesday evening  he sat at the piano with his back to his drummer, James Johnson, and at an 8 o'clock angle to his bassist, James Cammack; without looking at them directly he ordered them through the set.</p>
+        <p>After the completion of each short, self-contained notion, his left hand shot up to indicate a change in tempo or he used a loud, declarative figure to introduce a new vamping or melody pattern. Every so often he abruptly stood up, leaning with his back to the keyboard, scrutinizing his charges with arms folded.</p>
+        <p>The blueprint for this kind of performance was in place in the late 1950's, when Mr. Jamal recorded his astonishing live albums at the Pershing Hotel in Chicago (the albums are repackaged as ''Cross-Country Tour: 1958-1961'' on Chess/Universal). But over time Mr. Jamal, who's now 71, has let it all hang out a bit more, driving up the tension-producing elements in his style. The rhythm section is now more loosely knit, and Mr. Jamal truly emotes through his annunciatory scene-changing phrases, developing and spilling over into a more abstract conception of time.</p>
+        <p>At times, on Tuesday, he just rode on a trill or a tremolo while bass and drums chugged away behind him; sometimes he dropped out entirely, not at obvious spots for the other musicians to solo. His switches, from chorus to verse, between pianissimo and wrecking-ball volume, are much more pronounced; he has adapted to what grabs attention over the years.</p>
+        <p>Most of the material in the late set was uptempo. It settled into vamps, providing fertile ground for a pianism that's band-based and orchestral as opposed to inward and based in harmonic variation.</p>
+        <p>Like Ellington, Mr. Jamal is drawn to the extreme ends of the keyboard; he tinkles melodies in the high notes and shores them up with roaring bass-clef chords. But some exceptions were ''How Deep Is the Ocean,'' taken slowly, and ''Autumn in New York,'' which he opened as a piano-bass duet, with Mr. Cammack following the leader's rhythmic and melodic whims.</p>
+        <p>Mr. Jamal gets in and out of songs efficiently, stopping on a dime and moving right along. But sometimes audiences yearn for a decent groove, and after about an hour, his quick-change directives grew wearying. Still, he remains almost a mystical figure, in his pursuit of radical ideas couched in the shinily accessible.</p>
+        <p>JAZZ REVIEW</p>
+      </block>
+    </body.content>
+  </body>
+</nitf>

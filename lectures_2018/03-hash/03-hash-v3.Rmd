@@ -1,0 +1,523 @@
+---
+title: "Introduction to Locality Sensitive Hashing"
+author: "STA 325, Supplemental Material"
+date: Andee Kaplan and Rebecca C. Steorts
+output: 
+     beamer_presentation:
+      includes: 
+          in_header: custom2.tex
+font-size: 8px
+---
+
+Load Libraries
+===
+```{r, echo=FALSE}
+library(RecordLinkage)
+library(knitr)
+library(ggplot2)
+```
+
+Reading
+===
+The reading for this module can be found in Mining Massive Datasets, Chapter 3. 
+
+http://infolab.stanford.edu/~ullman/mmds/book.pdf
+
+There are no applied examples in the book, however, we will be covering these in class and homework. 
+
+Agenda
+===
+
+1. Defining similarity
+2. Representing data as sets (shingling)
+3. Hashing
+4. Hashing with compression (minhashing)
+5. Too many pairs to compare! (LSH)
+6. Evaluation
+7. Even faster?
+
+Motivations
+===
+
+In information retrieval, recall that one main goal is understanding how similar items are in our task (application) at hand. 
+
+Documents 
+===
+
+Suppose that we have a large number of documents (articles, songs, etc). We may wish to know which documents are the most similar
+
+Entity resolution
+===
+
+Entity resolution (record linkage or de-duplication) is the process of removing duplicate information from large noisy databases. 
+
+Often times we perform entity resolution and then perform a regression task (or some other inference/prediction task). 
+
+Overall questions
+===
+
+- How can we use take similar data points (records) and put them in clusters (buckets or bins)? 
+- How can we evalauate how well our method is doing? (Look at the precision and recall). 
+
+
+Blocking (partitioning)
+===
+
+Blocking partitions of data points so that we do not have to make all-to-all data point comparisons. 
+
+\begin{figure}[htbp]
+\begin{center}
+\includegraphics[width=0.8\textwidth]{figures/block.pdf}
+\caption{All-to-all data point comparisons (left) versus partitioning data points into blocks/bins (right).}
+\label{block}
+\end{center}
+\end{figure}
+
+
+Entity resolution  
+===
+
+\begin{figure}[htbp]
+\begin{center}
+\includegraphics[width=0.8\textwidth]{images/lsh.png}
+\caption{Entire process of the blocking step (via LSH) and then the record linkage step. Step 1: Dimension reduction via blocking. Step 2: Removing duplicate entities via record linkage.}
+\label{block}
+\end{center}
+\end{figure}
+
+Remark: In this module, we will focus on how to perform dimension reduction methods using LSH. For reading on how to perform the record linkage step, see Christen (2012). 
+
+
+Goal
+===
+
+Our overall goal in this lecture will be able to 
+quickly compare the similarity of the following:
+
+- documents
+- songs
+- data points
+- other examples
+
+Our motivating application will be a synthetic data set from the RecordLinkage package in R called RLdata500. 
+
+RLdata500 database
+===
+
+```{r}
+data(RLdata500) 
+head(RLdata500)
+head(identity.RLdata500)
+```
+
+
+RLdata500 database
+===
+
+```{r}
+# 500 total records
+dim(RLdata500)
+# 450 unique records (50 duplicate records)
+length(unique(identity.RLdata500))
+```
+
+Notions of Similarity
+===
+We have already discussed many notions of similarity, however, the main one that we work with in this module is the Jaccard similarity. 
+
+The Jaccard similarity of set $S$ and $T$ is 
+$$\frac{|S \cap T|}{|S \cup T|}$$. 
+
+We will refer to the Jaccard similarity of $S$ and $T$ by \text{SIM}$(S,T).$
+
+Jaccard Similarity
+===
+	
+\begin{figure}
+  \begin{center}
+    \includegraphics[width=0.4\textwidth]{graphics/jaccard}
+    % Source: Original work by RCS
+  \end{center}
+  \caption{Two sets S and T with Jaccard similarity 2/5. The two sets share two elements in common, and there are five elements in total.}
+  \label{figure:jaccard}
+\end{figure}	
+
+Overview of Locality Sensitive Hashing (LSH)
+===
+
+1. We first shingle a document (records, songs, etc), which breaks the document up into small subsets. 
+
+2. Next, we form a characteristic matrix using the shingled document. A characteristic matrix is an indicator matrix, where the columns of the matrix correspond to records (data points) in the document (so there is a column for each record) and the rows correspond to the shingles (so there is a row for each shingle). 
+
+3. The characteristic matrix is a large binary matrix. Next, we  apply a permutation $\pi$ to it to create a signature matrix  which allows for some dimension reduction. 
+
+4. Based on the results of the signature matrix, we will observe the pairwise similarity of two records (data points). For the number of hash functions, there is an interesting relationship that we use between the columns for any given set of the signature matrix and a Jaccard similarity measure that we will eventually discover. 
+
+Shingling
+===
+
+- One way is to construct from the data the set of **short strings** that appear within it
+
+- Similar documents/datasets will have many common elements, i.e. many commong short strings
+
+- We can do construct these short strings using *shingling*
+
+
+$k$-shingling (how-to)
+===
+
+1. Think of a document or record as a string of characters
+
+2. A $k$-shingle (k-gram) is any sub-string (word) of length $k$ found within the document or record
+
+3. Associate with each document or record the set of $k$-shingles that appear one or more times within it
+
+Shingling (example)
+===
+
+Suppose our document is the string "Hello world", then 
+
+- the set of $2$-shingles is 
+
+$\{\text{he, el, ll, lo, ow, wo, or, rl, ld}\}$
+
+
+- the set of $3$-shingles is 
+
+$\{\text{hel, ell, llo, low, owo, wor, orl, rld}\}$
+
+Your turn
+===
+
+We have the following two records:
+
+```{r your-turn1}
+# select only 2 records
+records <- RLdata500[129:130, c(1,3)]
+names(records) <- c("First name", "Last name")
+
+# inspect records
+kable(records)
+```
+
+1. Compute the $2$-shingles for each record
+2. Using Jaccard similarity, how similar are they?
+
+
+Your turn solution
+===
+1. The $2$-shingles for the first record are
+
+$\{\text{mi, ic, ch, ha, ae, el, lv, vo, og, ge, el}\}$ and for the second are $\{\text{mi, ic, ch, ha, ae, el, lm, me, ey, ye, er}\}$
+
+
+2. There are 6 items in common 
+$$\{\text{mi, ic, ch, ha, ae, el}\}$$ 
+and 15 items total $$\{\text{mi, ic, ch, ha, ae, el, lv, vo, og, ge, lm, me, ey, ye, er}\}$$, 
+so the Jaccard similarity is 
+
+$$\frac{6}{15} = \frac{2}{5} = `r 6/15`$$
+
+Useful packages/functions in `R`
+===
+
+(Obviously) We don't want to do this by hand most times. Here are some useful packages in `R` that can help us!
+
+```{r helpful-packages, echo = TRUE}
+library(textreuse) # text reuse/document similarity
+library(tokenizers) # shingles
+```
+
+We can use the following functions to create $k$-shingles and calculate Jaccard similarity for our data
+
+Shingling and Jaccard similarity
+===
+
+```{r helpful-functions, eval=FALSE, echo=TRUE}
+# get k-shingles
+tokenize_character_shingles(x, n)
+
+# calculate jaccard similarity for two sets
+jaccard_similarity(a, b) 
+```
+
+Cora dataset
+===
+
+Research paper headers and citations, with information on authors, title, institutions, venue, date, page numbers and several other fields
+
+\tiny
+```{r load-ex-data, echo=TRUE}
+library(RLdata) # data library
+data(cora) # load the cora data set
+str(cora) # structure of cora
+```
+
+Analyze cora dataset
+===
+```{r}
+# get only the columns we want
+(n <- nrow(cora)) # number of records
+dat <- data.frame(id = seq_len(n)) # create id column
+dat <- cbind(dat, cora[, c("title", "authors", "journal")]) # get columns we want
+```
+
+Your turn 
+===
+
+Using the `title`, `authors`, and `journal` fields in the `cora` dataset,
+
+\vfill
+1. Get the $3$-shingles for each record (**hint:** use `tokenize_character_shingles`)
+\vfill
+2. Obtain the Jaccard similarity between each pair of records (**hint:** use `jaccard_similarity`)
+\vfill
+
+Your turn (solution)
+===
+
+
+
+```{r your-turn2-sol, echo=TRUE, cache=TRUE}
+
+# 1. paste the columns together and tokenize for each record
+shingles <- apply(dat, 1, function(x) {
+  # tokenize strings
+  tokenize_character_shingles(paste(x[-1], collapse=" "), n = 3)[[1]]
+})
+```
+
+Your turn (solution)
+===
+```{r}
+# 2. Jaccard similarity between pairs
+jaccard <- expand.grid(record1 = seq_len(n), # empty holder for similarities
+                       record2 = seq_len(n))
+
+# don't need to compare the same things twice
+jaccard <- jaccard[jaccard$record1 < jaccard$record2,]
+```
+
+Your turn (solution)
+===
+```{r}
+time <- Sys.time() # for timing comparison
+jaccard$similarity <- apply(jaccard, 1, function(pair) {
+  jaccard_similarity(shingles[[pair[1]]], shingles[[pair[2]]]) # get jaccard for each pair
+})
+time <- difftime(Sys.time(), time, units = "secs") # timing
+```
+
+\normalsize
+This took took $`r round(time, 2)`$ seconds $\approx `r round(time/(60), 2)`$ minutes
+
+Your turn (solution, cont'd)
+===
+
+```{r your-turn2-plot, fig.cap="Jaccard similarity for each pair of records. Light blue indicates the two records are more similar and dark blue indicates less similar.", cache=TRUE, echo=FALSE}
+# plot the jaccard similarities for each pair of records
+ggplot(jaccard) +
+  geom_raster(aes(x = record1, y = record2, fill=similarity)) +
+  theme(aspect.ratio = 1) +
+  scale_fill_gradient("Jaccard similarity") +
+  xlab("Record id") + ylab("Record id")
+```
+
+Hashing
+===
+
+For a dataset of size $n$, the number of comparisons we must compute is $$\frac{n(n-1)}{2}$$
+
+
+- For our set of records, we needed to compute $`r scales::comma(nrow(dat)*(nrow(dat) - 1)/2)`$ comparisons
+\vfill
+- A better approach for datasets of any realistic size is to use *hashing*
+
+Hash functions
+===
+
+- Traditionally, a *hash function* maps objects to integers such that similar objects are far apart
+
+- Instead, we want special hash functions that do the **opposite** of this, i.e. similar objects are placed close together!
+
+
+Locality sensitive hash (LSH) functions
+===
+
+LSH functions* $h()$ are defined in the following way: 
+
+- If records $A$ and $B$ have high similarity, then the probability that $h(A) = h(B)$ is **high** 
+
+- If records $A$ and $B$ have low similarity, then the probability that $h(A) \not= h(B)$ is **high**.
+
+Hashing shingles
+===
+
+Instead of storing the strings (shingles), we can just store the *hashed values*  
+
+These are integers (they take up less space)
+
+Hashing shingles ()
+===
+
+\footnotesize
+
+```{r hash-tokens, echo=TRUE, cache=TRUE}
+# instead store hash values (less memory)
+hashed_shingles <- apply(dat, 1, function(x) {
+  string <- paste(x[-1], collapse=" ") # get the string
+  shingles <- tokenize_character_shingles(string, n = 3)[[1]] # 3-shingles
+  hash_string(shingles) # return hashed shingles
+})
+```
+
+```{r hash-tokens-jaccard, cache=TRUE}
+# Jaccard similarity on hashed shingles
+hashed_jaccard <- expand.grid(record1 = seq_len(n), record2 = seq_len(n))
+
+# don't need to compare the same things twice
+hashed_jaccard <- hashed_jaccard[hashed_jaccard$record1 < hashed_jaccard$record2,]
+
+time <- Sys.time() # see how long this takes
+hashed_jaccard$similarity <- apply(hashed_jaccard, 1, function(pair) {
+  jaccard_similarity(hashed_shingles[[pair[1]]], hashed_shingles[[pair[2]]])
+}) # get jaccard for each hashed pair
+time <- difftime(Sys.time(), time, units = "secs") # timing
+```
+
+\normalsize
+This took up $`r object.size(hashed_shingles)`$ bytes, while storing the shingles took $`r object.size(shingles)`$ bytes; the whole pairwise comparison still took the same amount of time ($\approx `r round(time/(60), 2)`$ minutes)
+
+Similarity preserving summaries of sets
+===
+
+- Sets of shingles are large (larger than the original document)
+\vfill
+- If we have millions of documents, it may not be possible to store all the shingle-sets in memory
+\vfill
+- We can replace large sets by smaller representations, called *signatures*
+\vfill
+- And use these signatures to **approximate** Jaccard similarity
+\vfill
+
+Characteristic matrix
+===
+
+In order to get a signature of our data set, we first build a *characteristic matrix* 
+
+Columns correspond to records and the rows correspond to all hashed shingles
+
+```{r characteristic, cache=TRUE}
+# return if an item is in a list
+item_in_list <- function(item, list) {
+  as.integer(item %in% list) 
+}
+
+# get the characteristic matrix
+# items are all the unique hash values
+# columns will be each record
+# we want to keep track of where each hash is included 
+char_mat <- data.frame(item = unique(unlist(hashed_shingles)))
+
+# for each hashed shingle, see if it is in each row
+contained <- lapply(hashed_shingles, function(col) {
+  vapply(char_mat$item, FUN = item_in_list, FUN.VALUE = integer(1), list = col)
+})
+
+char_mat <- do.call(cbind, contained) # list to matrix
+rownames(char_mat) <- unique(unlist(hashed_shingles)) # row names
+colnames(char_mat) <- paste("Record", seq_len(nrow(dat))) # column names
+
+# inspect results
+kable(char_mat[10:15, 1:5])
+```
+
+The result is a $`r dim(char_mat)[1]`\times `r dim(char_mat)[2]`$ matrix
+
+**Question:** Why would we not store the data as a characteristic matrix?
+
+# Minhashing
+
+Want create the signature matrix through minhashing
+
+1. Permute the rows of the characteristic matrix $m$ times
+\vspace{.2in}
+2. Iterate over each column of the permuted matrix 
+\vspace{.2in}
+3. Populate the signature matrix, row-wise, with the row index from the first `1` value found in the column 
+
+The signature matrix is a hashing of values from the permuted characteristic matrix and has one row for the number of permutations calculated ($m$), and a column for each record
+
+# Minhashing (cont'd)
+
+```{r minhash-1, cache=TRUE}
+# set seed for reproducibility
+set.seed(02082018)
+
+# function to get signature for 1 permutation
+get_sig <- function(char_mat) {
+  # get permutation order
+  permute_order <- sample(seq_len(nrow(char_mat)))
+  
+  # get min location of "1" for each column (apply(2, ...))
+  t(apply(char_mat[permute_order, ], 2, function(col) min(which(col == 1))))
+}
+
+# repeat many times
+m <- 360
+sig_mat <- matrix(NA, nrow=m, ncol=ncol(char_mat)) #empty matrix
+for(i in 1:m) {
+  sig_mat[i, ] <- get_sig(char_mat) #fill matrix
+}
+colnames(sig_mat) <- colnames(char_mat) #column names
+
+# inspect results
+kable(sig_mat[1:10, 1:5])
+```
+
+# Signature matrix and Jaccard similarity
+
+The relationship between the random permutations of the characteristic matrix and the Jaccard Similarity is
+$$
+Pr\{\min[h(A)] = \min[h(B)]\} = \frac{|A \cap B|}{|A \cup B|}
+$$
+
+\vfill
+
+We use this relationship to **approximate** the similarity between any two records 
+
+\vfill
+We look down each column of the signature matrix, and compare it to any other column
+
+\vfill
+The number of agreements over the total number of combinations is an approximation to Jaccard measure
+
+\vfill
+
+# Jaccard similarity approximation
+
+```{r jaccard-sig, fig.height=4, cache=TRUE}
+# add jaccard similarity approximated from the minhash to compare
+# number of agreements over the total number of combinations
+hashed_jaccard$similarity_minhash <- apply(hashed_jaccard, 1, function(row) {
+  sum(sig_mat[, row[["record1"]]] == sig_mat[, row[["record2"]]])/nrow(sig_mat)
+})
+
+# how far off is this approximation? plot differences
+qplot(hashed_jaccard$similarity_minhash - hashed_jaccard$similarity) +
+  xlab("Difference between Jaccard similarity and minhash approximation")
+```
+
+Used minhashing to get an approximation to the Jaccard similarity, which helps by allowing us to store less data (hashing) and avoid storing sparse data (signature matrix)
+
+We still haven't addressed the issue of **pairwise comparisons**
+
+# Avoiding pairwise comparisons
+
+- Performing pairwise comparisons is time-consuming because the number of comparisons grows at $O(n^2)$
+\vfill
+- Most of those comparisons are **unnecessary** because they do not result in matches due to sparsity 
+\vfill
+- We will use the combination of minhash and locality-sensitive hashing (LSH) to compute possible matches only once for each document, so that the cost of computation grows **linearly**
+\vfill
+

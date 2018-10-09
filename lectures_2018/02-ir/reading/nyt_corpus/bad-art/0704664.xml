@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE nitf SYSTEM "http://www.nitf.org/IPTC/NITF/3.3/specification/dtd/nitf-3-3.dtd">
+<nitf change.date="June 10, 2005" change.time="19:30" version="-//IPTC//DTD NITF 3.3//EN">
+  <head>
+    <title>And Then There's . . .</title>
+    <meta content="7" name="publication_day_of_month"/>
+    <meta content="8" name="publication_month"/>
+    <meta content="1994" name="publication_year"/>
+    <meta content="Sunday" name="publication_day_of_week"/>
+    <meta content="Arts &amp; Leisure Desk" name="dsk"/>
+    <meta content="4" name="print_page_number"/>
+    <meta content="2" name="print_section"/>
+    <meta content="6" name="print_column"/>
+    <meta content="Movies; Arts; Opinion" name="online_sections"/>
+    <docdata>
+      <doc-id id-string="704664"/>
+      <doc.copyright holder="The New York Times" year="1994"/>
+      <series series.name="EDWARD HOPPER"/>
+      <identified-content>
+        <classifier class="indexing_service" type="descriptor">MOTION PICTURES</classifier>
+        <classifier class="indexing_service" type="descriptor">ART</classifier>
+        <person class="indexing_service">HOPPER, EDWARD (1882-1967)</person>
+        <person class="indexing_service">MEYERHOFF, ELEANOR S</person>
+        <person class="indexing_service">MCGEE, CELIA</person>
+        <classifier class="online_producer" type="types_of_material">Letter</classifier>
+        <classifier class="online_producer" type="taxonomic_classifier">Top/Features/Arts</classifier>
+        <classifier class="online_producer" type="taxonomic_classifier">Top/Opinion</classifier>
+        <classifier class="online_producer" type="taxonomic_classifier">Top/Opinion/Opinion</classifier>
+        <classifier class="online_producer" type="taxonomic_classifier">Top/Features/Arts/Art and Design</classifier>
+        <classifier class="online_producer" type="taxonomic_classifier">Top/Features/Movies</classifier>
+        <classifier class="online_producer" type="taxonomic_classifier">Top/Features/Movies/News and Features</classifier>
+        <classifier class="online_producer" type="taxonomic_classifier">Top/Features/Travel/Guides/Activities and Interests/Art</classifier>
+        <classifier class="online_producer" type="general_descriptor">Motion Pictures</classifier>
+        <classifier class="online_producer" type="general_descriptor">Art</classifier>
+      </identified-content>
+    </docdata>
+    <pubdata date.publication="19940807T000000" ex-ref="http://query.nytimes.com/gst/fullpage.html?res=9B05EEDA1031F934A3575BC0A962958260" item-length="69" name="The New York Times" unit-of-measure="word"/>
+  </head>
+  <body>
+    <body.head>
+      <hedline>
+        <hl1>And Then There's . . .</hl1>
+      </hedline>
+    </body.head>
+    <body.content>
+      <block class="lead_paragraph">
+        <p>To the Editor:</p>
+        <p>In 1991, when the curtain arose on the first act of the Metropolitan Opera's new production of "Katya Kabanova," it revealed a strikingly Hopperesque setting for Leos Janacek's stark drama. It would be interesting to know if the designer, Robert Israel, or the director, Jonathan Miller, consciously used the Hopper motifs in their conception. ELEANOR S. MEYERHOFF  Roslyn Heights, N. Y.</p>
+      </block>
+      <block class="full_text">
+        <p>To the Editor:</p>
+        <p>In 1991, when the curtain arose on the first act of the Metropolitan Opera's new production of "Katya Kabanova," it revealed a strikingly Hopperesque setting for Leos Janacek's stark drama. It would be interesting to know if the designer, Robert Israel, or the director, Jonathan Miller, consciously used the Hopper motifs in their conception. ELEANOR S. MEYERHOFF  Roslyn Heights, N. Y.  EDWARD HOPPER</p>
+      </block>
+    </body.content>
+  </body>
+</nitf>

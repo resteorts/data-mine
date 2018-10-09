@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE nitf SYSTEM "http://www.nitf.org/IPTC/NITF/3.3/specification/dtd/nitf-3-3.dtd">
+<nitf change.date="June 10, 2005" change.time="19:30" version="-//IPTC//DTD NITF 3.3//EN">
+  <head>
+    <title>Untraditional Site, Ditto Pianist</title>
+    <meta content="09THIB$01" name="slug"/>
+    <meta content="9" name="publication_day_of_month"/>
+    <meta content="11" name="publication_month"/>
+    <meta content="2002" name="publication_year"/>
+    <meta content="Saturday" name="publication_day_of_week"/>
+    <meta content="Arts &amp; Ideas/Cultural Desk" name="dsk"/>
+    <meta content="7" name="print_page_number"/>
+    <meta content="B" name="print_section"/>
+    <meta content="1" name="print_column"/>
+    <meta content="Arts" name="online_sections"/>
+    <meta content="http://www.nytimes.com/2002/11/09/arts/music/09THIB.html" name="alternate_url"/>
+    <docdata>
+      <doc-id id-string="1439011"/>
+      <doc.copyright holder="The New York Times" year="2002"/>
+      <series series.name="MUSIC REVIEW"/>
+      <identified-content>
+        <classifier class="indexing_service" type="descriptor">Music</classifier>
+        <classifier class="indexing_service" type="descriptor">Reviews</classifier>
+        <person class="indexing_service">Tommasini, Anthony</person>
+        <person class="indexing_service">Thibaudet, Jean-Yves</person>
+        <classifier class="online_producer" type="types_of_material">Review</classifier>
+        <classifier class="online_producer" type="taxonomic_classifier">Top/News</classifier>
+        <classifier class="online_producer" type="taxonomic_classifier">Top/Features/Arts</classifier>
+        <classifier class="online_producer" type="taxonomic_classifier">Top/Features/Arts/Music/Reviews</classifier>
+        <classifier class="online_producer" type="taxonomic_classifier">Top/Features/Arts/Music/Reviews/Classical</classifier>
+        <classifier class="online_producer" type="taxonomic_classifier">Top/Features/Arts/Music</classifier>
+        <classifier class="online_producer" type="taxonomic_classifier">Top/Features/Travel/Guides/Activities and Interests/Music</classifier>
+        <classifier class="online_producer" type="descriptor">Classical Music</classifier>
+        <classifier class="online_producer" type="general_descriptor">Classical Music</classifier>
+        <classifier class="online_producer" type="general_descriptor">Music</classifier>
+        <org class="online_producer">Angel Orensanz Foundation</org>
+        <person class="online_producer">Thibaudet, Jean-Yves</person>
+      </identified-content>
+    </docdata>
+    <pubdata date.publication="20021109T000000" ex-ref="http://query.nytimes.com/gst/fullpage.html?res=9900E5D61731F93AA35752C1A9649C8B63" item-length="414" name="The New York Times" unit-of-measure="word"/>
+  </head>
+  <body>
+    <body.head>
+      <hedline>
+        <hl1>Untraditional Site, Ditto Pianist</hl1>
+        <hl2 class="online_headline">Untraditional Site, Ditto Pianist</hl2>
+      </hedline>
+      <byline class="print_byline">By ANTHONY TOMMASINI</byline>
+      <byline class="normalized_byline">Tommasini, Anthony</byline>
+      <abstract>
+        <p>Anthony Tommasini reviews concert by pianist Jean-Yves Th</p>
+      </abstract>
+    </body.head>
+    <body.content>
+      <block class="lead_paragraph">
+        <p>Since it began on Oct. 25, the Rock Hotel International Pianofest, which promised to be so unconventional, had been presenting its concerts at the Society for Ethical Culture, an attractive but fairly traditional performance space. But on Thursday night, with Jean-Yves Thibaudet playing a mix of Satie, Bill Evans and Duke Ellington, the series moved to a truly unconventional site: the Orensanz Center for the Arts on Norfolk Street on the Lower East Side. Now, that is the sort of place this entire festival should be utilizing.</p>
+        <p>The 1849 building, the oldest active synagogue in New York City, had been abandoned for 20 years when the Angel Orensanz Foundation took it over in 1986. Its tabernacle is spacious yet intimate, with a vaulted ceiling and two balconies. Though the building has been renovated, almost all the paint has peeled from its intricate carved wood interiors, which are being left that way because the speckled reddish-brown textures are so beautiful.</p>
+      </block>
+      <block class="online_lead_paragraph">
+        <p>The chance to hear Jean-Yves Thibaudet in an off-beat space, the Orensanz Center for the Arts on the Lower East Side, drew a large and appreciative audience.</p>
+      </block>
+      <block class="full_text">
+        <p>Since it began on Oct. 25, the Rock Hotel International Pianofest, which promised to be so unconventional, had been presenting its concerts at the Society for Ethical Culture, an attractive but fairly traditional performance space. But on Thursday night, with Jean-Yves Thibaudet playing a mix of Satie, Bill Evans and Duke Ellington, the series moved to a truly unconventional site: the Orensanz Center for the Arts on Norfolk Street on the Lower East Side. Now, that is the sort of place this entire festival should be utilizing.</p>
+        <p>The 1849 building, the oldest active synagogue in New York City, had been abandoned for 20 years when the Angel Orensanz Foundation took it over in 1986. Its tabernacle is spacious yet intimate, with a vaulted ceiling and two balconies. Though the building has been renovated, almost all the paint has peeled from its intricate carved wood interiors, which are being left that way because the speckled reddish-brown textures are so beautiful.</p>
+        <p>The chance to hear Mr. Thibaudet in such an off-beat space drew a large and appreciative audience. For the occasion, this dashing French artist dressed with hip informality in black leather pants, a black shirt and bejeweled matching buckles on his belt and shoes.</p>
+        <p>The works of Satie that Mr. Thibaudet performed, drawn from his admirable recent Decca recording, ''The Magic of Satie,'' proved ideal for this setting. Satie's tender, whimsical, intimate and innocent music has a purity that creates its own kind of impact. In the quieter works, like the well-known Gymnopédie No. 1, Mr. Thibaudet played with almost too much sensitivity. This music is more contemplative when it's performed with a drier expressive attitude. Still, Mr. Thibaudet's playing was always elegant, and in deceptively fanciful works like ''The Dreamy Fish'' and the wildly inventive ''Sonatine Bureaucratique,'' he conveyed a beguiling quality of wistful zest.</p>
+        <p>Placing Bill Evans's melancholic ''Waltz for Debbie'' between two subdued Satie waltzes proved a musically rewarding experiment. His exuberant account of Ellington's ''Jubilee Stomp'' provided a fetching up-tempo finish to the official program before the encores started.</p>
+        <p>Mr. Thibaudet introduced the works he played with spoken commentary, offering anecdotes and interesting musical insights. The audience was with him all the way. The event offered a fresh alternative to the formal piano recital. If only the center could find a way to silence the sizzling heating system. And padded folding chairs would also be nice.</p>
+        <p>MUSIC REVIEW</p>
+      </block>
+    </body.content>
+  </body>
+</nitf>

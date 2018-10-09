@@ -11,8 +11,7 @@ font-size: 8px
 
 Background 
 ===
-We first go through a bit of R programming that you have not seen. This will not be a complete review, so please be sure to go through this on 
-your own after the lecture. 
+We first go through a bit of R programming that you have not seen. This will not be a complete review, so please be sure to go through this on your own after the lecture. 
 
 Libraries
 ===
@@ -245,6 +244,8 @@ LSH (continued)
 ===
 
 - Now that we have the high-level idea of LSH, let's look at it in more detail. 
+
+Remark: This is not the fastest approach for applying LSH, however, this will help us gain a deeper understanding of LSH before learning about faster variants. 
 
 Shingling of Documents
 ===

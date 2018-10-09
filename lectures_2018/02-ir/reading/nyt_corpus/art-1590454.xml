@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE nitf SYSTEM "http://www.nitf.org/IPTC/NITF/3.3/specification/dtd/nitf-3-3.dtd">
+<nitf change.date="June 10, 2005" change.time="19:30" version="-//IPTC//DTD NITF 3.3//EN">
+  <head>
+    <title>IN BRIEF</title>
+    <meta content="19SCHO$03" name="slug"/>
+    <meta content="19" name="publication_day_of_month"/>
+    <meta content="6" name="publication_month"/>
+    <meta content="2004" name="publication_year"/>
+    <meta content="Saturday" name="publication_day_of_week"/>
+    <meta content="Arts &amp; Ideas/Cultural Desk" name="dsk"/>
+    <meta content="9" name="print_page_number"/>
+    <meta content="B" name="print_section"/>
+    <meta content="2" name="print_column"/>
+    <meta content="Arts; Books" name="online_sections"/>
+    <meta content="http://www.nytimes.com/2004/06/19/books/19SCHO.html" name="alternate_url"/>
+    <docdata>
+      <doc-id id-string="1590454"/>
+      <doc.copyright holder="The New York Times" year="2004"/>
+      <identified-content>
+        <classifier class="indexing_service" type="descriptor">Alcohol Abuse</classifier>
+        <classifier class="indexing_service" type="descriptor">Magazines</classifier>
+        <classifier class="indexing_service" type="descriptor">Rare Books</classifier>
+        <classifier class="indexing_service" type="descriptor">Auctions</classifier>
+        <classifier class="indexing_service" type="descriptor">Books and Literature</classifier>
+        <classifier class="indexing_service" type="descriptor">Suspensions, Dismissals and Resignations</classifier>
+        <org class="indexing_service">Alcoholics Anonymous</org>
+        <org class="indexing_service">Sotheby's</org>
+        <org class="indexing_service">American Scholar (Magazine)</org>
+        <person class="indexing_service">Wilson, William</person>
+        <person class="indexing_service">Lee, Felicia R</person>
+        <person class="indexing_service">Fadiman, Anne</person>
+        <object.title class="indexing_service">Alcoholics Anonymous (Book)</object.title>
+        <classifier class="online_producer" type="taxonomic_classifier">Top/News</classifier>
+        <classifier class="online_producer" type="taxonomic_classifier">Top/Features/Arts</classifier>
+        <classifier class="online_producer" type="taxonomic_classifier">Top/Features/Books</classifier>
+        <classifier class="online_producer" type="taxonomic_classifier">Top/Classifieds/Job Market/Job Categories/Media, Entertainment and Publishing</classifier>
+        <classifier class="online_producer" type="descriptor">Books and Literature</classifier>
+        <classifier class="online_producer" type="descriptor">Magazines</classifier>
+        <classifier class="online_producer" type="general_descriptor">Suspensions, Dismissals and Resignations</classifier>
+        <classifier class="online_producer" type="general_descriptor">Auctions</classifier>
+        <classifier class="online_producer" type="general_descriptor">Magazines</classifier>
+        <classifier class="online_producer" type="general_descriptor">Rare Books</classifier>
+        <classifier class="online_producer" type="general_descriptor">Chemicals</classifier>
+        <classifier class="online_producer" type="general_descriptor">Alcohol Abuse</classifier>
+        <classifier class="online_producer" type="general_descriptor">Books and Literature</classifier>
+        <org class="online_producer">Alcoholics Anonymous</org>
+        <org class="online_producer">American Scholar</org>
+      </identified-content>
+    </docdata>
+    <pubdata date.publication="20040619T000000" ex-ref="http://query.nytimes.com/gst/fullpage.html?res=9C07E3DD1439F93AA25755C0A9629C8B63" item-length="601" name="The New York Times" unit-of-measure="word"/>
+  </head>
+  <body>
+    <body.head>
+      <hedline>
+        <hl1>IN BRIEF</hl1>
+        <hl2 class="online_headline">In Brief</hl2>
+      </hedline>
+      <byline class="print_byline">By FELICIA R. LEE</byline>
+      <byline class="normalized_byline">Lee, Felicia R</byline>
+      <abstract>
+        <p>Master copy of working draft of book Alcoholics Anonymous once belonging to AA co-founder William Wilson is sold at Sotheby's auction for $1.576 million to classic book collector; seven of 12 members of editorial board and at least eight of 11 contributing editors reportedly resign from American Scholar in protest over impending departure of editor Anne Fadiman (M)</p>
+      </abstract>
+    </body.head>
+    <body.content>
+      <block class="lead_paragraph">
+        <p>Big Price for Big Book</p>
+        <p>The master copy of the working draft of the book ''Alcoholics Anonymous,'' which belonged to William Wilson, a co-founder of A.A., was sold at auction yesterday for $1.576 million. Sotheby's sold the 161-page manuscript, considered the bible of A.A., to a classic book collector from La Jolla, Calif., said Matthew Weigman, a spokesman.</p>
+      </block>
+      <block class="online_lead_paragraph">
+        <p>The master copy of "Alcoholics Anonymous," by A.A. founder William Wilson, went for $1.576 million at auction.</p>
+      </block>
+      <block class="full_text">
+        <p>Big Price for Big Book</p>
+        <p>The master copy of the working draft of the book ''Alcoholics Anonymous,'' which belonged to William Wilson, a co-founder of A.A., was sold at auction yesterday for $1.576 million. Sotheby's sold the 161-page manuscript, considered the bible of A.A., to a classic book collector from La Jolla, Calif., said Matthew Weigman, a spokesman.</p>
+        <p>The auction house had estimated the manuscript's price at $300,000 to $500,000. It was offered for sale by an unidentified A.A. member who said he received it from an aunt who knew Wilson.</p>
+        <p>Some collectors and scholars expressed concern that the manuscript's sale would put it out of the reach of scholars interested in studying 12-step programs like A.A., which some consider one of the most important movements of the 20th century. They wanted the manuscript to go to A.A. or to an archive.</p>
+        <p>The typewritten manuscript has a multitude of annotations that showed how the Big Book, as it is known, was very much a group project. Early drafts went to dozens of people, from alcoholics to psychologists. In the manuscript's margins they refined the language and hammered out their philosophy of how only another alcoholic could help an alcoholic stop drinking. It was published in 1939.</p>
+        <p>Wilson, better known as Bill W., founded A.A. with Robert Smith in 1935 and became very much its public face. He died of emphysema in 1971.</p>
+        <p>A 1978 inscription on the manuscript is from Wilson's wife, Lois Wilson (who died in 1988), to a ''Barry.'' Some historians think that is the writer Barry Leach, who wrote a biography of her.</p>
+        <p>Magazine Uproar Grows</p>
+        <p>Resignations from The American Scholar in protest over the impending departure of its editor, Anne Fadiman, and three other staff members has grown to include 7 of the 12 members of the editorial board and at least 8 of the 11 contributing editors, some board members said.</p>
+        <p>The list of people leaving one of the country's premier literary journals reflects the tumult that ensued in March after a budget dispute between Ms. Fadiman and the publisher, the Phi Beta Kappa Society.</p>
+        <p>Ms. Fadiman's supporters contend that she and the three editors were fired without an adequate explanation. John Churchill, secretary of the society and publisher of the journal, said the resignations (''She chose to say she was fired,'' he said) came because of the ''society's inability to work with her over budgetary matters.'' He said the three other staff members were part of a package deal with Ms. Fadiman.</p>
+        <p>''This is a scandal,'' said one former editorial board member, Todd Gitlin, a professor of journalism and sociology at Columbia University. ''They simply told Anne she was gone. There was a lot of anger.''</p>
+        <p>Mr. Gitlin and some others who resigned contend that Ms. Fadiman should not bear the weight of the journal's budget woes. They were also angry that they were not told about decisions related to Ms. Fadiman's tenure.</p>
+        <p>The American Scholar, which was founded in 1932, has a healthy circulation, about 28,000, but it has also struggled with a deficit of $250,000, Mr. Churchill said.</p>
+        <p>While some board members said they thought the resignations could hurt the magazine's reputation, Mr. Churchill said they simply reflected loyalty to Ms. Fadiman. He said a search committee was looking for a new editor.</p>
+        <p>FELICIA R. LEE</p>
+      </block>
+    </body.content>
+  </body>
+</nitf>

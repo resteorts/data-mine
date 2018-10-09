@@ -1,0 +1,12 @@
+base
+DBI
+RSQLite
+bit
+ff
+ffbase
+RecordLinkage
+knitr
+textreuse
+tokenizers
+RLdata
+ggplot2
