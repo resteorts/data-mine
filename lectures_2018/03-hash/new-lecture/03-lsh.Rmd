@@ -5,7 +5,7 @@ institute: |
     | STA 325, Supplemental Material
 shortinstitute: beka@stat.duke.edu
 date: |
-  | October 9, 2018
+  | October 11, 2018
   |
 output: 
   beamer_presentation:
@@ -62,9 +62,14 @@ Often times we perform entity resolution and then perform a regression task (or 
 
 # Information retrieval for comparing documents, records, etc
 
-1. If we're looking to remove duplicate entities from a database, this requires comparing all $n$ records in the database. (This is an quadratic operation.)
+1. If we're looking to remove duplicate entities from a database, this requires comparing all $n$ records in the database. (This is a quadratic operation.)
 
-2. Typically, before performing entity resolution, we will want to perform dimension reduction to reduce down the space of records to something more manageable. 
+2. Typically, before performing entity resolution, we want to perform dimension reduction to reduce down the space of records to something more manageable. 
+
+(Suppose our database has 1000 records, then then without dimension reduction we're having to do (1000)^2 comparisons). Now think larger and more realistic (1 million records). 
+
+For further reading on how to do this in practice, see 
+\url{https://arxiv.org/abs/1510.07714}, \url{https://link.springer.com/chapter/10.1007%2F978-3-319-99771-1_21}, \url{https://arxiv.org/abs/1710.02690}
 
 
 # Overall questions
@@ -352,7 +357,7 @@ This took up $`r object.size(hashed_shingles)`$ bytes, while storing the shingle
 \vfill
 - We can replace large sets by smaller representations, called *signatures*
 \vfill
-- And use these signatures to **approximate** Jaccard similarity
+- And use these signatures to **approximate** the Jaccard similarity
 \vfill
 
 # Characteristic matrix
