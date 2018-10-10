@@ -27,8 +27,36 @@ opts_chunk$set(echo=FALSE, message=FALSE, warning=FALSE)
 theme_set(theme_bw(base_family = "serif", base_size = 30))
 ```
 
-# Agenda
+# Mid-term Evaluations
 
+Thank you for completing the midterm evaluations! 
+
+Things that students liked:
+
+1. Real examples
+2. The fact that the lectures are all reproducible
+3. Interactive parts of the lectures
+4. Course materials, homeworks, labs 
+5. Pace of the course
+
+12/13 students very much liked the course, content, material (4-5 range overall). 
+
+Things you would like to improve: 
+
+1. Posted readings for course material 
+2. More real examples 
+3. The homeworks to be more clear in the wording 
+4. More interactive lectures 
+
+# Homework Reminders
+
+1. Please remember to include all files when you submit (otherwise they will not be graded). A big part of the course is reproducibility. 
+
+2. Please comment your code. (There will be a 10 point deduction for code that is not commented. Please also make sure that your comments are clear). 
+
+Questions? 
+
+# Agenda
 
 1. Defining similarity
 2. Representing data as sets (shingling)
@@ -66,10 +94,13 @@ Often times we perform entity resolution and then perform a regression task (or 
 
 2. Typically, before performing entity resolution, we want to perform dimension reduction to reduce down the space of records to something more manageable. 
 
-(Suppose our database has 1000 records, then then without dimension reduction we're having to do (1000)^2 comparisons). Now think larger and more realistic (1 million records). 
+(Suppose our database has 1000 records, then then without dimension reduction we're having to do $(1000)^2$ comparisons). Now think larger and more realistic (1 million records). 
 
 For further reading on how to do this in practice, see 
-\url{https://arxiv.org/abs/1510.07714}, \url{https://link.springer.com/chapter/10.1007%2F978-3-319-99771-1_21}, \url{https://arxiv.org/abs/1710.02690}
+Chen, Shrivastava, Steorts (2018), Steorts et al. (2018), Steorts et al. (2014). 
+
+
+<!-- \hyperref[Paper]{https://arxiv.org/abs/1510.07714}, \hyperref[Paper]{https://link.springer.com/chapter/10.1007%2F978-3-319-99771-1_21}, \hyperref[Paper]{https://arxiv.org/abs/1710.02690} -->
 
 
 # Overall questions
@@ -471,6 +502,46 @@ Used minhashing to get an approximation to the Jaccard similarity, which helps b
 
 We still haven't addressed the issue of **pairwise comparisons**
 
+# Minhashing (review of the entire process)
+
+Let's take a look at the entire minhash process as a quick review. 
+
+Now, we permute the rows of the characteristic matrix to form a permuted matrix. 
+
+The permuted matrix  is simply a reordering of the original characteristic matrix, with the rows swapped in some arrangement. 
+
+Figure 2 shows the characteristic matrix converted to a permuted matrix by a given permutation. We repeat the permutation step for several iterations to obtain multiple permuted matrices. 
+
+\begin{figure}
+  \begin{center}
+    \includegraphics[width=0.4\textwidth]{figures/permuted-matrix}
+    % Source: Original work by RCS
+  \end{center}
+  \caption{Permuted matrix from the characteristic one. The $\pi$ vector is the specified permutation.}
+  \label{figure:permute}
+\end{figure}	
+
+
+
+The Signature Matrix
+===
+Now, we compute the signature matrix. 
+
+The signature matrix is a hashing of values from the permuted one. 
+
+The signature has a row for the number of permutations calculated, and a column corresponding with the columns of the permuted matrix. 
+
+We iterate over each column of the permuted matrix, and populate the signature matrix, row-wise, with the row index from the first 1 value found in the column. 
+
+Signature Matrix
+===
+	
+```{r}
+library("pander")
+signature <- c(2,4,3,1)
+pandoc.table(signature,style="rmarkdown")
+```
+
 # Avoiding pairwise comparisons
 
 - Performing pairwise comparisons is time-consuming because the number of comparisons grows at $O(n^2)$
@@ -623,11 +694,7 @@ Using the `fname_c1` and `lname_c1` columns in the `RecordLinkage::RL500` datase
 - The feature space is then binned into $m$ evenly spaced bins
 - The $m$ minimums (for each bin separately) are the $m$ different hash values
 
-\vfill
-
-# "Densified" One Permutation Hashing (DOPH)
-
-![](images/doph.png)
+See Chen, Shrivastava, Steorts (2018) for applying this to a real problem. (Code available in C++ and Python).
 
 
 
