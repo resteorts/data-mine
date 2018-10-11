@@ -334,12 +334,16 @@ Output into an xtable
 ===
 \tiny
 ```{r}
+are.same = !are.different
+diag(are.same) = TRUE
 wselfwdif<-c(mean(dist.plain[are.same]), 
              mean(dist.wordcount[are.same]), 
              mean(dist.euclen[are.same]), 
              mean(dist.idf.plain[are.same]), 
              mean(dist.idf.wordcount[are.same]), 
              mean(dist.idf.euclen[are.same]))
+are.same = !are.different
+diag(are.same) = FALSE
 wselfwodif<-c(mean(dist.plain[are.same]), 
               mean(dist.wordcount[are.same]), 
               mean(dist.euclen[are.same]), 
