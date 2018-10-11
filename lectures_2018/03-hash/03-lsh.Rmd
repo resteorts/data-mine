@@ -146,6 +146,14 @@ quickly compare the similarity of the following:
 
 We will work with two data sets. The first is a synthetic dataset from the \texttt{RecordLinkage} package in \texttt{R} called \texttt{RLdata500}. The second is a real data set on github (\texttt{RLdata}) called \texttt{cora}\footnote{This can be found at \url{https://github.com/resteorts/RLdata}.}
 
+# Install instructions
+
+To install the \texttt{RLdata} package use the following commands:
+
+```
+install.packages("devtools")
+devtools::install_github("resteorts/RLdata")
+```
 
 # Goal
 
