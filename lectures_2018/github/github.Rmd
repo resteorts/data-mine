@@ -1,0 +1,122 @@
+---
+title: "Introduction to Github"
+author: "STA 325, Supplemental Material"
+date: Rebecca C. Steorts
+output: 
+     beamer_presentation:
+      includes: 
+          in_header: custom2.tex
+font-size: 8px
+---
+
+Agenda
+===
+
+- Datathon teams 
+- Introduction to github and git
+- Basic commands
+- Working on small assignment with your Datathon teams
+
+
+
+Groups for Datathon
+===
+
+Find a reminder below of your datathon teams 
+(Please work in your datathon teams today)
+
+\footnotesize
+```{r}
+groupLeaders <- c("Donheiser, Julia ", "Wohl, Julia", "Rajan, Hari", 
+      "Donahoe, Grace", "Chen, Carolyn", "Holland, Ethan", 
+      "Ben Alexander")
+
+Donheiser <- c("Agarwal, Naman", "Deng, Ziqi","Lin, Vincent")
+Wohl <- c("Gao,An", "Lyu, Cheng", "Xu,Yingzhi")
+Rajan <- c("Metz, Audreya", "Giraud, Paul", "Ma, Calvin")
+Donahoe <- c("Marsalek, Oskar", "Gu, Yunxiang","Shmueli, Sara")
+Chen <- c("San-Martin, Jose", "Hsiao, Man-Lin","Tan, Michael")
+Holland <- c("Taylor, Moriah", "Huang, Howard","Wang, Harry")
+Alexander <- c("Malone, Alexis", "Jiang, Debra","Xiao, Claire")
+```
+
+
+Github
+===
+
+What is Github?
+
+What is the difference between Github and git? 
+
+1. Github is a place that allows for software to be stored and one to work
+with a distributed version control system (git). 
+2. git is a distributed version control system. 
+
+Remark: Github and git are not the same thing! 
+
+- You need to install git
+- You also need a Github account 
+
+Installation of git
+===
+
+\url{https://git-scm.com/book/en/v2/Getting-Started-Installing-Git}
+
+- These are all from the command line (in my option these are easier than using a gui/browser but there are options for these if you prefer). 
+- You'll need a terminal window installed on your computer in order to install git using the above url. 
+
+Getting a github account
+===
+
+Please set up a github account (if you don't already have one) at: 
+
+https://github.com/
+
+Demo using git
+===
+
+Let's create a new repository called \texttt{intro-git}. 
+
+Basic commands
+===
+
+```
+git clone path
+git add file
+git commit -m "Adding new file."
+git push origin master
+git pull origin master 
+```
+
+Other commands
+===
+
+```
+git status
+git log
+```
+
+Suggestions
+===
+
+- Push/Pull often to keep your current repository up to date with
+the "master" repository. 
+
+- If you and others are working on same repository at once, learn about branching and advanced git commands, so that you do not have merge issues. 
+\url{https://github.com/Kunena/Kunena-Forum/wiki/Create-a-new-branch-with-git-and-manage-branches}
+
+- For Datathon, I recommend that one person is in charge of the master repository (group leader or the main person working on the code). 
+
+Exercise
+===
+
+0. Install git and create github account if you don't already have one. 
+1. Create a repository for your homework on hashing. 
+2. Add the .Rmd file to your repository using git commands and commit the changes. 
+3. Complete your hashing homework in github this week to help you prepare for the datathon. 
+
+
+
+
+
+
