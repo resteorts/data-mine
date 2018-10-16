@@ -364,7 +364,7 @@ For a dataset of size $n$, the number of comparisons we must compute is $$\frac{
 # Hash functions
 
 - Traditionally, a *hash function* maps objects to integers such that similar objects are far apart
-- Instead, we want special hash functions that do the **opposite** of this, i.e. similar objects are placed closed together!
+- Instead, we want special hash functions that do the **opposite** of this, i.e. similar objects are placed close together!
 
 
 ## Definition: Hash function
