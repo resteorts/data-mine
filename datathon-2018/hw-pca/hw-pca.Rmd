@@ -47,10 +47,11 @@ presentations.\footnote{Each stimulus was presented for 3s, followed by a 7s res
 library(R.matlab)
 fmri.p1 <- readMat("data/data-science-P1.mat")
 fmri <- do.call(rbind,lapply(fmri.p1$data,unlist)) 
+# grab the columns of the fmri matrix
 colnames(fmri) <- 1:dim(fmri)[2]
 ```
 
-The command \verb_fmri <- do.call(rbind, fmri.p1$data,unlist)_ should return a matrix of dimension 360 by 21764, where the columns are voxels in the participants's brain and rows represents trials. Each trial is one exposure to one of the 60 stimuli. 
+The command \verb_fmri <- do.call(rbind, fmri.p1$data,unlist)_ should return a matrix of dimension 360 by 21764, where the columns are voxels in the participants's brain and rows represents trials. Each trial is one exposure to one of the 60 stimuli. (Note in this assignment, $p=21764 >>n=360$, so keep this in mind).
 
 Verify that you can read in the data and that you have the proper dimensions. What is the value of  \verb_fmri[172,2014]_? (Report to two decimals). 
 
