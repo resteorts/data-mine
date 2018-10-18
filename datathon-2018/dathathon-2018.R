@@ -7,7 +7,7 @@ length(underName)
 
 groupLeaders <- c("Donheiser, Julia ", "Wohl, Julia", "Rajan, Hari (Starke)", "Donahoe, Grace", "Chen, Carolyn", "Holland, Ethan", "Ben Alexander")
 Donheiser <- c("Agarwal, Naman", "Deng, Ziqi","Lin, Vincent")
-Wohl <- c("Erfurth, Sophie", "Gao,An", "Lyu, Cheng", "Xu,Yingzhi")
+Wohl <- c("Gao,An", "Lyu, Cheng", "Xu,Yingzhi")
 Rajan <- c("Metz, Audreya", "Giraud, Paul", "Ma, Calvin")
 Donahoe <- c("Marsalek, Oskar", "Gu, Yunxiang","Shmueli, Sara")
 Chen <- c("San-Martin, Jose", "Hsiao, Man-Lin","Tan, Michael")
