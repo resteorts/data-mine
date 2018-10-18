@@ -1,7 +1,7 @@
 ---
 title: 'Principal Components Analysis'
 author: "STA 325: Assignment 7, Fall 2018"
-date: "Due Thursday October 27, 10 PM, Sakai"
+date: "Due Thursday October 25, 10 PM, Sakai"
 output: pdf_document
 ---
 
