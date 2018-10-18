@@ -1,0 +1,17 @@
+.STA-521-LABS/
+.hws-solutions/
+*solutions/
+*.aux
+*.bbl
+*.blg
+*.log
+*.out
+.Rproj.user/
+.RData
+.Rhistory
+.DS_Store
+*.o
+*.so
+.Rproj.user
+*exams/
+*hws/
