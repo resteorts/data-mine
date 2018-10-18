@@ -11,12 +11,52 @@ font-size: 8px
 
 Agenda
 ===
+- Supervised versus unsupervised learning (Chapter 10 ISLR)
 - Recap of information retrieval
 - Relation to PCA
 - Idea behind PCA
 - Application to NYTimes data set
 - Multidimensional scaling
 - Scree plots
+
+Supervised versus Unsupervised Learning
+===
+Most statistical learning techniques fall into two categories:
+
+1. Supervised 
+2. Unsupervised 
+
+Supervised versus Unsupervised Learning
+===
+
+Most of the methods in ISLR are **supervised learning techniques**. 
+
+This means that for each predictor $x_i$ $i=1,\ldots,n$ there is an associated response variable $y_i$, 
+
+Our goal is to fit a model relating the response $(y)$ to the predictors $(x)$ such that we can accurately predict future responses (prediction) or such that we can better understand the relationship between the response and the predictor (inference). 
+
+Examples of this include regression, logistic regression, boosting, and support vector machines. 
+
+Supervised versus Unsupervised Learning
+===
+Chapter 10 covers unsupervised learning techniques. 
+
+Unsupervised learning covers a more challenging situation where for every observation $x_i$
+that we observe, we do not observe a response variable $y_i$. 
+
+Therefore, we cannot fit a linear regression model since we don't have a reponse variable! 
+
+In this setting, we lack the supervision of a response $y_i$ to guide the $x_i$ for model fitting, so we develop other methods to guide our analysis. 
+
+Typically we are guided by the data! 
+
+Supervised versus Unsupervised Learning
+===
+One statistical learning tool that we will learn about is clustering. 
+
+The goal of clustering is to ascertain, on the basis of $x_1, \ldots, x_n$, where the observations fall into relatively distinct groups.
+
+Another goal may just be to do an exploratory data analysis on $x_1, \ldots, x_n$ and perform some dimension reduction and visualize the features. This is known as principle components analysis. 
 
 Information retrieval
 ===

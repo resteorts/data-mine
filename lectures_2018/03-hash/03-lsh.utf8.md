@@ -18,14 +18,7 @@ natbib: true
 
 
 
-```{r libraries, echo=FALSE, message=FALSE, warning=FALSE}
-library(knitr)
-library(ggplot2)
-library(RecordLinkage)
 
-opts_chunk$set(echo=FALSE, message=FALSE, warning=FALSE)
-theme_set(theme_bw(base_family = "serif", base_size = 30))
-```
 
 # Mid-term Evaluations
 
@@ -226,17 +219,11 @@ $$\{\text{hel, ell, llo, low, owo, wor, orl, rld}\}$$
 
 We have the following two records:
 
-```{r your-turn1}
-# load RL data
-data("RLdata500")
 
-# select only 2 records
-records <- RLdata500[129:130, c(1,3)]
-names(records) <- c("First name", "Last name")
-
-# inspect records
-kable(records)
-```
+      First name   Last name 
+----  -----------  ----------
+129   MICHAEL      VOGEL     
+130   MICHAEL      MEYER     
 
 1. Compute the $2$-shingles for each record
 \vfill
@@ -247,21 +234,23 @@ kable(records)
 \vfill
 1. The $2$-shingles for the first record are $$\{\text{mi, ic, ch, ha, ae, el, lv, vo, og, ge, el}\}$$ and for the second are $$\{\text{mi, ic, ch, ha, ae, el, lm, me, ey, ye, er}\}$$
 \vfill
-2. There are 6 items in common $$\{\text{mi, ic, ch, ha, ae, el}\}$$ and 15 items total $$\{\text{mi, ic, ch, ha, ae, el, lv, vo, og, ge, lm, me, ey, ye, er}\},$$ so the Jaccard similarity is $$\frac{6}{15} = \frac{2}{5} = `r 6/15`$$
+2. There are 6 items in common $$\{\text{mi, ic, ch, ha, ae, el}\}$$ and 15 items total $$\{\text{mi, ic, ch, ha, ae, el, lv, vo, og, ge, lm, me, ey, ye, er}\},$$ so the Jaccard similarity is $$\frac{6}{15} = \frac{2}{5} = 0.4$$
 \vfill
 
 # Useful packages/functions in `R`
 
 It would be better to automate this. (And we can do this in \texttt{R}.)
 
-```{r helpful-packages, echo = TRUE}
+
+```r
 library(textreuse) # text reuse/document similarity
 library(tokenizers) # shingles
 ```
 
 We can use the following functions to create $k$-shingles and calculate Jaccard similarity for our data
 
-```{r helpful-functions, eval=FALSE, echo=TRUE}
+
+```r
 # get k-shingles
 tokenize_character_shingles(x, n)
 
@@ -271,7 +260,8 @@ jaccard_similarity(a, b)
 
 # How to automate this?
 
-```{r helpful-functions-automate, eval=FALSE, echo=TRUE}
+
+```r
 # load packages
 library(textreuse) 
 library(tokenizers) 
@@ -291,10 +281,31 @@ jaccard_similarity(shingle1,shingle2)
 Research paper headers and citations, with information on authors, title, institutions, venue, date, page numbers and several other fields
 
 \tiny
-```{r load-ex-data, echo=TRUE}
+
+```r
 library(RLdata) # data library
 data(cora) # load the cora data set
 str(cora) # structure of cora
+```
+
+```
+## 'data.frame':	1879 obs. of  16 variables:
+##  $ id         : int  1 2 3 4 5 6 7 8 9 10 ...
+##  $ title      :Class 'noquote'  chr [1:1879] "Inganas and M.R" NA NA NA ...
+##  $ book_title :Class 'noquote'  chr [1:1879] NA NA NA NA ...
+##  $ authors    :Class 'noquote'  chr [1:1879] "M. Ahlskog, J. Paloheimo, H. Stubb, P. Dyreklev, M. Fahlman, O" "M. Ahlskog, J. Paloheimo, H. Stubb, P. Dyreklev, M. Fahlman, O. Inganas and M.R.   Andersson" "M. Ahlskog, J. Paloheimo, H. Stubb, P. Dyreklev, M. Fahlman, O.  Inganas and M.R.  Andersson" "M. Ahlskog, J. Paloheimo, H. Stubb, P. Dyreklev, M. Fahlman, O. Inganas and M.R. Andersson" ...
+##  $ address    :Class 'noquote'  chr [1:1879] NA NA NA NA ...
+##  $ date       :Class 'noquote'  chr [1:1879] "1994" "1994" "1994" "1994" ...
+##  $ year       :Class 'noquote'  chr [1:1879] NA NA NA NA ...
+##  $ editor     :Class 'noquote'  chr [1:1879] NA NA NA NA ...
+##  $ journal    :Class 'noquote'  chr [1:1879] "Andersson, J Appl. Phys." "JAppl. Phys." "J Appl. Phys." "J Appl.Phys." ...
+##  $ volume     :Class 'noquote'  chr [1:1879] "76" "76" "76" "76" ...
+##  $ pages      :Class 'noquote'  chr [1:1879] "893" "893" "893" "893" ...
+##  $ publisher  :Class 'noquote'  chr [1:1879] NA NA NA NA ...
+##  $ institution:Class 'noquote'  chr [1:1879] NA NA NA NA ...
+##  $ type       :Class 'noquote'  chr [1:1879] NA NA NA NA ...
+##  $ tech       :Class 'noquote'  chr [1:1879] NA NA NA NA ...
+##  $ note       :Class 'noquote'  chr [1:1879] NA NA NA NA ...
 ```
 
 # Your turn 
@@ -311,7 +322,8 @@ Using the `title`, `authors`, and `journal` fields in the `cora` dataset,
 
 \tiny
 
-```{r your-turn2-sol, echo=TRUE, cache=TRUE}
+
+```r
 # get only the columns we want
 n <- nrow(cora) # number of records
 dat <- data.frame(id = seq_len(n)) # create id column
@@ -338,25 +350,18 @@ time <- difftime(Sys.time(), time, units = "secs") # timing
 ```
 
 \normalsize
-This took took $`r round(time, 2)`$ seconds $\approx `r round(time/(60), 2)`$ minutes
+This took took $164.95$ seconds $\approx 2.75$ minutes
 
 # Your turn (solution, cont'd)
 
-```{r your-turn2-plot, fig.cap="Jaccard similarity for each pair of records. Light blue indicates the two records are more similar and dark blue indicates less similar."}
-# plot the jaccard similarities for each pair of records
-ggplot(jaccard) +
-  geom_raster(aes(x = record1, y = record2, fill=similarity)) +
-  theme(aspect.ratio = 1) +
-  scale_fill_gradient("Jaccard similarity") +
-  xlab("Record id") + ylab("Record id")
-```
+![Jaccard similarity for each pair of records. Light blue indicates the two records are more similar and dark blue indicates less similar.](03-lsh_files/figure-beamer/your-turn2-plot-1.pdf) 
 
 # Hashing
 
 For a dataset of size $n$, the number of comparisons we must compute is $$\frac{n(n-1)}{2}$$ 
 
 \vfill
-- For our set of records, we needed to compute $`r scales::comma(nrow(dat)*(nrow(dat) - 1)/2)`$ comparisons
+- For our set of records, we needed to compute $1,764,381$ comparisons
 \vfill
 - A better approach for datasets of any realistic size is to use *hashing*
 \vfill
@@ -379,7 +384,8 @@ Instead of storing the strings (shingles), we can just store the *hashed values*
 These are integers, they will take less space
 
 \footnotesize
-```{r hash-tokens, echo=TRUE}
+
+```r
 # instead store hash values (less memory)
 hashed_shingles <- apply(dat, 1, function(x) {
   string <- paste(x[-1], collapse=" ") # get the string
@@ -388,22 +394,10 @@ hashed_shingles <- apply(dat, 1, function(x) {
 })
 ```
 
-```{r hash-tokens-jaccard, cache=TRUE}
-# Jaccard similarity on hashed shingles
-hashed_jaccard <- expand.grid(record1 = seq_len(n), record2 = seq_len(n))
 
-# don't need to compare the same things twice
-hashed_jaccard <- hashed_jaccard[hashed_jaccard$record1 < hashed_jaccard$record2,]
-
-time <- Sys.time() # see how long this takes
-hashed_jaccard$similarity <- apply(hashed_jaccard, 1, function(pair) {
-  jaccard_similarity(hashed_shingles[[pair[1]]], hashed_shingles[[pair[2]]])
-}) # get jaccard for each hashed pair
-time <- difftime(Sys.time(), time, units = "secs") # timing
-```
 
 \normalsize
-This took up $`r object.size(hashed_shingles)`$ bytes, while storing the shingles took $`r object.size(shingles)`$ bytes; the whole pairwise comparison still took the same amount of time ($\approx `r round(time/(60), 2)`$ minutes)
+This took up $6.38256\times 10^{5}$ bytes, while storing the shingles took $7.36544\times 10^{6}$ bytes; the whole pairwise comparison still took the same amount of time ($\approx 2.35$ minutes)
 
 # Similarity preserving summaries of sets
 
@@ -422,32 +416,17 @@ In order to get a signature of our data set, we first build a *characteristic ma
 
 Columns correspond to records and the rows correspond to all hashed shingles
 
-```{r characteristic, cache=TRUE}
-# return if an item is in a list
-item_in_list <- function(item, list) {
-  as.integer(item %in% list) 
-}
 
-# get the characteristic matrix
-# items are all the unique hash values
-# columns will be each record
-# we want to keep track of where each hash is included 
-char_mat <- data.frame(item = unique(unlist(hashed_shingles)))
+             Record 1   Record 2   Record 3   Record 4   Record 5
+----------  ---------  ---------  ---------  ---------  ---------
+-78464425           1          1          1          1          1
+-78234440           1          0          0          0          0
+-78221717           1          0          0          0          0
+-78235289           1          1          1          1          1
+-78555255           1          1          1          1          1
+-78132973           1          1          1          1          1
 
-# for each hashed shingle, see if it is in each row
-contained <- lapply(hashed_shingles, function(col) {
-  vapply(char_mat$item, FUN = item_in_list, FUN.VALUE = integer(1), list = col)
-})
-
-char_mat <- do.call(cbind, contained) # list to matrix
-rownames(char_mat) <- unique(unlist(hashed_shingles)) # row names
-colnames(char_mat) <- paste("Record", seq_len(nrow(dat))) # column names
-
-# inspect results
-kable(char_mat[10:15, 1:5])
-```
-
-The result is a $`r dim(char_mat)[1]`\times `r dim(char_mat)[2]`$ matrix
+The result is a $3551\times 1879$ matrix
 
 **Question: **Why would we not store the data as a characteristic matrix?
 
@@ -465,30 +444,19 @@ The signature matrix is a hashing of values from the permuted characteristic mat
 
 # Minhashing (cont'd)
 
-```{r minhash-1, cache=TRUE}
-# set seed for reproducibility
-set.seed(02082018)
 
-# function to get signature for 1 permutation
-get_sig <- function(char_mat) {
-  # get permutation order
-  permute_order <- sample(seq_len(nrow(char_mat)))
-  
-  # get min location of "1" for each column (apply(2, ...))
-  t(apply(char_mat[permute_order, ], 2, function(col) min(which(col == 1))))
-}
-
-# repeat many times
-m <- 360
-sig_mat <- matrix(NA, nrow=m, ncol=ncol(char_mat)) #empty matrix
-for(i in 1:m) {
-  sig_mat[i, ] <- get_sig(char_mat) #fill matrix
-}
-colnames(sig_mat) <- colnames(char_mat) #column names
-
-# inspect results
-kable(sig_mat[1:10, 1:5])
-```
+ Record 1   Record 2   Record 3   Record 4   Record 5
+---------  ---------  ---------  ---------  ---------
+       30         30         30         30         30
+        8          8          8          8          8
+        6          1          1          1          1
+        2          2          2          2          2
+      102        102        102        102        102
+       16         16         16         16         16
+        8          8          8          8          8
+      112        161        161        161        161
+        1          1          1          1          1
+       76         27         27         27         27
 
 # Signature matrix and Jaccard similarity
 
@@ -511,17 +479,7 @@ The number of agreements over the total number of combinations is an approximati
 
 # Jaccard similarity approximation
 
-```{r jaccard-sig, fig.height=4, cache=TRUE}
-# add jaccard similarity approximated from the minhash to compare
-# number of agreements over the total number of combinations
-hashed_jaccard$similarity_minhash <- apply(hashed_jaccard, 1, function(row) {
-  sum(sig_mat[, row[["record1"]]] == sig_mat[, row[["record2"]]])/nrow(sig_mat)
-})
-
-# how far off is this approximation? plot differences
-qplot(hashed_jaccard$similarity_minhash - hashed_jaccard$similarity) +
-  xlab("Difference between Jaccard similarity and minhash approximation")
-```
+![](03-lsh_files/figure-beamer/jaccard-sig-1.pdf)<!-- --> 
 
 Used minhashing to get an approximation to the Jaccard similarity, which helps by allowing us to store less data (hashing) and avoid storing sparse data (signature matrix)
 
@@ -561,10 +519,12 @@ We iterate over each column of the permuted matrix, and populate the signature m
 Signature Matrix
 ===
 	
-```{r}
-library("pander")
-signature <- c(2,4,3,1)
-pandoc.table(signature,style="rmarkdown")
+
+```
+## 
+## |   |   |   |   |
+## |:-:|:-:|:-:|:-:|
+## | 2 | 4 | 3 | 1 |
 ```
 
 # Avoiding pairwise comparisons
@@ -589,10 +549,26 @@ We only check *candidate pairs* for similarity
 
 # Banding and buckets
 
-```{r banding, results='asis'}
-# view the signature matrix
-print(xtable::xtable(sig_mat[1:10, 1:5]), hline.after = c(-1,0,5,10), comment=F)
-```
+\begin{table}[ht]
+\centering
+\begin{tabular}{rrrrrr}
+  \hline
+ & Record 1 & Record 2 & Record 3 & Record 4 & Record 5 \\ 
+  \hline
+1 &  30 &  30 &  30 &  30 &  30 \\ 
+  2 &   8 &   8 &   8 &   8 &   8 \\ 
+  3 &   6 &   1 &   1 &   1 &   1 \\ 
+  4 &   2 &   2 &   2 &   2 &   2 \\ 
+  5 & 102 & 102 & 102 & 102 & 102 \\ 
+   \hline
+6 &  16 &  16 &  16 &  16 &  16 \\ 
+  7 &   8 &   8 &   8 &   8 &   8 \\ 
+  8 & 112 & 161 & 161 & 161 & 161 \\ 
+  9 &   1 &   1 &   1 &   1 &   1 \\ 
+  10 &  76 &  27 &  27 &  27 &  27 \\ 
+   \hline
+\end{tabular}
+\end{table}
 
 # Tuning
 
@@ -618,32 +594,17 @@ $$
 
 \normalsize
 
-```{r inclusion-probs, fig.cap=paste0("Probability that a pair of documents with a Jaccard similarity $s$ will be marked as potential matches for various bin sizes $b$ for $s = .25, .75$ for the number of permutations we did, $m = ", m, "$."), fig.height=3}
-# library to get divisors of m
-library(numbers) 
+![Probability that a pair of documents with a Jaccard similarity $s$ will be marked as potential matches for various bin sizes $b$ for $s = .25, .75$ for the number of permutations we did, $m = 360$.](03-lsh_files/figure-beamer/inclusion-probs-1.pdf) 
 
-# look at probability of binned together for various bin sizes and similarity values
-bin_probs <- expand.grid(s = c(.25, .75), h = m, b = divisors(m))
-bin_probs$prob <- apply(bin_probs, 1, function(x) lsh_probability(x[["h"]], x[["b"]], x[["s"]]))
-
-
-# plot as curves
-ggplot(bin_probs) +
-  geom_line(aes(x = prob, y = b, colour = factor(s), group = factor(s)), size = 2) +
-  geom_point(aes(x = prob, y = b, colour = factor(s)), size = 3) +
-  xlab("Probability") +
-  scale_color_discrete("s")
-  
-```
-
-For $b = 90$, a pair of records with Jaccard similarity $.25$ will have a `r scales::percent(bin_probs[bin_probs$b == 90 & bin_probs$s == .25, "prob"])` chance of being matched as candidates and a pair of records with Jaccard similarity $.75$ will have a `r scales::percent(bin_probs[bin_probs$b == 90 & bin_probs$s == .75, "prob"])` chance of being matched as candidates
+For $b = 90$, a pair of records with Jaccard similarity $.25$ will have a 29.7% chance of being matched as candidates and a pair of records with Jaccard similarity $.75$ will have a 100.0% chance of being matched as candidates
 
 # "Easy" LSH in R
 
 There an easy way to do LSH using the built in functions in the `textreuse` package via the functions `minhash_generator` and `lsh` (so we don't have to perform it by hand): 
 
 \tiny
-```{r show-package-lsh, echo=TRUE, cache=TRUE}
+
+```r
 # choose appropriate num of bands
 b <- 90
 
@@ -671,10 +632,7 @@ lsh_jaccard <- lsh_compare(candidates, corpus, jaccard_similarity, progress = FA
 
 # "Easy" LSH in R (cont'd)
 
-```{r, lsh-plot}
-# plot jaccard similarities that are candidates
-qplot(lsh_jaccard$score)
-```
+![](03-lsh_files/figure-beamer/lsh-plot-1.pdf)<!-- --> 
 
 
 # Putting it all together
@@ -682,7 +640,8 @@ qplot(lsh_jaccard$score)
 The last thing we need is to go from candidate pairs to blocks
 
 \footnotesize
-```{r, echo=TRUE}
+
+```r
 library(igraph) #graph package
 
 # think of each record as a node
@@ -696,6 +655,16 @@ clust <- components(g, "weak") # get clusters
 blocks <- data.frame(id = V(g)$id, # record id
                      block = clust$membership) # block number  
 head(blocks)
+```
+
+```
+##   id block
+## 1  1     1
+## 2  2     1
+## 3  3     1
+## 4  4     1
+## 5  5     1
+## 6  6     1
 ```
 
 # Your turn
