@@ -12,18 +12,23 @@ font-size: 8px
 Agenda
 ===
 - Clustering
+- Examples
 - K-means clustering
+- Notation
+- Within-cluster variation
+- K-means algorithm
+- Example
+- Limitations of K-means
 
 Clustering
 ===
-What is clustering?
+What is clustering? Why do we use it?
 
 Clustering
 ===
 \begin{figure}[htbp]
 \begin{center}
 \includegraphics[width=0.8\textwidth]{pics/clustering}
-\caption{default}
 \label{default}
 \end{center}
 \end{figure}
@@ -33,7 +38,6 @@ Clustering
 \begin{figure}[htbp]
 \begin{center}
 \includegraphics[width=0.8\textwidth]{pics/clustering_2}
-\caption{default}
 \label{default}
 \end{center}
 \end{figure}
@@ -44,164 +48,480 @@ Clustering
 \begin{figure}[htbp]
 \begin{center}
 \includegraphics[width=0.8\textwidth]{pics/clustering_3}
-\caption{default}
 \label{default}
 \end{center}
 \end{figure}
 
+Note: we don't typically know the labels or the class groups (cat, dog, mouse) when we are clustering data points. Hence, one goal is to look for separation of the data points into groups. 
+
+Clustering of Baseball Pitches
+===
+\begin{center}
+\includegraphics[width=0.7\textwidth]{zito.pdf}
+
+\bigskip
+Inferred meaning of clusters: black -- fastball, 
+red -- sinker, green -- changeup, blue -- slider, 
+light blue -- curveball
+
+\bigskip
+(Example from Mike Pane, former student at CMU)
+\end{center}
+
+Clustering versus Classification
+===
+\begin{itemize}
+\item In classification, we have data for which the class labels are 
+known, 
+\item Try to learn what differentiates these 
+groups (i.e., classification function) to properly 
+classify future data
+\end{itemize}
+\begin{center}
+\includegraphics[width=3.5in]{class.png}
+\end{center}
+
+\begin{itemize}
+\item In clustering, we look at data, where groups are
+unknown and undefined, 
+\item Try to learn the
+groups themselves, as well as what differentiates them
+\end{itemize}
+\begin{center}
+\includegraphics[width=0.7in]{clus1.png} 
+\hspace{5pt}
+\includegraphics[width=0.7in]{clus2.png} 
+\end{center}
+
+Clustering algorithms
+===
+We will cover two clustering algorithms that are very simple to understand, visualize, and use. 
+
+The first is the k-means algorithm. 
+
+The second is hierarchical clustering. 
+
 K-means clustering algorithm
 ===
 \begin{itemize}
-\item \textcolor{blue}{K-means clustering: simple approach for partitioning a dataset into K distinct, non-overlapping clusters. }
+\item K-means clustering: simple approach for partitioning a dataset into K distinct, non-overlapping clusters. 
 \begin{enumerate}
 \item To perform K-means clustering: specify the desired number of clusters K.
 \item Then the K-means algorithm will assign each observation to exactly one of the K clusters. 
 \end{enumerate}
-\item Figure 4:  results obtained from performing K-means clustering on a simulated example, using $K=2,3,4.$
 \end{itemize}
 
-K-means clustering algorithm
+Notation
 ===
-\begin{figure}[htbp]
+\begin{itemize}
+\item Observations $X_1,\ldots X_n$
+\item dissimilarites $d(X_i,X_j)$.
+%(E.g., think of $X_i \in \R^p$ and $d(X_i,X_j)=\|X_i-X_j\|_2^2$)
+\item Let $K$ be the number of clusters (fixed).
+\item A clustering of points
+$X_1,\ldots X_n$ is a function $C$ that
+assigns each observation $X_i$ to a group $k \in \{1,\ldots K\}$
+\end{itemize}
 \begin{center}
-\includegraphics[width=\textwidth]{kmeans_sim.pdf}
-\caption{150 observations in two-dimensional space. Panels show the results of applying K-means clustering with different values of K. The cluster coloring is arbitrary. These cluster labels were not used in clustering; instead, they are the outputs of the clustering procedure.}
-\label{default}
+\includegraphics[width=0.5\textwidth]{zito.pdf}
 \end{center}
-\end{figure}
 
-K-means clustering algorithm
+Within-cluster variation
 ===
-Given the number of clusters $k$ and data vectors $\vec{x}_1, \vec{x}_2, \ldots
-\vec{x}_n$,
-\begin{enumerate}
-\item Randomly assign vectors to clusters
-\item Until nothing changes
-  \begin{enumerate}
-  \item[a] Find the mean of each cluster, given the current assignments
-  \item[b] Assign each point to the cluster with the nearest mean
-  \end{enumerate}
-\end{enumerate}
+- $C(i)=k$ means that observation $X_i$ is assigned to group $k$
+- $|C_k|$ is the number of points in group $k$
+- Let $d_{ij} = d(X_i,X_j),$ for some distance function $d.$
 
-There are many small variants of this.  
+\bigskip
+The within-cluster variation is defined as 
+$$W =  \sum_{k=1}^K 
+\frac{1}{|C_k|} \sum_{C(i)=k, \, C(j)=k} d_{ij}$$
+
+Smaller $W$ is better
+
+Simple example
+===
+\begin{tabular}{cc}
+\parbox{0.5\textwidth}{
+\centering
+Here $n=5$ and $K=2$,\\
+$X_i \in \R^2$ and
+$d_{ij}=\|X_i-X_j\|_2^2$
+
+\bigskip
+{\footnotesize
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+& 1 & 2 & 3 & 4 & 5 \\
+\hline
+1 & 0 & 0.25 & 0.98 & 0.52 & 1.09 \\
+\hline
+2 & 0.25 & 0 & 1.09 & 0.53 & 0.72 \\
+\hline
+3 & 0.98 & 1.09 & 0 & 0.10 & 0.25 \\
+\hline
+4 & 0.52 & 0.53 & 0.10 & 0 & 0.17 \\
+\hline
+5 & 1.09 & 0.72 & 0.25 & 0.17 & 0 \\
+\hline
+\end{tabular}}
+} \hspace{5pt} & 
+\parbox{0.5\textwidth}{
+\includegraphics[width=0.4\textwidth]{simple2.jpg}}
+\end{tabular}
 \begin{itemize}
-\item For instance, the R function
-\texttt{kmeans() }randomly chooses $k$ vectors as the initial cluster centers
-\item Instead of randomly assigning all the vectors to clusters
-at the start.
+
+\bigskip
+\item  Red clustering:
+$W_{\text{red}}=(0.25+0.53+0.52)/3 + 0.25/2 = 0.56$
+\item  Blue clustering:
+$W_{\text{blue}}=0.25/2 + (0.10+0.17+0.25)/3 = 0.30$
 \end{itemize}
 
-K-means clustering algorithm
-===
-\begin{itemize}
-\item
- The mean of  $x_1, x_2, \ldots x_n$, is \[
-\overline{x} = \frac{1}{n}\sum_{i=1}^{n}{x_i}
-\]
-\item But it is also true that
-$
-\overline{x} = \arg \min_{m}{\sum_{i=1}^{n}{{(x_i - m)}^2}}
-\label{eqn:mean-minimizes-sum-of-squares}
-$
- \item Property extends to vectors:
-\[
-\frac{1}{n}\sum_{i=1}^{n}{\vec{x}_i} = \arg \min_{\vec{m}}{\sum_{i=1}^{n}{\|\vec{x}_i - \vec{m}\|^2}}.
-\]
-\end{itemize}
+\bigskip
+(Tip: dist function in R)
 
-K-means clustering
+
+Finding the best group assignments
 ===
-Define 
-$C_1, C_2,
-\ldots C_k$ denoting sets containing the indices of the observation of each cluster. 
-That is, each $\vec{x}_i$ is in one and only one $C_j$. 
+Smaller $W$ is better, so why don't we just directly
+find the clustering $C$ that minimizes $W$?
+
+Finding the best group assignments
+===
+Smaller $W$ is better, so why don't we just directly
+find the clustering $C$ that minimizes $W$?
+
+Problem: doing so requires trying 
+all possible assignments of the $n$ points into
+$K$ groups. The number of possible assignments is
+\vspace{-5pt}
+$$A(n,K) = \frac{1}{K!}\sum_{k=1}^K (-1)^{K-k} 
+{K \choose k} k^n
+\vspace{-5pt}$$
+Note that $A(10,4)=34,105$, and
+$A(25,4) \approx 5 \times 10^{13}$ 
+
+See, Jain and Dubes (1998), "Algorithms for Clustering Data"
+
+\bigskip
+Most problems we look at are going to have way 
+more than $n=25$ observations, and potentially more
+than $K=4$ clusters too (but $K=4$ is not 
+unrealistic)
+
+Finding the best group assignments
+===
+How do we get around this? 
+
+\bigskip
+
+We will end up making an approximation. Let's walk through 
+all the details now of K-means clustering. 
+
+
+
+<!-- K-means clustering algorithm -->
+<!-- === -->
+<!-- \begin{figure}[htbp] -->
+<!-- \begin{center} -->
+<!-- \includegraphics[width=\textwidth]{kmeans_sim.pdf} -->
+<!-- \caption{150 observations in two-dimensional space. Panels show the results of applying K-means clustering with different values of K. The cluster coloring is arbitrary. These cluster labels were not used in clustering; instead, they are the outputs of the clustering procedure.} -->
+<!-- \label{default} -->
+<!-- \end{center} -->
+<!-- \end{figure} -->
+
+K-means clustering 
+===
+- K-means is a simple way to paritition a data set into $K$ distinct, non-overlapping clusters. 
+
+- To perform K-means clustering, we must 
+
+1. first specify the desired number of clusters K
+2. then the K-means algorithm will assign each observation to exactly one of the K clusters.
+
+How does this work? 
+
+Notation
+===
+Let $n$ denote the number of data points in our data set. 
+
+Let $$C_1, C_2,
+\ldots C_k$$ denoting sets containing the indices of the observations in each cluster. (This means that each data point is in only one cluster $C_j$). 
 
 This means that these sets satisfy two properties:
   
 1. $$C_1 \cup C_2 \cup \cdots C_K = \{1,\ldots,n\}.$$
 This means that each observations belongs to at least one of the $K$ clusters. 
   
-2. $$C_k \cap C_{k^{\prime}}$$
+2. $$C_k \cap C_{k^{\prime}} = \emptyset$$ for all $k \neq k^{\prime}.$
 This means the clusters are non-overlapping and so no observation belongs to more than one cluster. 
 
-K-means clustering
+Intuition
 ===
-Recall  $C_1, C_2, \ldots C_k$ denotes sets containing the indices of the observation of each cluster. 
-  That is, each $\vec{x}_i$ is in one and only one $C_j$. 
-\begin{itemize}
-\item For each cluster we have a center, $\vec{m}_j$, and a sum of squares,
-  \[
-    Q_j \equiv \sum_{i: \vec{x}_i \in C_j}{\|\vec{x}_i - \vec{m}_j\|^2} = \sum_{i,i^{\prime} \in C_j} \sum_{k=1}^p (x_{ik} - x_{i^{\prime}k})^2
-    \]
-  \pause
-\item Define $V_j = Q_j/n_j$, $n_j$ is the number of points in
-  cluster $j$.  
-\begin{itemize}
-\item This is the {\bf within-cluster variance}.
-\end{itemize}
-\end{itemize}
-  
-K-means clustering
+As an example, if the $i$th observation is in cluster $k$ then data point $i \in C_k.$
+
+We think of k-means being a good clustering algorithm when the within-cluster variation is as small as possible. 
+
+What is this? 
+
+The within cluster variation
 ===
-\begin{itemize}
-\item We have an over-all sum of squares for the whole clustering
-  \[
-    Q \equiv \sum_{j=1}^{k}{Q_j} = \sum_{j=1}^{k}{n_j V_j}
-    \]
-Write $a_i$ for the cluster to which vector $i$ is assigned. 
-\end{itemize}
-  
-K-means clustering
+The within cluster variation of cluster $C_k$ is a measure of $W(C_k)$ of the amount by which the observations within a cluster differ from each other.
+
+Mathematically, we want to solve the following optimization problem:
+
+$$\min_{C_1,\ldots,C_K} \sum_{k=1}^K W(C_k)$$
+
+In words, this means that we want to partition the data points into clusters such that the total within-cluster variation summed over all $K$ clusters is as small as possible. 
+
+This seems reasonable, but how do we define the within-cluster variation $W(C_k)$? Thoughts? 
+
+The within cluster variation
+===
+There are many possible ways to define this concept, but by far the most common choice involves squared Euclidean distance. 
+
+Can you think of why we use this based on previous discussions that we have had in class? 
+
+The within cluster variation
+===
+Thus, we define 
+
+$$W(C_k) = \frac{1}{|C_k|} \sum_{i,i^{\prime}} \sum_{j=1}^p(x_{ij} - x_{i^{\prime}j})^2$$
+
+where $|C_k|$ denotes the number of observations in the kth cluster.
+
+In words, the within-cluster variation for the $k$th cluster is the sum of all of the pairwise squared Euclidean distances between the observations in the $k$th cluster, divided by the total number of observations in the $k$th cluster.
+
+Back to the optimization problem
+===
+We return now to the optimization problem that defines $K$-means clustering (under the Euclidean norm):
+
+\begin{align}
+\label{eqn:kmeans}
+\min_{C_1,\ldots,C_K} \sum_{k=1}^K W(C_k)
+&=
+\min_{C_1,\ldots,C_K} \{ \sum_{k=1}^K
+\frac{1}{|C_k|} \sum_{i,i^{\prime}} \sum_{j=1}^p(x_{ij} - x_{i^{\prime}j})^2
+\}
+\end{align}
+
+Now, we would like to find an algorithm to solve equation \ref{eqn:kmeans}. 
+
+That is, we want a method to partition the observations into K clusters such that the objective of equation \ref{eqn:kmeans} is minimized.
+
+K-means continued
+===
+This is in fact a very difficult problem to solve precisely, since there are almost $K^n$ ways to partition $n$ data points into $K$ clusters. 
+
+This is a very large number unless $K$ and $n$ are both small. (In practice, they are not)! 
+
+Fortunately, a very simple algorithm can be shown to provide a local optimum --- a pretty good solution --- to the K-means optimization problem. 
+
+K-means clustering algorithm
+===
+\begin{enumerate}
+\item Randomly assign a number, from 1 to $K$, to each of the observations. These serve as initial cluster assignments for the observations. 
+\item Iterate until the clustering algorithm stops changing: 
+\begin{enumerate}
+ \item[a] For each of the $K$ clusters, compute the centroid. The $k$th cluster centriod is the vector of the $p$ feature averages for the observations in the cluster $k$. 
+
+\item[b] Assign each observation to the cluster whose centroid is closest (where closest is defined using Euclidean distance).
+\end{enumerate}
+\end{enumerate}
+
+Note: 
+$\bar{x}_{kj} = \frac{1}{|C_k|} \sum_{i\in C_k} x_{ij}$
+is the average for feature $j$ in cluster $C_k.$
+
+
+K-means clustering algorithm
+===
+The above algorithm is guaranteed to decrease the value of the objective function at each step. 
+
+Why is this true? 
+
+\begin{align}
+\frac{1}{|C_k|} \sum_{i,i^{\prime} \in C_k} \sum_{j=1}^p(x_{ij} - x_{i^{\prime}j})^2
+&= 2 \sum_{i \in C_k} \sum_{j=1}^p (x_{ij} - \bar{x}_{kj})^2,
+\end{align}
+where 
+$\bar{x}_{kj} = \frac{1}{|C_k|} \sum_{i\in C_k} x_{ij}$
+is the mean for data point (feature) $j$ in cluster $C_k.$
+
+K-means clustering algorithm
+===
+- In Step 2(a), the cluster means for each data point are the constants that minimize the sum of squared deviations
+
+- In Step 2(b), reallocating the data points can only improve the the within sum of squares. 
+
+- This means that as the algorithm is run, the clustering obtained will continually improve until the result no longer changes and the objective of equation \ref{eqn:kmeans} will never increase! 
+
+- When the result no longer changes, we reach a local optimum. 
+
+K-means clustering algorithm
+===
+
+Since the algorithm reaches a local optimum and not a global optimum, the results obtained will depend on the initial (random) cluster assignment of each observation in Step 1.
+
+- Due to this, it's crucial to run the algorithm many times and from multiple (random) starting points.
+
+- One should select the best solution, namely, the one where the objective function is the smallest. 
+
+Example
 ===
 \begin{figure}[htbp]
 \begin{center}
-\includegraphics[width=0.8\textwidth]{pics/group_clusters}
+\includegraphics[width=0.8\textwidth]{pics/kmeans1}
+\caption{Top left: the data is shown. Top center: in Step 1 of the algorithm, each observation is randomly assigned to a cluster. Top right: in Step 2(a), the cluster centroids are computed. These are shown as large colored disks. Initially the centroids are almost completely overlapping because the initial cluster assignments were chosen at random.}
+\label{default}
 \end{center}
 \end{figure}
-  
-K-means clustering
-===
-\begin{itemize}
-\item Substitute in the definition of $Q_j$ into that of $Q \implies$
-    \[
-      Q = \sum_{i=1}^{n}{\|\vec{x}_i - \vec{m}_{a_i}\|^2}, i.e.
-      \]
-  the sum of squared distances from points to their cluster centers.
-\item $K$-means tries to reduce $Q$. 
-\begin{itemize}
-\item  Step 2a: adjust $\vec{m}_j$
- to minimize $Q_j$, given the current cluster assignments.  
-\item Step 2b: adjust $a_i$ to minimize $Q$, given the current means. 
-\item  At every stage $Q$
-    either decreases or stays the same.
-\item $Q$ is the {\bf objective function} for $k$-means, what it ``wants'' to minimize.
-\end{itemize}
-\end{itemize}
-  
-K-means as a search algorithm
-===
-    \emph{$K$-means is a {\bf local search} algorithm: it makes small changes to the
-      solution that improve the objective.  This sort of search strategy can get
-      stuck in {\bf local minima}, where the no improvement is possible by making
-      small changes, but the objective function is still not optimized.}
-  
-K-means as a search algorithm
-===
-\begin{itemize}
-\item $K$-means: different starting positions correspond to different initial
-  guesses about the cluster centers.  
-\item Changing those initial guesses will change
-  the output of the algorithm.  
-\item Typically randomized, either as $k$
-    random data points, or by randomly assigning points to clusters and then
-  computing the means. 
-\item  Different runs of $k$-means  generally give
-  different clusters.
-\item Can make use of this: if some points end
-  up clustered together in many different runs, that's a good sign that they
-  really do belong together.
-\end{itemize}
-  
 
-  
-  
+Example (continued)
+===
+\begin{figure}[htbp]
+\begin{center}
+\includegraphics[width=0.8\textwidth]{pics/kmeans2}
+\caption{Bottom left: in Step 2(b), each observation is assigned to the nearest centroid. Bottom center: Step 2(a) is once again performed, leading to new cluster centroids. Bottom right: the results obtained after ten iterations.}
+\label{default}
+\end{center}
+\end{figure}
+
+Example 2
+===
+\begin{figure}[htbp]
+\begin{center}
+\includegraphics[width=0.6\textwidth]{pics/kmeans3}
+\caption{K-means clustering performed six times; K = 3, each time with a different random assignment of the observations in Step 1 of the K-means algorithm. Above each plot is the value of the objective (10.11). Those labeled in red all achieved the same best solution, with an objective value of 235.8.}
+\label{default}
+\end{center}
+\end{figure}
+
+Application
+===
+We begin with a simple simulated example in which there truly are two clusters in the data: the first 25 observations have a mean shift relative to the next 25 observations.
+
+```{r}
+# simulated some data
+set.seed(2)
+x=matrix(rnorm(50*2), ncol=2)
+x[1:25,1]=x[1:25,1]+3
+x[1:25,2]=x[1:25,2]-4
+```
+
+Perform K-means clustering, $K=2$
+===
+```{r}
+km.out=kmeans(x,centers= 2,nstart=20)
+```
+
+- centers is the number of clusters $K$.
+- nstart tells us how many sets should be chosen. 
+
+Perform K-means clustering, $K=2$
+===
+The cluster assignments of the 50 observations can be found by the following:
+
+```{r}
+km.out$cluster
+```
+
+The K-means clustering perfectly separated the observations into two clusters even though we did not supply any group information to kmeans
+
+Plotting with cluster assignment
+===
+\tiny
+```{r}
+plot(x, col=(km.out$cluster +1), main="", xlab="", ylab="", pch=20, cex=2)
+```
+
+Here the observations can be easily plotted because they are two-dimensional. If there were more than two variables then we could instead perform PCA and plot the first two principal components score vectors.
+
+Other values of $K$
+===
+Here, we alread knew the value of $K$ because we simulated the data and in general we don't know $K$, so we need to play around with this value. 
+
+What happens if we look at $K=3.$
+
+$K=3$ for simulated example
+===
+\tiny
+```{r}
+set.seed(4)
+km.out=kmeans(x,3,nstart=20)
+km.out
+```
+
+Go do this on your own and explain the results. What happens now with $K=3.$ (Take about 5 minutes to do this).
+
+More about k-means
+===
+- To run the kmeans() function in R with multiple initial cluster assignments, we use the nstart argument. 
+
+- If a value of nstart greater than one is used, then K-means clustering will be performed using multiple random assignments in Step 1 of Algorithm 10.1, and the kmeans() function will report only the best results. 
+
+Here we compare using nstart$=1$ to nstart$=20.$
+
+Varying the nstart value
+===
+```{r}
+set.seed(3)
+km.out=kmeans(x,3,nstart=1)
+km.out$tot.withinss
+km.out=kmeans(x,3,nstart=20)
+km.out$tot.withinss
+```
+-  km.out$tot.withinss is the total within-cluster sum of squares, which we seek to minimize by performing K-means clustering
+
+- The individual within-cluster sum-of-squares are contained in the vector km.out$withinss.
+
+Recommended settings
+===
+- Recommend always running K-means clustering with a large value of nstart, such as 20 or 50, since otherwise an undesirable local optimum may be obtained.
+
+- Make sure you always set a random seed as well so that you can reproduce your results.
+
+
+Difficult questions posed by K-means
+===
+- The main question that is posed by k-means is how many clusters $K$ should we choose? 
+
+- Anytime we make such a choice regarding $K$, this can have a 
+strong impact on the results obtained. 
+
+- In practice, we try several different choices, and look for the one with the most useful or interpretable solution. 
+
+- With these methods, there is no single right answer—any solution that exposes some interesting aspects of the data should be considered.
+
+Validating the Clusters Obtained
+===
+- Any time clustering is performed on a data set we will find clusters. 
+
+- But we really want to know whether the clusters that have been found represent true subgroups in the data, or whether they are simply a result of clustering the noise. 
+
+- For instance, if we were to obtain an independent set of observations, then would those observations also display the same set of clusters? 
+
+- There exist a number of techniques for assigning a p-value to a cluster in order to assess whether there is more evidence for the cluster than one would expect due to chance. 
+
+- However, there has been no consensus on a single best approach. More details can be found in Hastie et al. (2009).
+
+Other Considerations in Clustering
+===
+- Both K-means and hierarchical clustering will assign each observation to a cluster. 
+
+- However, sometimes this might not be appropriate. 
+
+- For instance, suppose that most of the observations truly belong to a small number of (unknown) subgroups, and a small subset of the observations are quite different from each other and from all other observations. 
+
+- Then since K-means and hierarchical clustering force every observation into a cluster, the clusters found may be heavily distorted due to the presence of outliers that do not belong to any cluster. 
+
+- Mixture models are an attractive approach for accommodating the presence of such outliers. 
+
+- These amount to a soft version of K-means clustering, and are described in Hastie et al. (2009). 
+
+
+
+
+
+
