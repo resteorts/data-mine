@@ -1,0 +1,48 @@
+---
+title: "Preparing for Datathon"
+author: "Rebecca C. Steorts, Duke University"
+date: STA 325, Supplemental Material
+output: 
+     beamer_presentation:
+      includes: 
+          in_header: custom2.tex
+          
+
+font-size: 12px
+---
+
+
+Agenda
+===
+
+- Intro to R/RStudio and EDA analysis
+- Dealing with large files in \texttt{R}
+- Visualizations with ggplot
+
+Intro to R/RStudio and Basic Commands
+===
+
+- We've been over R/RStudio and EDA many times in class, but please find
+some extra resources just in case you find this helpful.
+
+https://github.com/mine-cetinkaya-rundel/df2017_workshops/blob/master/intro_to_r/intro_to_R_DF2017.pdf
+
+How to deal with large files in \texttt{R}
+===
+
+- Avoid the following commands: \texttt{read.table} and \texttt{read.csv}
+
+- I find the most useful command is \texttt{fread}, which is in the \texttt{library(datatable)}
+
+- For a tutorial on reading data, see some information from DataFest done by Colin Rundel and Mine Cetinkaya-Rundel
+
+
+https://github.com/mine-cetinkaya-rundel/df2017_workshops/tree/master/bigdata
+
+Visualizations with ggplot2()
+===
+
+https://github.com/mine-cetinkaya-rundel/df2017_workshops/tree/master/viz/ggplot2
+
+
+

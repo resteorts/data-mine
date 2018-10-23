@@ -14,6 +14,10 @@ Chen <- c("San-Martin, Jose", "Hsiao, Man-Lin","Tan, Michael")
 Holland <- c("Taylor, Moriah", "Huang, Howard","Wang, Harry")
 Alexander <- c("Malone, Alexis", "Jiang, Debra","Xiao, Claire")
 
+github_handles <- c(??, jbw47, harirajan0, gracedonahoe, resteorts, EthanJHolland, ba305)
+
+
+
 
 
 
