@@ -76,7 +76,7 @@ on a clustering sequence as follows:
 \begin{tabular}{cc}
 \hspace{-25pt}
 \parbox{0.4\textwidth}{
-\includegraphics[width=0.4\textwidth]{agclustex.pdf}} &
+\includegraphics[width=0.4\textwidth]{figures/agclustex.pdf}} &
 \hspace{3pt}
 \parbox{0.6\textwidth}{
 Step 1: $\{1\},\{2\},\{3\},\{4\},\{5\},\{6\},\{7\}$;\smallskip\\
@@ -338,7 +338,7 @@ dendrogram:
 
 \smallskip
 \begin{center}
-\includegraphics[width=0.9\textwidth]{agclustex2.pdf}
+\includegraphics[width=0.9\textwidth]{figures/agclustex2.pdf}
 \end{center}
 \vspace{-10pt}
 
@@ -386,7 +386,7 @@ groups are marked by colors): single linkage score
 $d_{\text{single}}(G,H)$ is the 
 distance of the closest pair} &
 \parbox{0.5\textwidth}{
-\includegraphics[width=0.5\textwidth]{single.pdf}}
+\includegraphics[width=0.5\textwidth]{figures/single.pdf}}
 \end{tabular}
 
 Single Linkage Example
@@ -397,7 +397,7 @@ clustering assignments marked by colors
 
 \smallskip
 \begin{center}
-\includegraphics[width=0.9\textwidth]{exsing.pdf}
+\includegraphics[width=0.9\textwidth]{figures/exsing.pdf}
 \end{center}
 
 \vspace{-10pt}
@@ -422,7 +422,7 @@ groups are marked by colors): complete linkage score
 $d_{\text{complete}}(G,H)$ is the 
 distance of the furthest pair} &
 \parbox{0.5\textwidth}{
-\includegraphics[width=0.5\textwidth]{complete.pdf}}
+\includegraphics[width=0.5\textwidth]{figures/complete.pdf}}
 \end{tabular}
 
 Complete Linkage Example
@@ -433,7 +433,7 @@ clustering assignments marked by colors
 
 \smallskip
 \begin{center}
-\includegraphics[width=0.9\textwidth]{excomp.pdf}
+\includegraphics[width=0.9\textwidth]{figures/excomp.pdf}
 \end{center}
 
 \vspace{-10pt}
@@ -464,7 +464,7 @@ average distance across all pairs
 (Plot here only shows distances between 
 the blue points and one red point)} &
 \parbox{0.5\textwidth}{
-\includegraphics[width=0.5\textwidth]{average.pdf}}
+\includegraphics[width=0.5\textwidth]{figures/average.pdf}}
 \end{tabular}
 
 Average linkage example
@@ -474,7 +474,7 @@ clustering assignments marked by the colors
 
 \smallskip
 \begin{center}
-\includegraphics[width=0.9\textwidth]{exavg.pdf}
+\includegraphics[width=0.9\textwidth]{figures/exavg.pdf}
 \end{center}
 
 \vspace{-10pt}

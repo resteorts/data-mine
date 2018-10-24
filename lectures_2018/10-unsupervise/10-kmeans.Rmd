@@ -57,7 +57,7 @@ Note: we don't typically know the labels or the class groups (cat, dog, mouse) w
 Clustering of Baseball Pitches
 ===
 \begin{center}
-\includegraphics[width=0.7\textwidth]{zito.pdf}
+\includegraphics[width=0.7\textwidth]{figures/zito.pdf}
 
 \bigskip
 Inferred meaning of clusters: black -- fastball, 
@@ -78,7 +78,7 @@ groups (i.e., classification function) to properly
 classify future data
 \end{itemize}
 \begin{center}
-\includegraphics[width=3.5in]{class.png}
+\includegraphics[width=3.5in]{figures/class.png}
 \end{center}
 
 \begin{itemize}
@@ -88,9 +88,9 @@ unknown and undefined,
 groups themselves, as well as what differentiates them
 \end{itemize}
 \begin{center}
-\includegraphics[width=0.7in]{clus1.png} 
+\includegraphics[width=0.7in]{figures/clus1.png} 
 \hspace{5pt}
-\includegraphics[width=0.7in]{clus2.png} 
+\includegraphics[width=0.7in]{figures/clus2.png} 
 \end{center}
 
 Clustering algorithms
@@ -123,7 +123,7 @@ $X_1,\ldots X_n$ is a function $C$ that
 assigns each observation $X_i$ to a group $k \in \{1,\ldots K\}$
 \end{itemize}
 \begin{center}
-\includegraphics[width=0.5\textwidth]{zito.pdf}
+\includegraphics[width=0.5\textwidth]{figures/zito.pdf}
 \end{center}
 
 Within-cluster variation
@@ -167,7 +167,7 @@ $d_{ij}=\|X_i-X_j\|_2^2$
 \end{tabular}}
 } \hspace{5pt} & 
 \parbox{0.5\textwidth}{
-\includegraphics[width=0.4\textwidth]{simple2.jpg}}
+\includegraphics[width=0.4\textwidth]{figures/simple2.jpg}}
 \end{tabular}
 \begin{itemize}
 
