@@ -121,8 +121,8 @@ Example: $n=250$, $p=2$, $K=1,\ldots 10$
 
 \smallskip
 \begin{center}
-\includegraphics[width=0.5\textwidth]{chooseex1a.pdf}
-\includegraphics[width=0.5\textwidth]{chooseex1b.pdf}
+\includegraphics[width=0.5\textwidth]{figures/chooseex1a.pdf}
+\includegraphics[width=0.5\textwidth]{figures/chooseex1b.pdf}
 \end{center}
 
 Between cluster variation
@@ -148,7 +148,7 @@ Example: between cluster variation
 Example: $n=100$, $p=2$, $K=2$
 \vspace{-15pt}
 \begin{center}
-\includegraphics[width=\textwidth]{bw.pdf}
+\includegraphics[width=\textwidth]{figures/bw.pdf}
 \end{center}
 \vspace{-15pt}
 $$B = \textcolor{red}{n_1\|\bar{X}_1-\bar{X}\|_2^2} + 
@@ -167,8 +167,8 @@ Running example: $n=250$, $p=2$, $K=1,\ldots 10$
 
 \smallskip
 \begin{center}
-\includegraphics[width=0.5\textwidth]{chooseex1a.pdf}
-\includegraphics[width=0.5\textwidth]{chooseex3.pdf}
+\includegraphics[width=0.5\textwidth]{figures/chooseex1a.pdf}
+\includegraphics[width=0.5\textwidth]{figures/chooseex3.pdf}
 \end{center}
 
 CH index
@@ -196,8 +196,8 @@ Running example: $n=250$, $p=2$, $K=2,\ldots 10$.
 
 \smallskip
 \begin{center}
-\includegraphics[width=0.5\textwidth]{chooseex1a.pdf}
-\includegraphics[width=0.5\textwidth]{chooseex4.pdf}
+\includegraphics[width=0.5\textwidth]{figures/chooseex1a.pdf}
+\includegraphics[width=0.5\textwidth]{figures/chooseex4.pdf}
 \end{center}
 \vspace{-8pt}
 We would choose $K=4$ clusters, which seems reasonable
@@ -245,8 +245,8 @@ Example: Gap statistic
 ===
 Running example: $n=250$, $p=2$, $K=1,\ldots 10$
 \begin{center}
-\includegraphics[width=0.5\textwidth]{chooseex5a.pdf}
-\includegraphics[width=0.5\textwidth]{chooseex5b.pdf}
+\includegraphics[width=0.5\textwidth]{figures/chooseex5a.pdf}
+\includegraphics[width=0.5\textwidth]{figures/chooseex5b.pdf}
 \end{center}
 We would choose $K=3$ clusters, which is also reasonable
 
@@ -303,7 +303,7 @@ Solution to Task 1 and 2
 \tiny
 ```{r, echo = TRUE}
 # read in the data #
-myTennisDataD <- read.csv('Wimbledon.csv', stringsAsFactors = FALSE)
+myTennisDataD <- read.csv('data/Wimbledon.csv', stringsAsFactors = FALSE)
 
 # remove named columns #
 myTennisDataC <- myTennisDataD[,-1:-2]
