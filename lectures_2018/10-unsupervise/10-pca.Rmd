@@ -232,7 +232,7 @@ about music.}
 PCA for NYTimes
 ===
 ```{r}
-load("pca-examples.Rdata")
+load("data/pca-examples.Rdata")
   # The workspace now contains:
   # nyt.frame.raw: a data frame 
   #with counts of words (columns) in stories (rows)
