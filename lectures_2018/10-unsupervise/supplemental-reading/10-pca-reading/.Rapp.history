@@ -1,0 +1,15 @@
+length(underName)
+underName <- c("Agarwal, Naman", "Alexander, Ben", "Chen, Carolyn", "Deng, Ziqi", "Donahoe, Grace", " Donheiser, Julia", "Erfurth, Sophie", "Gao,An", "Giraud, Paul", "Gu, Yunxiang", "Holland, Ethan", "Hsiao, Man-Lin", "Huang, Howard", "Jiang, Debra", "Lin, Vincent", "Lyu, Cheng", "Ma, Calvin", "Malone, Alexis", "Marsalek, Oskar", "Metz, Audreya", "Rajan, Hari", "San-Martin, Jose", "Shmueli, Sara", "Tan, Michael", "Taylor, Moriah", "Wang, Harry", "Wohl, Julia", "Xiao, Claire", "Xu,Yingzhi")#
+#
+length(underName)
+groupLeaders <- c("Donheiser, Julia", "Wohl, Julia", "Rajan, Hari", "Donahoe, Grace", "Chen, Carolyn", "Holland, Ethan", "San-Martin, Jose")
+length(groupLeaders)
+7*4
+groupLeaders <- c("Donheiser, Julia", "Wohl, Julia", "Rajan, Hari", "Donahoe, Grace", "Chen, Carolyn", "Holland, Ethan", "San-Martin, Jose", "Ben Alexander")
+length(groupLeaders)
+8*4
+7*4
+setwd("~/work_on/teaching/data-mine/lectures_2018/10-unsupervise/supplemental-reading/10-pca-reading/cars-fixed04.dat")
+setwd("~/work_on/teaching/data-mine/lectures_2018/10-unsupervise/supplemental-reading/10-pca-reading")
+cars04 = read.csv("cars-fixed04.dat")
+head(cars04)

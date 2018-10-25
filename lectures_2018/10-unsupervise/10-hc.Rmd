@@ -553,8 +553,9 @@ Cols=function(vec){
   }
 ```
 
-PCA
+Projections of the \texttt{NCI60} cancer cell lines onto the first three principal components
 ===
+\footnotesize
 ```{r,echo=FALSE}
 par(mfrow=c(1,2))
 plot(pr.out$x[,1:2], col=Cols(nci.labs), pch=19,
@@ -563,7 +564,8 @@ plot(pr.out$x[,c(1,3)], col=Cols(nci.labs), pch=19,
 xlab="Z1",ylab="Z3")
 ```
 
-On the whole, cell lines corresponding to a single cancer type do tend to have similar values on the first few PC score vectors. This indicates that cell lines from the same cancer type tend to have pretty similar gene expression levels.
+Observations belonging to a single cancer type tend to
+lie near each other in this low-dimensional space.
 
 Proportion of Variance Explained
 ===
@@ -572,12 +574,16 @@ Proportion of Variance Explained
 summary(pr.out)
 ```
 
-Proportion of Variance Explained
+Scree Plot
 ===
-\tiny
+\footnotesize
 ```{r}
 plot(pr.out)
 ```
+
+Elbow is around 7. What percentage of the variance is explained?  
+
+
 
 PCA
 ===
@@ -587,20 +593,21 @@ pve=100*pr.out$sdev^2/sum(pr.out$sdev^2)
 par(mfrow=c(1,2))
 plot(pve, type="o", ylab="PVE", xlab="Principal Component",
 col =" blue ")
-plot(cumsum(pve), type="o", ylab="Cumulative PVE", xlab="
-Principal Component ", col =" brown3 ")
+#plot(cumsum(pve), type="o", ylab="Cumulative PVE", xlab="
+#Principal Component ", col =" brown3 ")
 ```
-The proportion of variance explained (PVE) of the principal components of the NCI60 cancer cell line microarray data set. Left: the PVE of each principal component is shown. Right: the cumulative PVE of the principal components is shown. Together, all principal components explain 100 % of the variance.
 
-Conclusions from the Scree Plot
-===
-- We see that together, the first seven principal components explain around 40\% of the variance in the data. 
+The proportion of variance explained (PVE) of the principal components of the NCI60 cancer cell line microarray data set. The PVE of each principal component is shown. Note that 7 PCs make up 40 percent of the variability of the data (PVE). 
 
-- This is not a huge amount of the variance. 
+<!-- Conclusions from the Scree Plot -->
+<!-- === -->
+<!-- - We see that together, the first seven principal components explain around 40\% of the variance in the data.  -->
 
-- Looking at the scree plot, we see that while each of the first seven principal components explain a substantial amount of variance, there is a marked decrease in the variance explained by further principal components. 
+<!-- - This is not a huge amount of the variance.  -->
 
-- That is, there is an elbow in the plot after approximately the seventh principal component. This suggests that there may be little benefit to examining more than seven or so principal components (though even examining seven principal components may be difficult).
+<!-- - Looking at the scree plot, we see that while each of the first seven principal components explain a substantial amount of variance, there is a marked decrease in the variance explained by further principal components.  -->
+
+<!-- - That is, there is an elbow in the plot after approximately the seventh principal component. This suggests that there may be little benefit to examining more than seven or so principal components (though even examining seven principal components may be difficult). -->
 
 Hierarchical Clustering to NCI60 Data
 ===
