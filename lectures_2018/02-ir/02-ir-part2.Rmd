@@ -53,6 +53,34 @@ Datathon
 Grading for Datathon
 ===
 
+1. Everyone must be present for all of Datathon.
+2. All code and documents must kept on a github repository. Please add Ben and I as collaborators.
+Please keep these as private until the group presentations occur. 
+3. Your grade will be calculated on what you come up with during the Datathon event (from start to finish). 
+4. You'll be allowed to make some changes, which I'll outline below after Datathon, but these should be related to making your code reproducible, cleaning up your report/slides, fixing any visualizations that you may have had trouble with during the Datathon. 
+5. Please submit your original reports from Datathon and your final reports to Sakai by the due date on the Syllabus. (Wednesday, November 7, 10 PM)
+
+Questions
+===
+
+1. What if I have a really neat idea for improving my
+analysis after the Datathon? 
+(This is great! Mention this in the future work section/conclusions of your report. You're welcome to spend extra time trying things out and placing these in the appendix. Your grade will be calculated solely on what you did the day of Datathon).
+
+2. What if our analysis didn't work? 
+
+Make sure to state this in your report and what your analysis didn't work. What would you recommend if you had more time? If your analysis did not work much at all, but sure to elaborate on this part more. 
+
+3. How should I start revising my report? 
+
+Feel free to chat with me about this with your group
+and I'm happy to make suggestions. 
+
+
+
+Grading for Datathon
+===
+
 - Datathon is worth 30 percent of your course grade
 
 You'll be graded on datathon based upon two components: a written report (20 percent) and an oral presentation (10 percent)
