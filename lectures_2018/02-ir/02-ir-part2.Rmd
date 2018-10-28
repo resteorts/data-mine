@@ -76,7 +76,9 @@ Make sure to state this in your report and what your analysis didn't work. What 
 Feel free to chat with me about this with your group
 and I'm happy to make suggestions. 
 
+4. What if my files didn't make the submission or my files went to the wrong place? 
 
+You won't be penalized for this. As long as you made some effort to make a submission and you had code, slides, and a report, then your group is okay! (I was able to track down all groups reports, so you're all okay!)
 
 Grading for Datathon
 ===
