@@ -9,3 +9,7 @@ groupLeaders <- c("Donheiser, Julia", "Wohl, Julia", "Rajan, Hari", "Donahoe, Gr
 length(groupLeaders)
 8*4
 7*4
+90-12
+78/90
+90-8-2-5
+90-8-10

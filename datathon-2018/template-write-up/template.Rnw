@@ -79,7 +79,7 @@ Here you should have an abstract outlining the findings from DataFest. (This sho
 \end{abstract}
 
 % Add an libraries that you need below
-<<libraries-settings, echo=FALSE, message=FALSE, warning=FALSE>>=
+<<libraries-settings, echo=FALSE, message=FALSE, warning=FALSE, cache=TRUE>>=
 library(knitr)
 library(ggplot2)
 library(dplyr)
@@ -89,7 +89,7 @@ library(arm)
 library(xtable)
 library(rstanarm)
 
-opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE, dev='png')
+opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE, cache =TRUE, dev='png')
 theme_set(theme_bw(base_family = "serif"))
 
 # xtable extras
