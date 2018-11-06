@@ -542,196 +542,105 @@ The classes are breast, cns (central nervous system), colon, leukemia, melanoma,
 Application on gene expression data
 ===
 ```{r}
-library(ISLR)
-data("NCI60")
-# contrains classes of cancer
-nci.labs <- NCI60$labs 
-# contains the rest of the data
-nci.data <- NCI60$data
+library(ElemStatLearn)
+data(nci)
+head(nci)
+# transpose the data for clustering
+nci.t <- t(nci)
+# columns are cancer types
+# rows are the patient 
 ```
 
-- Each cell line is labeled with a cancer type. 
-- We do not make use of the cancer types in performing PCA and clustering, as these are unsupervised techniques. 
-- After performing PCA and clustering, we will check to see the extent to which these cancer types agree with the results of these unsupervised techniques.
-
-Exploring the data
+Task 1: Hierarchical Clustering to NCI60 Data
 ===
-\tiny
-```{r}
-dim(nci.data)
-# cancer types for the cell lines
-nci.labs[1:4]
-table(nci.labs)
-```
 
-PCA
+Produce dendrograms using single-link clustering and complete-link clustering, and average link clustering. Make sure the figures are legible. (Try the cex=0.5 option to plot.)
+
+Remark: hclust needs a matrix of distances, handily produced by the dist function, so let's make sure to remember to use this. 
+
+Creating distances
 ===
 ```{r}
-pr.out <- prcomp(nci.data, scale=TRUE)
-```
-
-PCA
-===
-We now plot the first few principal component score vectors, in order to visualize the data.
-
-First, we create a simple function that assigns a distinct color to each element of a numeric vector. The function will be used to assign a color to each of the 64 cell lines, based on the cancer type to which it corresponds.
-
-Simple color function
-===
-```{r}
-#Input: positive integer, vector
-#Output: vector containing that 
-  #number of distinct colors
-Cols=function(vec){
-  cols<-rainbow(length(unique(vec)))
-  return(cols[as.numeric(as.factor(vec))]) 
-  }
-```
-
-Projections of the \texttt{NCI60} cancer cell lines onto the first three principal components
-===
-\footnotesize
-```{r,echo=FALSE}
-par(mfrow=c(1,2))
-plot(pr.out$x[,1:2], col=Cols(nci.labs), pch=19,
-xlab="Z1",ylab="Z2")
-plot(pr.out$x[,c(1,3)], col=Cols(nci.labs), pch=19,
-xlab="Z1",ylab="Z3")
-```
-
-Observations belonging to a single cancer type tend to
-lie near each other in this low-dimensional space.
-
-Proportion of Variance Explained
-===
-\tiny
-```{r}
-summary(pr.out)
-```
-
-Scree Plot
-===
-\footnotesize
-```{r}
-plot(pr.out)
-```
-
-Elbow is around 7. What percentage of the variance is explained?  
-
-
-
-PCA
-===
-\tiny
-```{r, echo=FALSE}
-pve=100*pr.out$sdev^2/sum(pr.out$sdev^2)
-par(mfrow=c(1,2))
-plot(pve, type="o", ylab="PVE", xlab="Principal Component",
-col =" blue ")
-#plot(cumsum(pve), type="o", ylab="Cumulative PVE", xlab="
-#Principal Component ", col =" brown3 ")
-```
-
-The proportion of variance explained (PVE) of the principal components of the NCI60 cancer cell line microarray data set. The PVE of each principal component is shown. Note that 7 PCs make up 40 percent of the variability of the data (PVE). 
-
-<!-- Conclusions from the Scree Plot -->
-<!-- === -->
-<!-- - We see that together, the first seven principal components explain around 40\% of the variance in the data.  -->
-
-<!-- - This is not a huge amount of the variance.  -->
-
-<!-- - Looking at the scree plot, we see that while each of the first seven principal components explain a substantial amount of variance, there is a marked decrease in the variance explained by further principal components.  -->
-
-<!-- - That is, there is an elbow in the plot after approximately the seventh principal component. This suggests that there may be little benefit to examining more than seven or so principal components (though even examining seven principal components may be difficult). -->
-
-Hierarchical Clustering to NCI60 Data
-===
-
-- We now proceed to hierarchically cluster the cell lines in the NCI60 data, with the goal of finding out whether or not the observations cluster into distinct types of cancer. 
-
-- To begin, we standardize the variables to have mean zero and standard deviation one. 
-
-- As mentioned earlier, this step is optional and should be performed only if we want each gene to be on the same scale.
-
-```{r}
-sd.data=scale(nci.data)
+# does euc. dist by default 
+nci.dist <- dist(nci.t)
+head(nci.dist)
 ```
 
 Hierarchical Clustering to NCI60 Data
 ===
 ```{r, echo=FALSE}
-data.dist=dist(sd.data)
-plot(hclust(data.dist), labels=nci.labs, main="Complete
-Linkage", xlab="", sub="",ylab="")
+plot(hclust(nci.dist, method="complete"), cex=0.5, main="Complete Linkage", xlab="Cells", sub="",ylab="")
 ```
 
 Hierarchical Clustering to NCI60 Data
 ===
 ```{r, echo=FALSE}
-plot(hclust(data.dist, method="average"), labels=nci.labs,
+plot(hclust(nci.dist, method="average"), cex=0.5,
 main="Average Linkage", xlab="", sub="",ylab="")
 ```
 
 Hierarchical Clustering to NCI60 Data
 ===
 ```{r, echo=FALSE}
-plot(hclust(data.dist, method="single"), labels=nci.labs,
+plot(hclust(nci.dist, method="single"), cex=0.5,
 main="Single Linkage", xlab="", sub="",ylab="")
 ```
+Single-linkage is good with RENAL and decent with MELANOMA (though confused with BREAST). There are some mixed sub-trees of cells (COLON and CNS). 
 
 We see that the choice of linkage certainly does affect the results obtained.
 
-Hierarchical Clustering to NCI60 Data
+Task 2
 ===
 
-- Typically, single linkage will tend to yield trailing clusters: very large clusters onto which individual observations attach one-by-one. 
+Which cell classes seem are best captured by each clustering method?
 
-- On the other hand, complete and average linkage tend to yield more balanced, attractive clusters. 
+1. Complete-linkage has nice sub-trees for COLON, LEUKEMIA, MELANOMA, and RENAL. 
+2. Average linkage has similar resuls to complete linkage. 
+3. Single-linkage is good with RENAL and decent with MELANOMA (though confused with BREAST). There are little sub-trees of cells of the same time, like COLON or CNS, but mixed together with others. 
 
+Complete and average linkage versus single linkage
+===
+
+- Typically, single linkage will tend to yield trailing clusters: very large clusters onto which individual observations attach one-by-one.
+- On the other hand, complete and average linkage tend to yield more balanced, attractive clusters
 - For this reason, complete and average linkage are generally preferred to single linkage.
 
-Complete linkage
+Task 3: Height and sum of the within-cluster sums of squares relationship
 ===
-- We will use complete linkage hierarchical clustering for the analysis that follows.
 
-- We can cut the dendrogram at the height that will yield a particular number of clusters, say four. 
+The hclust command returns an object whose height attribute is the sum of the within-cluster sums of squares. How many clusters does this suggest we should use, according to complete linkage?
 
-\tiny
-```{r}
-hc.out=hclust(dist(sd.data)) 
-hc.clusters=cutree(hc.out,4) 
-table(hc.clusters,nci.labs)
-```
-
-Complete linkage
+Height and sum of the within-cluster sums of squares relationship
 ===
-All the leukemia cell lines fall in cluster 3, while the breast cancer cell lines are spread out over three different clusters. We can plot the cut on the dendrogram that produces these four clusters.
-
-This is the height that results in four clusters. 
-(It is easy to verify that the resulting clusters are the same as the ones we obtained using cutree(hc.out,4))
-
-```{r,echo=FALSE}
-par(mfrow=c(1,1))
-plot(hc.out, labels=nci.labs) 
-abline(h=139, col="red")
-```
-
-K-means versus complete linkage?
-===
-How do these NCI60 hierarchical clustering results compare to what we get if we perform K-means clustering with $K = 4$?
 
 ```{r}
-set.seed (2)
-km.out <- kmeans(sd.data, 4, nstart=20)
-km.clusters <- km.out$cluster
-table(km.clusters, hc.clusters )
+nci.complete = hclust(nci.dist, method="complete")
+length(nci.complete$height)
+nci.complete$height[1]
 ```
 
-K-means versus complete linkage?
+There are 63 “heights”, corresponding to the 63 joinings, i.e., not in- cluding the height (sum-of-squares) of zero when we have 64 clusters,
+one for each data point. Since the merging costs are differences, we want to add an initial 0 to the sequence.
+
+Height and sum of the within-cluster sums of squares relationship
 ===
-- We see that the four clusters obtained using hierarchical clustering and K-means clustering are somewhat different. 
+\footnotesize
+```{r, echo=FALSE}
+# takes the difference between 
+#successive components in a vector
+merging.costs <- diff(c(0,nci.complete$height))
+plot(64:2,merging.costs, xlab="Clusters remaining",ylab="Merging cost"
+     ,type="l")
+```
 
-- Cluster 2 in K-means clustering is identical to cluster 3 in hierarchical clustering. 
+The heuristic is to stop joining clusters when the cost of doing so goes up a lot.  
 
-- However, the other clusters differ: for instance, cluster 4 in K-means clustering contains a portion of the observations assigned to cluster 1 by hierarchical clustering, as well as all of the observations assigned to cluster 2 by hierarchical clustering.
+This suggests using only 10 clusters, since going from 10 clusters to 9 is very expensive. (Alternately, use 63 clusters; but that would be silly.)
+
+Task 4
+===
+
+Suppose you did not know the cell classes. Can you think of any reason to prefer one clustering method over another here? 
+
+
 
