@@ -10,8 +10,53 @@ output:
 font-size: 8px
 ---
 
+
+Datathon feedback
+===
+
+There is feedback available on Sakai for 
+
+1. Datathon written report and
+2. Datathon oral presentations
+
+- The grades for the Datathon written reports are final. 
+- The grades for the Datathon oral presentations are intermediate feedback. These grades are missing 20 points of your oral presentation that you will give on December 4/6. (Each person in you group must be present). 
+
+Reminders: The written presentations are 20 percent of your final grade. The oral presentations are 10 percent of your final grade. 
+
+Datathon feedback/questions
+===
+
+- If you have questions about the grading for the written report/grade, please see me in office hours or also see Ben. 
+- Finally, if your group was recommended to do a major revision of the oral presentation, I highly recommend that you do these. 
+- If you're not sure, please have your group leader ask either in person or via email. 
+- If you have a question about your current grade in the course, I'm happy to chat with you about this during office hours and provide you with your current grade/ranking in the course. 
+
+Rest of the semester
+===
+
+1. Tuesday Nov 13 -- Cross validation
+2. Thursday Nov 15 -- Bootstrapping
+3. Tuesday Nov 20 -- Trees (will not be on the exam)
+4. Tuesday Nov 27 -- Review for Exam II (Final exam)
+5. Thursday Nov 29 -- Exam II
+6. Tuesday Dec 4 -- Final Presentations
+7. Thursday Dec 6 -- Final Presenatations 
+
+(There is no final exam during the exam period).
+
+Exam II (Final exam)
+===
+
+- Exam II will be cumulative regarding what we have done all semester
+- It will cover the first day of class through bootstrapping. (It will not cover trees). 
+- Study class modules and homeworks. 
+- Homework 8 will be the last homework of the semester. 
+
+
 Agenda
 ===
+
 - Re-sampling Methods
 - Validation Method
 - Leave one out cross validation (LOOCV)
