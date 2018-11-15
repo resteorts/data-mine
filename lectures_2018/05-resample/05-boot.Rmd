@@ -145,12 +145,16 @@ The Boostrap on the Portfolio data set
 ===
 ```{r}
 library(ISLR)
+# Input: data set and index 
+# the index could be the indices
+# of the entire data set (or a subset)
 alpha.fn=function(data,index){
   X=data$X[index]
   Y=data$Y[index]
+  # estimate alpha_hat
   return((var(Y)-cov(X,Y))/(var(X)+var(Y)-2*cov(X,Y)))
 }
-alpha.fn(Portfolio , 1:100)
+alpha.fn(Portfolio, 1:100)
 ```
 
 This function returns, or outputs, an estimate for $\alpha$ based on applying equation (5.7) to the observations indexed by the argument index. 
@@ -164,7 +168,7 @@ This is equivalent to constructing a new bootstrap data set and recomputing $\ha
 
 ```{r}
 set.seed (1)
-alpha.fn(Portfolio,sample(100,100,replace=T))
+alpha.fn(Portfolio,sample(100,100,replace=TRUE))
 ```
 
 Implementing the Bootstrap
