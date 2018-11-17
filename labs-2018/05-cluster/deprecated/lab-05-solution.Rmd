@@ -1,0 +1,120 @@
+---
+title: 'Clustering Applied to Tennis Data -- Solutions'
+author: "STA 325: Lab 5, Fall 2018"
+output: pdf_document
+---
+
+Today's agenda: Clustering Analysis
+
+Programming partner's:
+You should have a programming partner for each lab, and you should switch off who is programming, and use each other for help. We will spend about 30--50 minutes per week on lab exercises and you will be expected to bring you laptops to class to work on these exercises in class. Myself and the TA's will be in class to help you.
+
+In this lab, we'll look at tennis data. Let's read in the data and see what it looks like. Specifically, let's read in the file titled \textsf{Wimbledon.csv} into the variable \textsf{myTennisDataD}. In your \textsf{read.csv()} remember to set the \textsf{stringsAsFactors()} parameter to FALSE. We will remove the first two columns of the dataset, paste the names together, and replace the row numberings with these match names. (Now, let's look at the code that puts all these steps together in order to just read in the data and slightly re-shape it.)
+
+```{r}
+# read in the data 
+myTennisDataD <- read.csv('Wimbledon.csv', stringsAsFactors = FALSE)
+head(myTennisDataD)
+dim(myTennisDataD)
+
+# remove named columns 
+myTennisDataC <- myTennisDataD[,-1:-2]
+head(myTennisDataC)
+
+# rename rows with removed columns 
+row.names(myTennisDataC) <- as.character(apply(myTennisDataD[,1:2], 1, 
+          paste, collapse = " "))
+```
+
+***Lab Tasks***
+
+
+1. There are two columns in your dataset that contain only \textsf{NA} values. Remove these. For all other columns that contain missing values, replace the missing values with the median values for that column. Store this cleaned dataset into the variable \textsf{iFinalTennisData}. 
+
+```{r}
+# remove those columns that are entirely missing 
+all.miss <- which(apply(myTennisDataC, 
+  2, function(x){sum(is.na(x)==TRUE)}) == 
+  dim(myTennisDataC)[1])
+
+finalTennisData <- myTennisDataC[,-all.miss]
+
+# impute with the median value 
+iFinalTennisData <- apply(finalTennisData, 2,
+    function(x){x[is.na(x)] <- median(x, 
+	na.rm=TRUE); return(x)})
+```
+
+
+
+2. Create a log-Euclidean distance matrix for your data and perform single linkage and complete linkage clustering on the data and store these in the variables \textsf{singeLinkage} and \textsf{completeLinkage} respectively. 
+
+```{r, echo = TRUE}
+# create a logged distance matrix 
+distance <- log(dist(iFinalTennisData))
+# perform the clustering 
+singleLinkage <- hclust(distance, method = 'single')
+completeLinkage <- hclust(distance, method = 'complete')
+```
+
+3. Using the command \textsf{intCriteria()} in the \textsf{clusterCrit} package, write a function that takes as its inputs the number of clusters to be tested (say 10), a clustered object (e.g \textsf{SingleLinkage} from above) and the original data frame (e.g. \textsf{iFinalTennisData}), and computes the CH Index for each assumed number of clusters and creates a plot of the resulting CH indices for each cluster count with a dotted vertical line indicating the maximum value. Also return the maximum CH Index computed. Test this function for up to 10 clusters with both single and complete linkage on \textsf{iFinalTennisData}, and include the maximum CH Index calculated and the related plots. What should the CH Index value be when the number of clusters is 1 and why?
+
+```{r, echo = TRUE}
+# Input: max.cuts, clustering object
+# DF (dataset)
+# Output: plots the max CH index
+# Function to calculate the 
+# optimal number of clusters
+
+myCHIndexPlot <- function(max.cuts = 10, 
+  clustering, DF = iFinalTennisData){
+  # require the package 
+	require(clusterCrit)
+  # for memory management 
+	CHIndex <- vector('numeric', length = 10)
+	# loop through, cut the tree and calculate 
+	for(i in 1:10){
+		CHIndex[i] <- intCriteria(DF, 
+		 cutree(clustering, k = i), 'Calinski_Harabasz')
+	}
+	# store 
+	CHIndex <- as.numeric(CHIndex)
+	# create the plot 
+	plot(1:max.cuts, CHIndex, type = "b", pch=16, 
+	xlab = 'Number of Clusters', ylab = 'CH Index')
+	abline(v = which(CHIndex == max(CHIndex, na.rm = TRUE)),
+	  lty = 2, col = 'red')
+	return(max(CHIndex, na.rm = TRUE))
+}
+# call the function 
+# single linkage case 
+res1 <- myCHIndexPlot(clustering = singleLinkage)
+print(res1)
+# complete linkage case 
+res2 <- myCHIndexPlot(clusterin  = completeLinkage)
+print(res2)
+```
+
+There should be no CH index at the first clustering since everything is in the same cluster so the between cluster variation does not exist!
+
+4. For each clustering (based on linkage) what is the optimal number of clusters?
+
+For single and complete linkage respectively, the optimal number of clusters based upon CH index plots (from part 3) is 3 and 2. 
+
+5. Create a dendogram for each of your two clustering assignments. Based on the data type, what is the most appropriate type of clustering and why?
+
+We can create the dendograms using the following code:
+
+```{r, echo = TRUE}
+# create the matrix 
+par(mfrow=c(1,2))
+# set font size and type 
+par(cex = 0.22, font = 1)
+# create the dendograms
+plot(completeLinkage)
+plot(singleLinkage)
+```
+
+In this setup, complete linkage clustering appears to be optimal, which creates groups of matches that are more expansive and clearly defined than with single linkage clustering.
+
+

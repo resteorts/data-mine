@@ -1,0 +1,358 @@
+temperature <- seq(from = 25, to = 30, length.out = 100) + 273 # In Kelvin ##
+constant <- 26#
+pressure <- constant*temperature + rnorm(length(temperature), sd =10) # In Pa ##
+dataset <- data.frame(temperature = temperature, pressure = pressure)
+write.csv(dataset, file = 'Lab 10 Data.csv')
+dataset <- read.csv('Lab 10 Data.csv', header=TRUE)
+dataset
+# read in the data#
+temperature <- seq(from = 25, to = 30, length.out = 100) + 273 # In Kelvin ##
+constant <- 26#
+pressure <- constant*temperature + rnorm(length(temperature), sd =10) # In Pa ##
+dataset <- data.frame(temperature = temperature, pressure = pressure)
+dataset
+write.csv(dataset, file = 'Lab 10 Data.csv')
+dataset <- read.csv('Lab 10 Data.csv', header=TRUE)
+dataset
+dataset <- data.frame(temperature = temperature, pressure = pressure, row.numbers=FALSE)
+dataset
+dataset <- data.frame(temperature = temperature, pressure = pressure,row.names=NULL)
+dataset
+dataset <- data.frame(temperature = temperature, pressure = pressure,row.num=NULL)
+dataset <- data.frame(temperature = temperature, pressure = pressure,row.numbers=NULL)
+dataset <- data.frame(temperature = temperature, pressure = pressure)
+write.csv(dataset, file = 'Lab 10 Data.csv', row.numbers=FALSE)
+help(write.csv)
+write.csv(dataset, file = 'Lab 10 Data.csv', row.names=NULL)
+write.csv(dataset, file = 'Lab 10 Data.csv', row.names=FALSE)
+dataset <- read.csv('Lab 10 Data.csv', header=TRUE)
+dataset
+temperature <- seq(from = 25, to = 30, length.out = 100) + 273 # In Kelvin ##
+constant <- 26#
+pressure <- constant*temperature + rnorm(length(temperature), sd =10) # In Pa ##
+dataset <- data.frame(temperature = temperature, pressure = pressure)#
+write.csv(dataset, file = 'Lab 10 Data.csv', row.names=FALSE)
+dataset <- read.csv('Lab 10 Data.csv', header=TRUE)
+dataset
+dataset <- read.csv('Lab 10 Data.csv', header=TRUE)
+par(mfrow=c(1,2))#
+with(dataset, plot(density(temperature), type="l", col="red", xlab="Temperature", ylab="Density", main="Temperature"))#
+with(dataset, plot(density(pressure), type="l", col="blue", xlab="Pressure", ylab="Density", main="pressure"))
+par(mfrow=c(1,2))#
+with(dataset,plot(temperature, pressure, main="Pressure #
+ vs. Temperature", pch=16, col="blue"))
+firstModel<-formula("pressure~temperature")#
+firstModelFit<-lm(firstModel, data=dataset)#
+summary(firstModelFit)
+coef(summary(firstModelFit))
+suppressWarnings(require(xtable))
+coef(summary(firstModelFit))
+xtable(coef(summary(firstModelFit)), caption = 'Original Regression Coefficients')
+print(xtable(coef(summary(firstModelFit)), #
+ caption = 'Original Regression Coefficients',#
+  digits = 4), comment = 'FALSE')
+plot(dataset$temperature, studres(firstModelFit), pch=16, xlab="Fitted Values", ylab="Residuals", col="red")
+require(MASS)
+# Check the model diagnostics#
+plot(dataset$temperature, studres(firstModelFit), pch=16, xlab="Fitted Values", ylab="Residuals", col="red")
+plot(qqnorm(studres(firstModelFit)), pch=16, col="blue")#
+qqline(studres(firstModelFit))
+plot(studres(firstModelFit), pch=16, xlab="Index", ylab="Residuals")
+resample<-function(DF){#
+	n<-dim(DF)[1]#
+	newRows<-sample(1:n, replace=TRUE, size=n)#
+	newDF<-DF[newRows,]#
+return(newDF)#
+}
+model.fit<-function(mdl, DF){#
+	model<-formula(mdl)#
+	modelFit<-lm(model, data=resample(DF))#
+return(modelFit)#
+}
+# Estimation of boostrapped coefficients#
+bootstrap.coefs<-function(B, DF, model){#
+	replication<-replicate(B, summary(model.fit(mdl=model, DF=DF))$coef)#
+	boot.coefs<-replication[,1,]#
+return(boot.coefs)#
+}
+bootstrap.coef.ci<-function(B, alpha, DF, model){#
+	original<-summary(lm(model, data=DF))#
+	coefs<-bootstrap.coefs(B=B, DF=DF, model=model)#
+	low.q<-apply(coefs, 1, quantile, probs=alpha/2)#
+	high.q<-apply(coefs, 1, quantile, probs=1-alpha/2)#
+	low.cis<-2*coefficients(original)[,1]-high.q#
+	high.cis<-2*coefficients(original)[,1]-low.q#
+	cis<-rbind(low.cis,high.cis)#
+	rownames(cis)<-as.character(c(alpha/2, 1-alpha/2))#
+return(cis)#
+}
+# Run the function above ##
+bootstrap.coef.ci(B=1000, alpha = 0.05, DF=dataset, model = firstModel)
+results <- bootstrap.coef.ci(B=1000, alpha = 0.05, DF=dataset, model = firstModel)#
+print(xtable(results, #
+ caption = 'Bootstrapped Confidence Intervals',#
+  digits = 4), comment = FALSE)
+replicate(10, mean(1:10))
+replicate(10, mean(sample(1:10)))
+replicate(10, mean(sample(1:10, replace=TRUE)))
+# Setting up some synthetic data for analysis#
+suppressWarnings(require(xtable))#
+require(MASS)#
+# read in the data#
+dataset <- read.csv('Lab 10 Data.csv', header=TRUE)#
+# Exploratory Data Analysis#
+# The Variables This Data set are#
+# Waiting Time and Eruption Duration#
+# Univariate Analysis#
+par(mfrow=c(1,2))#
+with(dataset, plot(density(temperature), type="l", col="red", xlab="Temperature", ylab="Density", main="Temperature"))#
+with(dataset, plot(density(pressure), type="l", col="blue", xlab="Pressure", ylab="Density", main="pressure"))
+with(dataset,plot(temperature, pressure, main="Pressure #
+ vs. Temperature", pch=16, col="blue"))
+firstModel<-formula("pressure~temperature")
+firstModel
+firstModelFit<-lm(firstModel, data=dataset)
+firstModelFit<-lm(firstModel, data=dataset)#
+print(xtable(coef(summary(firstModelFit)), #
+ caption = 'Original Regression Coefficients',#
+  digits = 4), comment = FALSE)
+# Check the model diagnostics#
+plot(dataset$temperature, studres(firstModelFit), pch=16, xlab="Fitted Values", ylab="Residuals", col="red")
+plot(qqnorm(studres(firstModelFit)), pch=16, col="blue")
+qqline(studres(firstModelFit))
+plot(studres(firstModelFit), pch=16, xlab="Index", ylab="Residuals")
+plot(dataset$temperature, studres(firstModelFit), pch=16, xlab="Fitted Values", ylab="Residuals", col="red")
+plot(dataset$temperature, studres(firstModelFit), pch=16, xlab="Temperature", ylab="Residuals", col="red")
+firstModel
+# Data resampling Function#
+resample<-function(DF){#
+	n<-dim(DF)[1]#
+	newRows<-sample(1:n, replace=TRUE, size=n)#
+	newDF<-DF[newRows,]#
+return(newDF)#
+}#
+# Model Fitting for bootstrapping alogorithm#
+model.fit<-function(mdl, DF){#
+	model<-formula(mdl)#
+	modelFit<-lm(model, data=resample(DF))#
+return(modelFit)#
+}#
+# Estimation of boostrapped coefficients#
+bootstrap.coefs<-function(B, DF, model){#
+	replication<-replicate(B, #
+	summary(model.fit(mdl=model, DF=DF))$coef)#
+	boot.coefs<-replication[,1,]#
+return(boot.coefs)#
+}#
+#
+# Estimate the bootstrapped coefficient confidence intervals#
+bootstrap.coef.ci<-function(B, alpha, DF, model){#
+	original<-summary(lm(model, data=DF))#
+	coefs<-bootstrap.coefs(B=B, DF=DF, model=model)#
+	low.q<-apply(coefs, 1, quantile, probs=alpha/2)#
+	high.q<-apply(coefs, 1, quantile, probs=1-alpha/2)#
+	low.cis<-2*coefficients(original)[,1]-high.q#
+	high.cis<-2*coefficients(original)[,1]-low.q#
+	cis<-rbind(low.cis,high.cis)#
+	rownames(cis)<-as.character(c(alpha/2, 1-alpha/2))#
+return(cis)#
+}
+results <- bootstrap.coef.ci(B=1000, alpha = 0.05, DF=dataset, model = firstModel)
+results
+# Setting up some synthetic data for analysis#
+suppressWarnings(require(xtable))#
+require(MASS)#
+# read in the data#
+dataset <- read.csv('data/bootstrap-data.csv', header=TRUE)#
+# Exploratory Data Analysis#
+# The Variables This Data set are#
+# Waiting Time and Eruption Duration#
+# Univariate Analysis#
+par(mfrow=c(1,2))#
+with(dataset, plot(density(temperature), type="l", col="red", xlab="Temperature", ylab="Density", main="Temperature"))#
+with(dataset, plot(density(pressure), type="l", col="blue", xlab="Pressure", ylab="Density", main="pressure"))#
+#
+#Bi-Variate Analysis##
+with(dataset,plot(temperature, pressure, main="Pressure #
+ vs. Temperature", pch=16, col="blue"))#
+#
+# Fitting the preliminary model#
+firstModel<-formula("pressure~temperature")#
+firstModelFit<-lm(firstModel, data=dataset)#
+print(xtable(coef(summary(firstModelFit)), #
+ caption = 'Original Regression Coefficients',#
+  digits = 4), comment = FALSE)#
+#
+# Check the model diagnostics#
+plot(dataset$temperature, studres(firstModelFit), pch=16, xlab="Temperature", ylab="Residuals", col="red")#
+plot(qqnorm(studres(firstModelFit)), pch=16, col="blue")#
+qqline(studres(firstModelFit))#
+plot(studres(firstModelFit), pch=16, xlab="Index", ylab="Residuals")#
+#
+# Setting up the bootstrapping algorithm to estimate #
+# coefficients#
+#
+# Data resampling Function#
+resample<-function(DF){#
+	n<-dim(DF)[1]#
+	newRows<-sample(1:n, replace=TRUE, size=n)#
+	newDF<-DF[newRows,]#
+return(newDF)#
+}#
+# Model Fitting for bootstrapping alogorithm#
+model.fit<-function(mdl, DF){#
+	model<-formula(mdl)#
+	modelFit<-lm(model, data=resample(DF))#
+return(modelFit)#
+}#
+# Estimation of boostrapped coefficients#
+bootstrap.coefs<-function(B, DF, model){#
+	replication<-replicate(B, #
+	summary(model.fit(mdl=model, DF=DF))$coef)#
+	boot.coefs<-replication[,1,]#
+return(boot.coefs)#
+}#
+#
+# Estimate the bootstrapped coefficient confidence intervals#
+bootstrap.coef.ci<-function(B, alpha, DF, model){#
+	original<-summary(lm(model, data=DF))#
+	coefs<-bootstrap.coefs(B=B, DF=DF, model=model)#
+	low.q<-apply(coefs, 1, quantile, probs=alpha/2)#
+	high.q<-apply(coefs, 1, quantile, probs=1-alpha/2)#
+	low.cis<-2*coefficients(original)[,1]-high.q#
+	high.cis<-2*coefficients(original)[,1]-low.q#
+	cis<-rbind(low.cis,high.cis)#
+	rownames(cis)<-as.character(c(alpha/2, 1-alpha/2))#
+return(cis)#
+}#
+#
+# Run the function above ##
+results <- bootstrap.coef.ci(B=1000, alpha = 0.05, DF=dataset, model = firstModel)#
+print(xtable(results, #
+ caption = 'Bootstrapped Confidence Intervals',#
+  digits = 4), comment = FALSE)
+?save()
+results <- bootstrap.coef.ci(B=1000, alpha = 0.05, DF=dataset, model = firstModel)#
+save(file = output.txt, xtable(results, #
+ caption = 'Bootstrapped Confidence Intervals',#
+  digits = 4), comment = FALSE)
+save(file = output.txt, xtable(results, #
+ caption = 'Bootstrapped Confidence Intervals',#
+  digits = 4))
+results <- bootstrap.coef.ci(B=1000, alpha = 0.05, DF=dataset, model = firstModel)#
+print(xtable(results, #
+ caption = 'Bootstrapped Confidence Intervals',#
+  digits = 4), comment = FALSE, file=output.txt)
+print(xtable(results, #
+ caption = 'Bootstrapped Confidence Intervals',#
+  digits = 4), comment = FALSE, file=output.tex)
+results <- bootstrap.coef.ci(B=1000, alpha = 0.05, DF=dataset, model = firstModel)#
+print(xtable(results, #
+ caption = 'Bootstrapped Confidence Intervals',#
+  digits = 4), comment = FALSE, file=output.tex)
+print(xtable(results, #
+ caption = 'Bootstrapped Confidence Intervals',#
+  digits = 4), comment = FALSE, file=output/output.tex)
+print(xtable(results, #
+ caption = 'Bootstrapped Confidence Intervals',#
+  digits = 4), comment = FALSE, file=output/output.tex,append=TRUE)
+print(xtable(results, #
+ caption = 'Bootstrapped Confidence Intervals',#
+  digits = 4), comment = FALSE)
+pdf(plots/model.diagnostics.pdf)#
+plot(dataset$temperature, studres(firstModelFit), pch=16, xlab="Temperature", ylab="Residuals", col="red")#
+plot(qqnorm(studres(firstModelFit)), pch=16, col="blue")#
+qqline(studres(firstModelFit))#
+plot(studres(firstModelFit), pch=16, xlab="Index", ylab="Residuals")#
+dev.off()
+pdf(plots/model.diagnostics.pdf)#
+plot(dataset$temperature, studres(firstModelFit), pch=16, xlab="Temperature", ylab="Residuals", col="red")#
+plot(qqnorm(studres(firstModelFit)), pch=16, col="blue")#
+qqline(studres(firstModelFit))#
+plot(studres(firstModelFit), pch=16, xlab="Index", ylab="Residuals")#
+dev.off()
+getwd()
+pdf(plots/model.diagnostics.pdf)#
+par(mfrow=c(1,2))#
+with(dataset, plot(density(temperature), type="l", col="red", xlab="Temperature", ylab="Density", main="Temperature"))#
+with(dataset, plot(density(pressure), type="l", col="blue", xlab="Pressure", ylab="Density", main="pressure"))#
+#
+#Bi-Variate Analysis##
+with(dataset,plot(temperature, pressure, main="Pressure #
+ vs. Temperature", pch=16, col="blue"))#
+#
+# Fitting the preliminary model#
+firstModel<-formula("pressure~temperature")#
+firstModelFit<-lm(firstModel, data=dataset)#
+print(xtable(coef(summary(firstModelFit)), #
+ caption = 'Original Regression Coefficients',#
+  digits = 4), comment = FALSE)#
+#
+# Check the model diagnostics#
+#
+plot(dataset$temperature, studres(firstModelFit), pch=16, xlab="Temperature", ylab="Residuals", col="red")#
+plot(qqnorm(studres(firstModelFit)), pch=16, col="blue")#
+qqline(studres(firstModelFit))#
+plot(studres(firstModelFit), pch=16, xlab="Index", ylab="Residuals")#
+dev.off()
+par(mfrow=c(1,2))#
+with(dataset, plot(density(temperature), type="l", col="red", xlab="Temperature", ylab="Density", main="Temperature"))#
+with(dataset, plot(density(pressure), type="l", col="blue", xlab="Pressure", ylab="Density", main="pressure"))
+par(mfrow=c(1,2))#
+with(dataset, plot(density(temperature), type="l", col="red", xlab="Temperature", ylab="Density", main="Temperature"))#
+with(dataset, plot(density(pressure), type="l", col="blue", xlab="Pressure", ylab="Density", main="pressure"))#
+#
+#Bi-Variate Analysis##
+with(dataset,plot(temperature, pressure, main="Pressure #
+ vs. Temperature", pch=16, col="blue"))
+pdf(plots/model.diagnostics.pdf)#
+par(mfrow=c(1,2))#
+with(dataset, plot(density(temperature), type="l", col="red", xlab="Temperature", ylab="Density", main="Temperature"))#
+with(dataset, plot(density(pressure), type="l", col="blue", xlab="Pressure", ylab="Density", main="pressure"))#
+ dev.off()
+pdf(file=test.pdf)#
+plot(dataset$temperature, studres(firstModelFit), pch=16, xlab="Temperature", ylab="Residuals", col="red")#
+dev.off()
+# Setting up some synthetic data for analysis#
+suppressWarnings(require(xtable))#
+require(MASS)#
+# read in the data#
+dataset <- read.csv('data/bootstrap-data.csv', header=TRUE)#
+# Exploratory Data Analysis#
+# The Variables This Data set are#
+# Waiting Time and Eruption Duration#
+# Univariate Analysis#
+par(mfrow=c(1,2))#
+with(dataset, plot(density(temperature), type="l", col="red", xlab="Temperature", ylab="Density", main="Temperature"))#
+with(dataset, plot(density(pressure), type="l", col="blue", xlab="Pressure", ylab="Density", main="pressure"))#
+#Bi-Variate Analysis##
+with(dataset,plot(temperature, pressure, main="Pressure #
+ vs. Temperature", pch=16, col="blue"))#
+# Fitting the preliminary model#
+firstModel<-formula("pressure~temperature")#
+firstModelFit<-lm(firstModel, data=dataset)#
+print(xtable(coef(summary(firstModelFit)), #
+ caption = 'Original Regression Coefficients',#
+  digits = 4), comment = FALSE)#
+#
+# Check the model diagnostics#
+pdf(file=test.pdf)#
+plot(dataset$temperature, studres(firstModelFit), pch=16, xlab="Temperature", ylab="Residuals", col="red")#
+dev.off()
+# Will run a boostrapped sampler. #
+# ATTN: Get plots and tables to output save to files. #
+# Setting up some synthetic data for analysis#
+suppressWarnings(require(xtable))#
+require(MASS)#
+# read in the data#
+dataset <- read.csv('../data/bootstrap-data.csv', header=TRUE)#
+# Exploratory Data Analysis#
+# The Variables This Data set are#
+# Waiting Time and Eruption Duration#
+# Univariate Analysis#
+par(mfrow=c(1,2))#
+with(dataset, plot(density(temperature), type="l", col="red", xlab="Temperature", ylab="Density", main="Temperature"))#
+with(dataset, plot(density(pressure), type="l", col="blue", xlab="Pressure", ylab="Density", main="pressure"))#
+#Bi-Variate Analysis##
+with(dataset,plot(temperature, pressure, main="Pressure #
+ vs. Temperature", pch=16, col="blue"))

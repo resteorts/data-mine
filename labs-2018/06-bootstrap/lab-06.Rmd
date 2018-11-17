@@ -1,0 +1,25 @@
+---
+title: 'Introduction to the Bootstrap'
+author: "STA 325: Lab 6, Fall 2018"
+output: pdf_document
+---
+
+Today's agenda: Introduction to the Bootstrap
+
+Programming partner's:
+You should have a programming partner for each lab, and you should switch off who is programming, and use each other for help. We will spend about 30--50 minutes per week on lab exercises and you will be expected to bring you laptops to class to work on these exercises in class. Myself and the TA's will be in class to help you.
+
+In this lab, we'll investigate the bootstrap using linear regression. 
+
+Let's first read in the dataset \texttt{bootstrap-data.csv}
+
+```{r}
+my.data <- read.csv('data/bootstrap-data.csv', header=TRUE)
+head(my.data)
+```
+
+1. Perform uni-variate and bi-variate data analysis on the variables in the model. Your response variable is \textsf{Pressure} and your input variable is \textsf{Temperature}. Fit a linear regression model and create three diagnostic plots: an independence plot, a QQ-plot, and a plot of residuals vs. \textsf{temperature}. Additionally produce a table of coefficient estimates with \textsf{xtable}.
+2. Write a function that takes as its argument a data frame and returns a resampled `synthetic' dataset of equal dimension. 
+3. Write a function that takes as its input a string model specification and a dataframe and produces a fitted model object from \textsf{lm()} with a resampled data frame using the function you have written above.
+4. Write a function that takes as its inputs a data frame, a string model and a natural number representing how many bootstrap replications to run and returns the coefficients from each replication using the function you have written above.
+5. Write a function that uses all three of the functions you have written above, and takes four arguments: a count of replications, type I error rate, a data frame, and a string model to produce a boot strapped confidence interval for the regression coefficients. Run this function and provide (using \textsf{xtable}) the confidence interval for your regression coefficients. What do you conclude?
